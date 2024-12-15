@@ -23,7 +23,7 @@ app.use(express.json({ limit: '500mb' }));
 app.use(Router)
 app.use(OrderRouter);
 
-app.get("/home", (req, res) => {
+app.get("/", (req, res) => {
     res.send("hello");
 });
   
