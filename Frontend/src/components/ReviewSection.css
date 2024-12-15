@@ -1,0 +1,257 @@
+/* Main container */
+.testimonial-container {
+    width: 80%;
+    margin: auto;
+    margin-top: 60px;
+    margin-bottom: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+}
+
+/* Swiper styling */
+.swiper-container {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+
+/* Testimonial Slide styling */
+.testimonial-slide {
+    position: relative;
+    padding: 20px;
+    background-color: #f4f4f4; /* Light grey background */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 70%;
+    /* max-width: 350px; */
+    margin: 20px;
+    margin: auto;
+}
+
+.testimonial-slide:hover {
+    transform: translateY(-10px); /* Elevation effect on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Testimonial text */
+.testimonial-review {
+    font-size: 18px;
+    line-height: 1.6;
+    font-style: italic;
+    color: #4a4a4a; /* Soft grey for readability */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Information section */
+.slide_info {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Testimonial image */
+.testimonial-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #8e8e8e; /* Light border around the image */
+    margin-right: 20px;
+}
+
+/* Name and Position Styling */
+.ccc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.testimonial-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #3a3a3a; /* Dark grey for name */
+    margin-bottom: 5px;
+}
+
+.testimonial-position {
+    font-size: 0.9rem;
+    color: #6c6c6c; /* Medium grey for position */
+}
+
+/* Swiper pagination styles */
+.swiper-pagination-bullets {
+    bottom: 10px;
+}
+
+.swiper-pagination-bullet {
+    background: #77b78e; /* Organic green for bullet */
+    width: 10px;
+    height: 10px;
+    opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+    background: #549e6f; /* Darker green for active bullet */
+}
+
+/* Swiper Navigation buttons */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #77b78e; /* Organic green for arrows */
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 18px;
+}
+
+/* Text for Heading and Subheading */
+h4 {
+    text-align: center;
+    color: #3a3a3a;
+    font-weight: 600;
+    font-size: 2rem;
+    margin-top: 80px;
+}
+
+.eco {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #777;
+    font-style: italic;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    .testimonial-container {
+        width: 90%;
+    }
+
+    .testimonial-slide {
+        width: 100%;
+        max-width: none;
+        padding: 15px;
+    }
+
+    .testimonial-review {
+        font-size: 16px;
+    }
+
+    .slide_info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .testimonial-image {
+        margin-bottom: 10px;
+    }
+}
+
+
+
+
+
+/* Testimonial Slide styling */
+.testimonial-slide {
+    position: relative;
+    padding: 25px; /* Adequate padding for spacing */
+    background: linear-gradient(135deg, #f7f7f7, #e0e8d0); /* Soft gradient background */
+    border-radius: 12px; /* Smooth rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Deeper shadow for more depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 90%; /* Increased width for balance */
+
+    margin: 20px auto;
+    text-align: center; /* Center the content for better alignment */
+    border: 1px solid #e0e0e0; /* Light border for subtle definition */
+}
+
+/* Testimonial Slide styling */
+/*  */
+
+/* Hover effect */
+.testimonial-slide:hover {
+    transform: translateY(-15px); /* Stronger lift on hover */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2); /* Enhanced shadow effect */
+}
+
+/* Testimonial Review Text */
+.testimonial-review {
+    font-size: 20px;
+    line-height: 1.7; /* Adjusted for better readability */
+    font-style: italic;
+    color: #6b6b6b; /* Darker grey for more contrast */
+    margin-bottom: 25px;
+    font-weight: 400; /* Regular weight for a cleaner feel */
+    font-family: 'Georgia', serif; /* Elegant serif font for refinement */
+}
+
+/* Information Section: Image and Details */
+.slide_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Testimonial Image */
+.testimonial-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #9bbf92; /* Soft green border for an organic touch */
+    margin-right: 20px;
+}
+
+/* Name and Position */
+.ccc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Name Styling */
+.testimonial-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #4d4d4d; /* Dark grey for name */
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Arial', sans-serif; /* Clean font for a modern look */
+}
+
+/* Position Styling */
+.testimonial-position {
+    font-size: 1rem;
+    color: #7d7d7d;
+    font-style: italic;
+    font-family: 'Georgia', serif; /* Elegant font for a softer look */
+}
+
+/* Decorative Element */
+.testimonial-decorator {
+    margin-top: 20px;
+    border-top: 3px solid #d8e5d1; /* Soft line to divide content elegantly */
+    padding-top: 10px;
+}

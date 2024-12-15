@@ -1,0 +1,181 @@
+.main-admin-wraper{
+    display: flex;
+    margin-top: 180px;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formRow {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .formRow .formGroup {
+    flex: 1;
+  }
+  
+  .formGroup label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .formGroup input,
+  .formGroup select,
+  .formGroup textarea {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .imageUploadContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .imageUpload {
+    width: calc(20% - 0.8rem);
+    aspect-ratio: 1;
+    position: relative;
+  }
+  
+  .imageUpload input {
+    display: none;
+  }
+  
+  .imageUpload label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border: 2px dashed #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .imageUpload label:hover {
+    border-color: #007bff;
+  }
+  
+  .imageUpload label span:first-child {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .fileName {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .submitButton {
+    background-color: #007bff;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+    }
+  
+    .formRow {
+      flex-direction: column;
+    }
+  
+    .imageUpload {
+      width: calc(33.33% - 0.67rem);
+    }
+  }
+
+  
+
+  /* admin */
+
+  .sidebar {
+    width: 16rem; /* 64 */
+    background-color: white;
+    height: 100vh;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem; /* 16 */
+    border-bottom: 1px solid #e5e7eb; /* Tailwind gray-200 */
+  }
+  
+  .title {
+    font-size: 1.25rem; /* Text-xl */
+    font-weight: bold;
+  }
+  
+  .navigation {
+    margin-top: 1.5rem; /* mt-6 */
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem; /* px-6 py-3 */
+    color: #4b5563; /* Text-gray-600 */
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  
+  .nav-link:hover {
+    background-color: #f3f4f6; /* Hover:bg-gray-100 */
+  }
+  
+  .icon {
+    margin-right: 0.75rem; /* mr-3 */
+    flex-shrink: 0;
+  }
+  
