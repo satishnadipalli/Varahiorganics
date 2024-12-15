@@ -9,13 +9,7 @@ const OrderRouter = require("./routes/orderRoutes.js");
 
 
 const app = express();
-app.use(cors(
-  {
-    origin : ["http://localhost:3000"],
-    methods : ["POST","PUT","GET","DELETE"],
-    credentials : true
-  }
-));
+app.use(cors());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.json({ limit: '500mb' })); 
