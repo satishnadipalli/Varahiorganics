@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './CheckoutPage.css';
-import PhoneOtpModal from '../components/OTP/otpmodal';
+
 
 function CheckoutPage() {
   const [isOpen,setIsOpen] = useState(true);
@@ -392,7 +392,7 @@ function CheckoutPage() {
           </div>
         </div>
       </div>
-     {!isOpenModal && <PhoneOtpModal isOpen={isOpen} setIsOpenModal={setIsOpenModal}/>}
+     {/* {!isOpenModal && <PhoneOtpModal isOpen={isOpen} setIsOpenModal={setIsOpenModal}/>} */}
     </>
   );
 }
