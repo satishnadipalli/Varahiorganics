@@ -2,15 +2,15 @@ const OrdersDB = require("../schema/OrdersSchema");
 const mongoose = require("mongoose");
 const twilio = require('twilio');
 require('dotenv').config();
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = new twilio(accountSid, authToken);
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+// const client = new twilio(accountSid, authToken);
 
 // Fetch all orders
 const getAllOrders = async (req, res) => {
     try {
         const orders = await OrdersDB.find().populate("products.productId"); // Populate product details if needed
-        return res.status(200).json({ orders });
+        return res.status(200).json(orders);
     } catch (error) {
         console.error("Error fetching orders:", error);
         return res.status(500).json({ error: "An error occurred while fetching orders." });
@@ -97,6 +97,8 @@ const updateOrderStatus = async (req, res) => {
     try {
         const { id } = req.params;
         const { status } = req.body;
+        console.log(id,status)
+
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "Invalid order ID." });
@@ -113,10 +115,11 @@ const updateOrderStatus = async (req, res) => {
             { new: true }
         );
 
+        console.log(updatedOrder)
+
         if (!updatedOrder) {
             return res.status(404).json({ error: "Order not found." });
         }
-
         return res.status(200).json({ message: "Order status updated successfully.", order: updatedOrder });
     } catch (error) {
         console.error("Error updating order status:", error);
@@ -175,31 +178,31 @@ const deleteOrder = async (req, res) => {
 
 // Endpoint to send OTP
 const sendOTP = async(req,res) =>{
-  const {phoneNumber}  = req.params;
-    console.log(phoneNumber,"here is t otp")
-  // Validate phone number
-  if (!phoneNumber || phoneNumber.length !== 10) {
-    return res.status(400).send({ error: 'Invalid phone number' });
-  }
+//   const {phoneNumber}  = req.params;
+//     console.log(phoneNumber,"here is t otp")
+//   // Validate phone number
+//   if (!phoneNumber || phoneNumber.length !== 10) {
+//     return res.status(400).send({ error: 'Invalid phone number' });
+//   }
 
-  // Generate a random 4-digit OTP
-  const otp = Math.floor(1000 + Math.random() * 9000).toString();
+//   // Generate a random 4-digit OTP
+//   const otp = Math.floor(1000 + Math.random() * 9000).toString();
 
-  // Send OTP using Twilio
-  client.messages
-    .create({
-      body: `Your OTP code is: ${otp}`,
-      from: process.env.TWILIO_PHONE_NUMBER,  // Your Twilio phone number
-      to: `+91${phoneNumber}`  // Assuming you're sending to an Indian number
-    })
-    .then((message) => {
-      console.log('OTP sent:', message.sid);
-      return res.status(200).send({ message: 'OTP sent successfully' });
-    })
-    .catch((error) => {
-      console.error('Error sending OTP:', error);
-      return res.status(500).send({ error: 'Failed to send OTP' });
-    });
+//   // Send OTP using Twilio
+//   client.messages
+//     .create({
+//       body: `Your OTP code is: ${otp}`,
+//       from: process.env.TWILIO_PHONE_NUMBER,  // Your Twilio phone number
+//       to: `+91${phoneNumber}`  // Assuming you're sending to an Indian number
+//     })
+//     .then((message) => {
+//       console.log('OTP sent:', message.sid);
+//       return res.status(200).send({ message: 'OTP sent successfully' });
+//     })
+//     .catch((error) => {
+//       console.error('Error sending OTP:', error);
+//       return res.status(500).send({ error: 'Failed to send OTP' });
+//     });
 }
 
 module.exports = {

@@ -1,27 +1,39 @@
 import React, { useState, useEffect } from "react";
-import "./Cart.css";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { ShoppingBag, X, Plus, Minus, ChevronRight } from 'lucide-react';
+import "./Cart.css";
 
-const ShoppingCartPopup = ({setIsCartOpen}) => {
-  const [isOpen, setIsOpen] = useState(true);
+// interface CartItem {
+//   _id: string;
+//   name: string;
+//   price: number;
+//   quantity: number;
+//   images: string[];
+// }
+
+// interface ShoppingCartPopupProps {
+//   setIsCartOpen: (isOpen: boolean) => void;
+// }
+
+const ShoppingCartPopup = ({ setIsCartOpen }) => {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
-  // Load cart items from localStorage on component mount
+
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
     setCartItems(storedCart);
   }, []);
 
-
-  const handleBuyCartItems = () =>{
+  const handleBuyCartItems = () => {
     localStorage.removeItem("buyproduct");
     navigate("/checkout");
-  }
+  };
 
-
-  const handleBasket = () =>{
+  const handleBasket = () => {
     navigate("/basket");
-  }
+  };
+
   const handleQuantityChange = (id, type) => {
     const updatedCart = cartItems.map((item) => {
       if (item._id === id) {
@@ -39,51 +51,78 @@ const ShoppingCartPopup = ({setIsCartOpen}) => {
     cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
-    <>
-      {/* Backdrop for semi-transparent overlay */}
-      {isOpen && <div className="backdrop" onClick={() => setIsCartOpen(false)}></div>}
-
-      <div className={`cart-popup ${isOpen ? "open" : ""}`}>
-        <div className="cart-headers">
-          <h2>Shopping Cart</h2>
+    <AnimatePresence>
+      <motion.div
+        className="backdrop"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={() => setIsCartOpen(false)}
+      />
+      <motion.div
+        className="cart-popup"
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "100%" }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      >
+        <div className="cart-header" style={{marginTop:"-10px"}}>
+          <h2>
+            <ShoppingBag size={24} />
+            Your Cart
+            <span className="item-count">{cartItems.length}</span>
+          </h2>
           <button className="close-btn" onClick={() => setIsCartOpen(false)}>
-            &times;
+            <X size={24} />
           </button>
         </div>
         <div className="cart-items">
           {cartItems.map((item) => (
-            <div className="cart-item" key={item._id}>
+            <motion.div
+              className="cart-item"
+              key={item._id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
               <img
-                src={item.images[0] || "https://via.placeholder.com/50"}
+                src={item.images[0] || "/placeholder.svg"}
                 alt={item.name}
                 className="item-image"
               />
               <div className="item-details">
-                <p className="item-name">{item.name}</p>
+                <h3 className="item-name">{item.name}</h3>
+                <div className="item-price">₹{item.price.toFixed(2)}</div>
                 <div className="item-quantity">
                   <button onClick={() => handleQuantityChange(item._id, "decrease")}>
-                    -
+                    <Minus size={16} />
                   </button>
                   <span>{item.quantity}</span>
                   <button onClick={() => handleQuantityChange(item._id, "increase")}>
-                    +
+                    <Plus size={16} />
                   </button>
                 </div>
               </div>
-              <p className="item-price">₹{item.price * item.quantity}</p>
-            </div>
+              <div className="item-total">₹{(item.price * item.quantity).toFixed(2)}</div>
+            </motion.div>
           ))}
         </div>
         <div className="cart-footer">
           <div className="subtotal">
             <span>Subtotal:</span>
-            <span className="price">₹{calculateSubtotal()}</span>
+            <span className="price">₹{calculateSubtotal().toFixed(2)}</span>
           </div>
-          <button className="view-basket"  onClick={handleBasket}>View Basket</button>
-          <button className="checkout" onClick={handleBuyCartItems}>Checkout</button>
+          <button className="view-basket" onClick={handleBasket}>
+            View Basket
+            <ChevronRight size={20} />
+          </button>
+          <button className="checkout" onClick={handleBuyCartItems}>
+            Proceed to Checkout
+          </button>
         </div>
-      </div>
-    </>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

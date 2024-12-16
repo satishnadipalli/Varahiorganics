@@ -13,6 +13,7 @@ import Dashboard from "./Dashboard/Dashboard";
 import "./index.css"
 import CheckoutPage from "./Pages/CheckoutPage";
 import DeliveryDashboard from "./components/DeliveryDashboard/Delivery";
+import OrderList from "./components/OrderList/OrderList";
 
 
 const App = () => {
@@ -62,7 +63,8 @@ return (
         <Route path="/product/:id" element={<ProductView />} />
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/delivery" element={<DeliveryDashboard order={dummyOrder} />} />
+        <Route path="/orderlist" element={<OrderList />} />
+        <Route path="/orderlist/:id" element={<DeliveryDashboard order={dummyOrder} />} />
       </Routes>
       <Footer/>
     </Router>

@@ -1,137 +1,113 @@
-header {
+/* Header Container */
+.header {
     width: 100%;
-    height: 100px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* position: fixed; */
+    z-index: 1000;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+/* Logo */
+.logo-container {
+    flex: 1;
+}
+
+.logo {
+    height: 120px;
+}
+
+/* Navigation Links */
+.nav-links {
+    flex: 2;
     display: flex;
     justify-content: center;
-    align-items: center;
-    position: absolute;
-    z-index: 900;
-    background-color: transparent;
-    background-color: rgb(253, 253, 253);
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    gap: 30px;
 }
 
-.head_wraper {
-    width: 84%;
-    margin: auto;
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    padding: 7px;
-    align-items: center;
+.nav-link {
+    text-decoration: none;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
-.logo_container {
-    display: flex;
-    border-radius: 90px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.nav-link:hover {
+    color: #7c3aed; /* Professional hover color */
 }
 
-.company_logo {
-    width: 110px;
-}
-
-.route_container {
-    width: 60%;
+/* Action Links (Cart and Hamburger) */
+.action-links {
+    flex: 1;
     display: flex;
     justify-content: flex-end;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.route_names {
-    padding-left: 20px;
-    padding-right: 20px;
-    color: rgb(0, 0, 0);
-    font-family: Rubics, sans-serif;
-    transition-duration: 0.3s;
-}
-
-.route_names:hover {
-    color: rgb(155, 177, 103);
-}
-
-.route_links {
-    white-space: nowrap;
-    width: 20%;
-    display: flex;
-    justify-content: end;
     align-items: center;
 }
 
-.linku {
-    margin-right: 10px;
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+    margin-right: 20px;
 }
 
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #073915; /* Red badge */
+    color: white;
+    font-size: 10px;
+    /* font-weight: bold; */
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.hamburger {
+    cursor: pointer;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+.mobile-link {
+    display: block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.mobile-link:hover {
+    background-color: #f3f4f6; /* Light gray hover */
+}
+
+/* Responsive Styles */
 @media (max-width: 728px) {
-    header {
-        background-color: rgb(251, 251, 251);
-        height: 100px;
-        padding: 3px;
-        padding-right: 30px;
-        font-family: monospace;
-    }
-
-    .head_wraper {
-        width: 100%;
-        margin: auto;
-        display: flex;
-        padding: 7px;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .company_logo {
-        width: 100px;
-    }
-
-    .route_container {
+    .nav-links {
         display: none;
-    }
-
-    .drop_down_menu {
-        position: absolute;
-        top: 140px; /* Adjust based on header height */
-        left: 0;
-        width: 100%;
-        margin-top: 1px;
-        background-color: rgb(255, 255, 255);
-        color: rgb(0, 0, 0);
-        max-height: 0; /* Initially hidden */
-        overflow: hidden;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-20px); /* Start off-screen */
-        transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
-        z-index: 10;
-    }
-
-    .drop_down_menu.open {
-        max-height: 370px; /* Adjust based on content */
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0); /* Slide into view */
-    }
-
-    .anchor {
-        display: block;
-        text-decoration: none;
-        color: inherit;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        font-weight: 500;
-        font-size: 14px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        color: black;
-        padding-left: 20px;
-    }
-
-    .anchor:hover {
-        transition-duration: 0.3s;
-        background-color: rgb(167, 169, 172);
-        color: white;
     }
 }

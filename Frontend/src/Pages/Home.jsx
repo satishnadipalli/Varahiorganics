@@ -4,6 +4,7 @@ import ReviewsSection from "../components/ReviewSection";
 import { ShoppingCart } from "lucide-react";
 import ShoppingCartPopup from "../components/Cart";
 import { Link } from "react-router-dom";
+import PremiumResponsiveHero from "../components/HeroSection/HeroSection";
 
 const Home = () => {
   const [homeProducts,setHomeProducts] = useState([]);
@@ -70,7 +71,7 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      <section className="hero-section">
+      {/* <section className="hero-section">
         <div className="hero-overlay">
           <h1 className="hero-title">Embrace the Essence of Nature</h1>
           <p className="hero-subtitle">Pure. Natural. Organic. Discover the beauty in every product we offer.</p>
@@ -90,8 +91,9 @@ const Home = () => {
             <img src="https://img.icons8.com/ios/100/butterfly.png" alt="Butterfly" className="butterfly-img" />
           </div>
         </div>
-        
-      </section>
+      </section> */}
+
+      <PremiumResponsiveHero/>
 
       {/* Features Section */}
       <section className="features-section">

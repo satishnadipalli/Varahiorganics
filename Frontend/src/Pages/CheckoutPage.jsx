@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './CheckoutPage.css';
+import OrderSuccessAnimation from '../components/OrderSuccess/OrderSuccess';
 
 
 function CheckoutPage() {
@@ -25,6 +26,8 @@ function CheckoutPage() {
   const [isOpenModal,setIsOpenModal] = useState(false);
 
   const [cartProducts, setCartProducts] = useState([]);
+  const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
+  const [orderDetails, setOrderDetails] = useState(null);
 
   // Fetch products from localStorage when the component mounts
   useEffect(() => {
@@ -43,112 +46,108 @@ function CheckoutPage() {
   };
 
   // Handle form submission
-  // const handleSubmit = (e) => {
-    // e.preventDefault();
-    // console.log('Form submitted:', formData);
-    // if( JSON.parse(localStorage.getItem('cart')).length > 0 || JSON.parse(localStorage.getItem('buyproduct')) ){
-    //   setIsOpenModal(true);
-    //   return;
-    // }
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      // Validate that there are products in the cart
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      if (cart.length === 0) {
-          alert("Your cart is empty. Add items to proceed.");
-          return;
-      }
-  
-      if (!formData.termsAccepted) {
-          alert("You must accept the terms and conditions to place an order.");
-          return;
-      }
-  
-      // Prepare the order payload
-      const orderPayload = {
-          customer: {
-            name: `${formData.firstName} ${formData.lastName}`,
-              firstName: formData.firstName,
-              lastName: formData.lastName,
-              email: formData.email,
-              phone: formData.phone,
-              companyName: formData.companyName,
-              address: {
-                  street: formData.streetAddress,
-                  apartment: formData.apartment,
-                  city: formData.townCity,
-                  state: formData.state,
-                  zipCode: formData.pinCode,
-                  country: formData.country,
-              },
-          },
-          products: cart.map((product) => ({
-              productId: product._id,
-              quantity: product.quantity,
-              price: product.price,
-          })),
-          orderNotes: formData.orderNotes,
-          totalAmount: calculateTotal(),
-          paymentMethod: "Pending", // Default to UPI, or dynamically set this based on user input
-          termsAccepted: formData.termsAccepted,
-      };
-  
-      try {
-          // Make API request to the backend
-          const response = await fetch("http://localhost:3000/createOrder", {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json",
-              },
-              body: JSON.stringify(orderPayload),
-          });
-  
-          if (response.ok) {
-              const data = await response.json();
-              alert("Order placed successfully!");
-              // Optionally redirect or clear cart and form after successful submission
-              localStorage.removeItem("cart");
-              setCartProducts([]);
-              setFormData({
-                  ...formData,
-                  firstName: '',
-                  lastName: '',
-                  companyName: '',
-                  streetAddress: '',
-                  apartment: '',
-                  townCity: '',
-                  state: 'Andhra Pradesh',
-                  pinCode: '',
-                  phone: '',
-                  email: '',
-                  orderNotes: '',
-                  termsAccepted: false,
-              });
-          } else {
-              const error = await response.json();
-              alert(`Failed to place order: ${error.message}`);
-          }
-      } catch (error) {
-          console.error("Error placing order:", error);
-          alert("An error occurred while placing the order. Please try again.");
-      }
-  };
-  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate that there are products in the cart
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (cart.length === 0) {
+        alert("Your cart is empty. Add items to proceed.");
+        return;
+    }
+
+    if (!formData.termsAccepted) {
+        alert("You must accept the terms and conditions to place an order.");
+        return;
+    }
+
+    // Prepare the order payload
+    const orderPayload = {
+        customer: {
+          name: `${formData.firstName} ${formData.lastName}`,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            phone: formData.phone,
+            companyName: formData.companyName,
+            address: {
+                street: formData.streetAddress,
+                apartment: formData.apartment,
+                city: formData.townCity,
+                state: formData.state,
+                zipCode: formData.pinCode,
+                country: formData.country,
+            },
+        },
+        products: cart.map((product) => ({
+            productId: product._id,
+            quantity: product.quantity,
+            price: product.price,
+        })),
+        orderNotes: formData.orderNotes,
+        totalAmount: calculateTotal(),
+        paymentMethod: "Pending", // Default to UPI, or dynamically set this based on user input
+        termsAccepted: formData.termsAccepted,
+    };
+
+    try {
+        // Make API request to the backend
+        const response = await fetch("http://localhost:3000/createOrder", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(orderPayload),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            // setOrderDetails({
+            //   orderNumber: data.orderNumber, // Assuming the API returns an order number
+            //   total: calculateTotal()
+            // });
+            setShowSuccessAnimation(true);
+            
+            // Clear cart and reset form
+            localStorage.removeItem("cart");
+            setCartProducts([]);
+            setFormData({
+                ...formData,
+                firstName: '',
+                lastName: '',
+                companyName: '',
+                streetAddress: '',
+                apartment: '',
+                townCity: '',
+                state: 'Andhra Pradesh',
+                pinCode: '',
+                phone: '',
+                email: '',
+                orderNotes: '',
+                termsAccepted: false,
+            });
+        } else {
+            const error = await response.json();
+            alert(`Failed to place order: ${error.message}`);
+        }
+    } catch (error) {
+        console.error("Error placing order:", error);
+        alert("An error occurred while placing the order. Please try again.");
+    }
+};
 
 
-  // };
 
   // Calculate total price of all products (including shipping)
   const calculateTotal = () => {
-    const productTotal = cartProducts.reduce((total, product) => total + product.price * product.quantity, 0);
+    const productTotal = cartProducts?.reduce((total, product) => total + product.price * product.quantity, 0);
     const shippingCost = 110; // Flat shipping rate
     return productTotal + shippingCost;
   };
 
   return (
     <>
-      <div className="cart-header" style={{ marginTop: "180px" }}>
+      <div className="cart-header" style={{ marginTop: "" }}>
         <h2>Checkout</h2>
         <p>varahifoods / checkout</p>
       </div>
@@ -392,9 +391,20 @@ function CheckoutPage() {
           </div>
         </div>
       </div>
+      {showSuccessAnimation &&  (
+        <OrderSuccessAnimation
+          orderNumber={orderDetails?.orderNumber}
+          total={orderDetails?.total}
+          onAnimationComplete={() => {
+            setShowSuccessAnimation(false);
+            // You can add any additional actions here, like redirecting to a confirmation page
+          }}
+        />
+      )}
      {/* {!isOpenModal && <PhoneOtpModal isOpen={isOpen} setIsOpenModal={setIsOpenModal}/>} */}
     </>
   );
 }
 
 export default CheckoutPage;
+

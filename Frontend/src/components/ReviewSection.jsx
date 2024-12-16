@@ -77,7 +77,7 @@ const ReviewSection = () => {
         >
           {data.testimonials.map((testimonial) => (
             <SwiperSlide key={testimonial._id}>
-              <div className="testimonial-slide">
+              <div className="testimonial-slide" style={{display:"grid"}}>
                 {/* <img src={semicolum} className='semicol' alt="Here is your semi column" /> */}
                 <p className="testimonial-review">"{testimonial.review}"</p>
                 <div className='slide_info'>

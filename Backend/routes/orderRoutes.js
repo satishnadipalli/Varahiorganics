@@ -16,10 +16,10 @@ OrderRouter.get("/getorders", getAllOrders);
 OrderRouter.post("/createOrder",createOrder);
 
 // Fetch a specific order by ID
-OrderRouter.get("/:id", getOrderById);
+OrderRouter.get("/getorder/:id", getOrderById);
 
 // Update order status
-OrderRouter.put("/:id/status", updateOrderStatus);
+OrderRouter.put("/updateorderstatus/:id/", updateOrderStatus);
 
 // Mark order as delivered
 OrderRouter.put("/:id/deliver", markOrderAsDelivered);

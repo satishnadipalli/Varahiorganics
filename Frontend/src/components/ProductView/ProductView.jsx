@@ -120,7 +120,7 @@ export default function ProductView() {
 
   return (
     <>
-      <div className="containerr" style={{marginTop:"150px",width:"100%"}}>
+      <div className="containerr" style={{marginTop:"0px",width:"100%"}}>
       <div className="product-grid" style={{width:"90%",}}>
         <div className="product-image">
           <img

@@ -1,17 +1,32 @@
-import React from 'react'
+import React from 'react';
 
 const SubHeader = () => {
+  const handleOrderNowClick = () => {
+    // Define the phone number and pre-filled message
+    const phoneNumber = '7036387998'; // Phone number in international format (no spaces, dashes)
+    const initialMessage = 'Hi, I want to order a product From Varahi Farms';
+
+    // Encode the message for URL compatibility
+    const encodedMessage = encodeURIComponent(initialMessage);
+
+    // WhatsApp URL
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    // Redirect the user to WhatsApp chat
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <div className="top-indicator">
-    <div className="buttons-container">
-        <span className="offer-text">🎉 Exclusivie Offers!</span>
-        <button className="order-now-btn">Order Now</button>
+      <div className="buttons-container">
+        <span className="offer-text">🎉 Exclusive Offers!</span>
+        <button className="order-now-btn" onClick={handleOrderNowClick}>
+          Order Now
+        </button>
+      </div>
+      <button className="close-btn">&times;</button>
     </div>
-    <button className="close-btn" >
-      &times;
-    </button>
-    </div>
-  )
-}
+  );
+};
 
-export default SubHeader
+export default SubHeader;
