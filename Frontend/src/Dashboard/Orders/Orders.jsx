@@ -59,7 +59,7 @@ const Orders = ({ setComponent }) => {
                     <div className='p-5 hover'>
                       <div className='w-full flex pb-5 '>
                         <div style={{ width: '15%' }} className='pl-2 flex items-center justify-center'>
-                          <img src={"http://localhost:3000/uploads/" + product.image[0]} alt="" className=' h-24 m-auto' />
+                          <img src={"https://varahiorganics.onrender.com/uploads/" + product.image[0]} alt="" className=' h-24 m-auto' />
                         </div>
                         <div className="info pl-5" style={{ width: '60%' }}>
                           <span className='font-rr'>

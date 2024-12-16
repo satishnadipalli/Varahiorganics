@@ -61,7 +61,7 @@ export default function ProductView() {
   useEffect(()=>{
     const fetchProduct = async() =>{
       try {
-        const response = await fetch( `http://localhost:3000/getproduct/${id}`,{
+        const response = await fetch( `https://varahiorganics.onrender.com/getproduct/${id}`,{
           method : "GET"
         });
   

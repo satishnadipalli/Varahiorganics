@@ -10,7 +10,7 @@ const UpdateAdminModel = ({ clickedUser, handleSubmit, setClickedUser, setIsOpen
   async function handleUpdateSubmit(email) {
     const obj = { email, isAdmin: isAdminYes };
 
-    const response = await fetch("http://localhost:3000/updateIsAdmin", {
+    const response = await fetch("https://varahiorganics.onrender.com/updateIsAdmin", {
       method: "PATCH",
       // headers: {
       //   "Authorization": `Bearer ${loginDetails.token}`,

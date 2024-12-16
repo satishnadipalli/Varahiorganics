@@ -14,7 +14,7 @@ const SavedProducts = ({ id }) => {
   //   if (loginDetails) {
   //     async function fetchSavedData() {
   //       try {
-  //         const response = await fetch("http://localhost:3000/getSavedProducts", {
+  //         const response = await fetch("https://varahiorganics.onrender.com/getSavedProducts", {
   //           method: "GET",
   //           headers: {
   //             "Authorization": `Bearer ${loginDetails?.token}`

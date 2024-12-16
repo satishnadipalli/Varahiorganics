@@ -20,7 +20,7 @@ const AllProductsAdminDetails = () => {
 
     //     async function getProducts(){
     //       try {
-    //           const response = await fetch("http://localhost:3000/getallproducts",{
+    //           const response = await fetch("https://varahiorganics.onrender.com/getallproducts",{
     //           method:"GET",
     //           headers:{
     //             "Authorization" : `Bearer ${loginDetails.token}`

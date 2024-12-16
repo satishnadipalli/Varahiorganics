@@ -14,7 +14,7 @@ const BuyedProducts = () => {
   // const proceedCardDetails = async(userId,orderId) =>{
   //   setisLoading(true)
   //   try {
-  //     const response = await fetch("http://localhost:3000/paymentDetails",{
+  //     const response = await fetch("https://varahiorganics.onrender.com/paymentDetails",{
   //       method:"POST",
   //       headers : {
   //         "Content-Type" : "application/json",
@@ -51,7 +51,7 @@ const BuyedProducts = () => {
     //           <div className='absolute inset-0 opacity-10 bg-[url(/path/to/pattern.png)]'></div> {/* Subtle pattern */}
     //           <div className='flex items-center space-x-4 relative'>
     //             {console.log(product)}
-    //             <img src={`http://localhost:3000/uploads/${product.producsId[0].image}`} alt="" className='h-24 rounded-md shadow-md transform hover:scale-105 transition-transform duration-300'/>
+    //             <img src={`https://varahiorganics.onrender.com/uploads/${product.producsId[0].image}`} alt="" className='h-24 rounded-md shadow-md transform hover:scale-105 transition-transform duration-300'/>
     //             <div className="info flex-grow">
     //               <h3 className='text-2xl font-bold text-indigo-800'>{product.producsId[0].title}</h3>
     //               <p className='text-sm text-gray-500'>Product Id: {product.producsId[0]._id}</p>

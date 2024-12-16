@@ -28,7 +28,7 @@ const EnhancedDeliveryDashboard = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:3000/updateorderstatus/${id}`, {
+      const response = await fetch(`${BACKEND_URL}/updateorderstatus/${id}`, {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const EnhancedDeliveryDashboard = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:3000/getorder/${id}`, { method: "GET" });
+      const response = await fetch(`${BACKEND_URL}/getorder/${id}`, { method: "GET" });
       if (!response.ok) {
         throw new Error('Failed to fetch order details');
       }

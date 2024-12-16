@@ -125,7 +125,7 @@ const Users = () => {
                 <td className='text-sm flex justify-center w-full font-semibold pl-3 items-center'>
                   <img 
                     className='h-10 w-10 rounded-full' 
-                    src={"http://localhost:3000/uploads/" + element.profilePhoto} 
+                    src={"https://varahiorganics.onrender.com/uploads/" + element.profilePhoto} 
                     alt="" 
                     onError={(e) => {
                       e.target.src = 'https://th.bing.com/th/id/OIP.TpqSE-tsrMBbQurUw2Su-AHaHk?rs=1&pid=ImgDetMain'; 

@@ -44,7 +44,7 @@ const OrderList = () => {
     useEffect(() => {
       const fetchOrders = async () => {
         try {
-          const response = await fetch("http://localhost:3000/getorders", {
+          const response = await fetch(`${process.env.BACKEND_URL}/getorders`, {
             method: "GET",
           });
     

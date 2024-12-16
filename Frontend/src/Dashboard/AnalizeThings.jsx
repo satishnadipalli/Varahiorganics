@@ -24,7 +24,7 @@ const AnalyzeThings = () => {
   useEffect(() => {
     async function fetchAllOrders() {
       try {
-        const response = await fetch("http://localhost:3000/getallorders", {
+        const response = await fetch("https://varahiorganics.onrender.com/getallorders", {
           method: "GET",
           // headers: {
           //   "Authorization": `Bearer ${loginDetails?.token}`,

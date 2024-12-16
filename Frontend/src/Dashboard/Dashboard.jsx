@@ -83,7 +83,7 @@ const Dashboard = ({setComponent,component}) => {
 
             {/* <div onClick={()=>setComponent("profile")}  className='flex gap-4 items-center hover:bg-gray-200 py-2 px-3 hover:rounded-lg hover:scale-105'>
                 <img 
-                    src={loginDetails.profilePhoto ? "http://localhost:3000/uploads/"+loginDetails?.profilePhoto : "https://th.bing.com/th/id/OIP.F8Bj6Mbos5kTCtNPlEElMAHaHa?rs=1&pid=ImgDetMain"} 
+                    src={loginDetails.profilePhoto ? "https://varahiorganics.onrender.com/uploads/"+loginDetails?.profilePhoto : "https://th.bing.com/th/id/OIP.F8Bj6Mbos5kTCtNPlEElMAHaHa?rs=1&pid=ImgDetMain"} 
                     alt="" className='w-8 h-8 rounded-full' 
                     onError={(e) => {
                         e.target.src = 'https://th.bing.com/th/id/OIP.TpqSE-tsrMBbQurUw2Su-AHaHk?rs=1&pid=ImgDetMain'; 

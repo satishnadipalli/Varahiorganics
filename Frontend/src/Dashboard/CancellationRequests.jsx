@@ -14,7 +14,7 @@ const Tabs = () => {
   useEffect(() => {
     const fetchDeliveryBoys = async () => {
       try {
-        const response = await fetch("http://localhost:3000/getalldeliveryboys", {
+        const response = await fetch("https://varahiorganics.onrender.com/getalldeliveryboys", {
           method: "GET",
           // headers: {
           //   "Authorization": `Bearer ${loginDetails.token}`,
@@ -38,7 +38,7 @@ const Tabs = () => {
     if (activeTab === 'cancellationRequests') {
       const fetchCancelOrders = async () => {
         try {
-          const response = await fetch("http://localhost:3000/getDeleteInitializedOrders", {
+          const response = await fetch("https://varahiorganics.onrender.com/getDeleteInitializedOrders", {
             method: "GET",
             // headers: {
             //   "Authorization": `Bearer ${loginDetails.token}`,
@@ -59,7 +59,7 @@ const Tabs = () => {
     } else if (activeTab === 'userOrders' || activeTab === 'assignedOrders') {
       const fetchUserOrders = async () => {
         try {
-          const response = await fetch("http://localhost:3000/getallorders", {
+          const response = await fetch("https://varahiorganics.onrender.com/getallorders", {
             method: "GET",
             // headers: {
             //   "Authorization": `Bearer ${loginDetails.token}`,
@@ -85,7 +85,7 @@ const Tabs = () => {
 
   const deleteProduct = async (orderId) => {
     try {
-      const response = await fetch(`http://localhost:3000/delelteOrderPermentaly/${orderId}`, {
+      const response = await fetch(`https://varahiorganics.onrender.com/delelteOrderPermentaly/${orderId}`, {
         method: "DELETE",
         // headers: {
         //   "Authorization": `Bearer ${loginDetails.token}`,
@@ -105,7 +105,7 @@ const Tabs = () => {
   const assignDeliveryBoy = async (orderId) => {
     console.log("iam geting ithe dkk",orderId,selectedDeliveryBoy);
     try {
-      const response = await fetch(`http://localhost:3000/assignDelivery`, {
+      const response = await fetch(`https://varahiorganics.onrender.com/assignDelivery`, {
         method: "POST",
         // headers: {
         //   "Authorization": `Bearer ${loginDetails?.token}`,
@@ -205,7 +205,7 @@ const Tabs = () => {
                         <tr key={request?._id} className="hover:bg-gray-50 transition duration-150">
                           <td className="px-6 py-4 whitespace-nowrap flex items-center">
                             <img
-                              src={`http://localhost:3000/uploads/${request?.producsId[0].image}`}
+                              src={`https://varahiorganics.onrender.com/uploads/${request?.producsId[0].image}`}
                               alt={request?.productName}
                               className="w-16 h-16 object-cover rounded-lg border border-gray-300 mr-4"
                             />
@@ -283,7 +283,7 @@ const Tabs = () => {
                         <tr key={order?._id} className="hover:bg-gray-50 transition duration-150">
                           <td className="px-6 py-4 whitespace-nowrap flex items-center">
                             <img
-                              src={`http://localhost:3000/uploads/${order?.producsId[0].image}`}
+                              src={`https://varahiorganics.onrender.com/uploads/${order?.producsId[0].image}`}
                               alt={order?.productName}
                               className="w-16 h-16 object-cover rounded-lg border border-gray-300 mr-4"
                             />
@@ -370,7 +370,7 @@ const Tabs = () => {
                         <tr key={order?._id} className="hover:bg-gray-50 transition duration-150">
                           <td className="px-6 py-4 whitespace-nowrap flex items-center">
                             <img
-                              src={`http://localhost:3000/uploads/${order?.producsId[0].image}`}
+                              src={`https://varahiorganics.onrender.com/uploads/${order?.producsId[0].image}`}
                               alt={order?.productName}
                               className="w-16 h-16 object-cover rounded-lg border border-gray-300 mr-4"
                             />

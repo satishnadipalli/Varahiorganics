@@ -58,7 +58,7 @@ const Profile = ({ handleTab, handleProfile, logouts, tab }) => {
     //       <div className="w-40 h-40 p-1 border-4 border-blue-400 rounded-full overflow-hidden">
     //         <img
     //           className="w-full h-full object-cover"
-    //           src={"http://localhost:3000/uploads/" + loginDetails?.profilePhoto}
+    //           src={"https://varahiorganics.onrender.com/uploads/" + loginDetails?.profilePhoto}
     //           alt="Profile"
     //           onError={(e) => {
     //             e.target.src = 'https://th.bing.com/th/id/OIP.TpqSE-tsrMBbQurUw2Su-AHaHk?rs=1&pid=ImgDetMain';

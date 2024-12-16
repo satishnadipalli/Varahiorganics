@@ -8,7 +8,7 @@ const SubSaved = ({ element }) => {
       <div className='rounded-lg bg-white shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105'>
         <div className='relative'>
           <img
-            src={`http://localhost:3000/uploads/${element.image[0]}`}
+            src={`https://varahiorganics.onrender.com/uploads/${element.image[0]}`}
             alt={element.title}
             className='w-full h-32 object-cover'
           />

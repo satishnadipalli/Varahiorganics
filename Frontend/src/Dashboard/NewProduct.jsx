@@ -67,7 +67,7 @@
 
 //     console.log(formData,"here is your data");
     
-//     const response = await fetch("http://localhost:3000/addProductToStore", {
+//     const response = await fetch("https://varahiorganics.onrender.com/addProductToStore", {
 //       method: "POST",
 //       headers: {
 //         Authorization: `Bearer ${loginDetails.token}`,
@@ -77,7 +77,7 @@
 
 //     if (response.ok) {
 //       setIsOpen(false);
-//       const responseTwo = await fetch("http://localhost:3000/getallproducts",{
+//       const responseTwo = await fetch("https://varahiorganics.onrender.com/getallproducts",{
 //         method:"GET",
 //         headers:{
 //           "Authorization" : `Bearer ${loginDetails.token}`
@@ -381,7 +381,7 @@ const NewProduct = ({ setIsOpen, clickedProduct, SetIsLoading, setAllProducts,ad
 
       productDetails.image.forEach(img => formData.append('image', img));
 
-      const response = await fetch("http://localhost:3000/addProductToStore", {
+      const response = await fetch("https://varahiorganics.onrender.com/addProductToStore", {
         method: "POST",
         // headers: {
         //   Authorization: `Bearer ${loginDetails.token}`,
@@ -391,7 +391,7 @@ const NewProduct = ({ setIsOpen, clickedProduct, SetIsLoading, setAllProducts,ad
 
       if (response.ok) {
         setIsOpen(false);
-        const responseTwo = await fetch("http://localhost:3000/getallproducts", {
+        const responseTwo = await fetch("https://varahiorganics.onrender.com/getallproducts", {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${loginDetails.token}`

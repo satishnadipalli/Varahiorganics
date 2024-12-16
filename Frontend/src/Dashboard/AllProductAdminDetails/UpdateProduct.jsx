@@ -34,7 +34,7 @@ const ShippingLabel = ({ clickedProduct, setIsUpdateForm }) => {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/updatefullProduct", {
+      const response = await fetch("https://varahiorganics.onrender.com/updatefullProduct", {
         method: "PATCH",
         // headers: {
         //   "Authorization": `Bearer ${loginDetails.token}`,

@@ -92,7 +92,7 @@ function CheckoutPage() {
 
     try {
         // Make API request to the backend
-        const response = await fetch("http://localhost:3000/createOrder", {
+        const response = await fetch("https://varahiorganics.onrender.com/createOrder", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

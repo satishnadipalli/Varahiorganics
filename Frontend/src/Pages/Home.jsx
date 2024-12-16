@@ -24,14 +24,14 @@ const Home = () => {
     }
   ]
 
+  // console.log(process.env.REACT_APP_BACKEND_URL)
 
   useEffect(()=>{
     const fetchProducts = async() =>{
       try {
-        const response = await fetch("http://localhost:3000/getproducts",{
+        const response = await fetch(`https://varahiorganics.onrender.com/getproducts`,{
           method : "GET"
         });
-  
         const data = await response.json();
         if(data.products){
           console.log(data.products)
