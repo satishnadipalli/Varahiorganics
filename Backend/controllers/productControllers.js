@@ -134,6 +134,89 @@ const deleteProduct = async (req, res) => {
     }
 };
 
+
+const randomProducts = async(req,res)=>{
+    try {
+        const products  = await ProductsDB.find({});
+        console.log(products)
+        if(products.length > 0){
+            console.log(products)
+            return res.status(200).json({products});
+        }else{
+            return res.status(200).json({products,error:"Products not found"});
+        }
+    } catch (error) {
+        
+    }
+}
+
+const getSortProduct = async (req, res) => {
+    try {
+        const { sort, minPrice, maxPrice, searchQuery } = req.query;
+
+        const min = parseFloat(minPrice) || 0; // Default to 0
+        const max = parseFloat(maxPrice) || Infinity; // Default to Infinity
+        let sortOrder;
+
+        if (sort === "asc") {
+            sortOrder = { price: 1 };
+        } else if (sort === "desc") {
+            sortOrder = { price: -1 };
+        } else if (sort) {
+            return res.status(400).json({ error: "Invalid sort parameter. Use 'asc' or 'desc'." });
+        }
+
+        // Build search filter
+        let searchFilter = {};
+        if (searchQuery) {
+            const searchRegex = new RegExp(searchQuery, "i"); // Case-insensitive search
+            searchFilter = { 
+                $or: [
+                    { name: searchRegex },
+                    { description: searchRegex }
+                ]
+            };
+        }
+
+        // Build price range filter
+        const priceFilter = {
+            price: { $gte: min, $lte: max },
+        };
+
+        // Fetch products matching search query and price range
+        const matchingProducts = await ProductsDB.find({ 
+            ...searchFilter,
+            ...priceFilter
+        }).sort(sortOrder);
+
+        // Fetch non-matching products within price range
+        const nonMatchingProducts = await ProductsDB.find({
+            ...priceFilter,
+            $nor: [
+                { name: new RegExp(searchQuery, "i") },
+                { description: new RegExp(searchQuery, "i") }
+            ],
+        }).sort(sortOrder);
+
+        // Merge matching and non-matching products
+        const products = [...matchingProducts, ...nonMatchingProducts];
+
+        if (!products.length) {
+            return res.status(404).json({ error: "No products found matching your criteria." });
+        }
+
+        return res.status(200).json({ products });
+    } catch (error) {
+        console.error("Error filtering, searching, and sorting products:", error);
+        return res.status(500).json({ error: "An error occurred while processing your request." });
+    }
+};
+
+
+
+
+
+
 // Export functions and multer upload
 module.exports = {
     getProducts,
@@ -141,5 +224,7 @@ module.exports = {
     addProduct,
     updateProduct,
     deleteProduct,
-    upload
+    upload,
+    randomProducts,
+    getSortProduct
 };

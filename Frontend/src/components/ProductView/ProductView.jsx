@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './ProductView.css';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 export default function ProductView() {
-  const [selectedProduct,setSelectedProduct] = useState();
+  
+  const [selectedProduct,setSelectedProduct] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState('1.3 kgs');
   const [selectedUnits, setSelectedUnits] = useState('1');
   const navigate = useNavigate();
@@ -117,10 +119,15 @@ export default function ProductView() {
     window.scrollTo({top:0,behavior:"smooth"});
   }
   
+  if(!selectedProduct){
+    return <Loading/> 
+  }
 
   return (
     <>
-      <div className="containerr" style={{marginTop:"0px",width:"100%"}}>
+   { 
+   <>
+    <div className="containerr" style={{marginTop:"0px",width:"100%"}}>
       <div className="product-grid" style={{width:"90%",}}>
         <div className="product-image">
           <img
@@ -276,6 +283,8 @@ export default function ProductView() {
         ))}
       </div>
     </section>
+    </>
+    }
   </>
   );
 }

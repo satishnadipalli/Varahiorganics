@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, X, Plus, Minus, ChevronRight } from 'lucide-react';
+import { ShoppingBag, X, Plus, Minus, ChevronRight, ShoppingCart } from 'lucide-react';
 import "./Cart.css";
 
 // interface CartItem {
@@ -16,7 +16,7 @@ import "./Cart.css";
 //   setIsCartOpen: (isOpen: boolean) => void;
 // }
 
-const ShoppingCartPopup = ({ setIsCartOpen }) => {
+const ShoppingCartPopup= ({ setIsCartOpen }) => {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
 
@@ -66,64 +66,77 @@ const ShoppingCartPopup = ({ setIsCartOpen }) => {
         exit={{ x: "100%" }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
-        <div className="cart-header" style={{marginTop:"-10px"}}>
+        <div className="cart-header">
           <h2>
             <ShoppingBag size={24} />
             Your Cart
-            <span className="item-count">{cartItems.length}</span>
+            {/* <span className="item-count">{cartItems.length}</span> */}
           </h2>
           <button className="close-btn" onClick={() => setIsCartOpen(false)}>
             <X size={24} />
           </button>
         </div>
         <div className="cart-items">
-          {cartItems.map((item) => (
-            <motion.div
-              className="cart-item"
-              key={item._id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <img
-                src={item.images[0] || "/placeholder.svg"}
-                alt={item.name}
-                className="item-image"
-              />
-              <div className="item-details">
-                <h3 className="item-name">{item.name}</h3>
-                <div className="item-price">₹{item.price.toFixed(2)}</div>
-                <div className="item-quantity">
-                  <button onClick={() => handleQuantityChange(item._id, "decrease")}>
-                    <Minus size={16} />
-                  </button>
-                  <span>{item.quantity}</span>
-                  <button onClick={() => handleQuantityChange(item._id, "increase")}>
-                    <Plus size={16} />
-                  </button>
+          {cartItems.length <= 0 ? (
+            <div className="empty-cart">
+              <ShoppingCart size={64} />
+              <p>Your cart is empty</p>
+              <button className="start-shopping" onClick={() => setIsCartOpen(false)}>
+                Start Shopping
+              </button>
+            </div>
+          ) : (
+            cartItems.map((item) => (
+              <motion.div
+                className="cart-item"
+                key={item._id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img
+                  src={item.images[0] || "/placeholder.svg"}
+                  alt={item.name}
+                  className="item-image"
+                />
+                <div className="item-details">
+                  <h3 className="item-name">{item.name}</h3>
+                  <div className="item-price">₹{item.price.toFixed(2)}</div>
+                  <div className="item-quantity">
+                    <button onClick={() => handleQuantityChange(item._id, "decrease")}>
+                      <Minus size={16} />
+                    </button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => handleQuantityChange(item._id, "increase")}>
+                      <Plus size={16} />
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div className="item-total">₹{(item.price * item.quantity).toFixed(2)}</div>
-            </motion.div>
-          ))}
+                <div className="item-total">₹{(item.price * item.quantity).toFixed(2)}</div>
+              </motion.div>
+            ))
+          )}
         </div>
-        <div className="cart-footer">
-          <div className="subtotal">
-            <span>Subtotal:</span>
-            <span className="price">₹{calculateSubtotal().toFixed(2)}</span>
+        {cartItems.length > 0 && (
+          <div className="cart-footer">
+            <div className="subtotal">
+              <span>Subtotal:</span>
+              <span className="price">₹{calculateSubtotal().toFixed(2)}</span>
+            </div>
+            <button className="view-basket" onClick={handleBasket}>
+              View Basket
+              <ChevronRight size={20} />
+            </button>
+            <button className="checkout" onClick={handleBuyCartItems}>
+              Proceed to Checkout
+            </button>
           </div>
-          <button className="view-basket" onClick={handleBasket}>
-            View Basket
-            <ChevronRight size={20} />
-          </button>
-          <button className="checkout" onClick={handleBuyCartItems}>
-            Proceed to Checkout
-          </button>
-        </div>
+        )}
       </motion.div>
     </AnimatePresence>
   );
 };
 
 export default ShoppingCartPopup;
+

@@ -1,10 +1,10 @@
-'use client'
 
 import { useState, useEffect } from 'react'
 // import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronRight, Leaf, ShoppingBag, ArrowRight } from 'lucide-react'
 import './HeroSection.css'
+import { Link } from 'react-router-dom'
 
 const products = [
   { name: 'Organic Rice', image: 'https://wallpapercave.com/wp/wp3592367.jpg', description: 'Pure, aromatic grains' },
@@ -45,22 +45,26 @@ export default function PremiumResponsiveHero() {
               Experience the purity of organic rice, dal, sweets, and farm-fresh produce at your doorstep.
             </p>
             <div className="button-container-hm">
-              <motion.button
-                className="button-hm primary-button-hm"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Explore Products
-                <ChevronRight className="ml-2" size={20} />
-              </motion.button>
-              <motion.button
-                className="button-hm secondary-button-hm"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <ShoppingBag className="mr-2" size={20} />
-                Shop Now
-              </motion.button>
+              <Link to={`/store`} style={{textDecoration:"none"}}>
+                <motion.button
+                  className="button-hm primary-button-hm"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Explore Products
+                  <ChevronRight className="ml-2" size={20} />
+                </motion.button>
+              </Link>
+              <Link to={`/store`} style={{textDecoration:"none"}}>
+                <motion.button
+                  className="button-hm secondary-button-hm"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <ShoppingBag className="mr-2" size={20} />
+                  Shop Now
+                </motion.button>
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -100,15 +104,6 @@ export default function PremiumResponsiveHero() {
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
           >
-            {products.map((product, index) => (
-              <motion.button
-                key={product.name}
-                className={`nav-dot-hm ${index === currentProduct ? 'active' : ''}`}
-                onClick={() => setCurrentProduct(index)}
-                whileHover={{ scale: 1.5 }}
-                whileTap={{ scale: 0.9 }}
-              />
-            ))}
           </div>
         </div>
       </div>

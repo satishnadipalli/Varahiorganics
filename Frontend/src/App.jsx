@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import BasketList from "./Pages/BasketList";
@@ -14,9 +14,30 @@ import "./index.css"
 import CheckoutPage from "./Pages/CheckoutPage";
 import DeliveryDashboard from "./components/DeliveryDashboard/Delivery";
 import OrderList from "./components/OrderList/OrderList";
+import FoodStore from "./Pages/FoodStore";
+import Loading from "./components/Loading/Loading";
 
 
 const App = () => {
+  const [homeProducts,setHomeProducts] = useState([]);
+
+  useEffect(()=>{
+    const fetchProducts = async() =>{
+      try {
+        const response = await fetch(`https://varahiorganics.onrender.com/getproducts`,{
+          method : "GET"
+        });
+        const data = await response.json();
+        if(data.products){
+          console.log(data.products)
+          setHomeProducts(data.products);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchProducts();
+  },[]);
 
   const dummyOrder = {
     customer: {
@@ -51,19 +72,25 @@ const App = () => {
     orderDate: new Date(),
     deliveryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week later
   };
+
+
+  if(!homeProducts || homeProducts.length <=0){
+    return <Loading height={"100vh"}/>
+  }
   
 return (
     <Router>
       <SubHeader/>
       <Header/>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home homeProducts={homeProducts}/>} />
         <Route path="/basket" element={<BasketList />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/product/:id" element={<ProductView />} />
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/orderlist" element={<OrderList />} />
+        <Route path="/store" element={<FoodStore />} />
         <Route path="/orderlist/:id" element={<DeliveryDashboard order={dummyOrder} />} />
       </Routes>
       <Footer/>

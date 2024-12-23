@@ -5,7 +5,9 @@ const {
     addProduct,
     updateProduct,
     deleteProduct,
-    upload
+    upload,
+    randomProducts,
+    getSortProduct
 } = require("./controllers/productControllers");
 
 
@@ -47,6 +49,10 @@ Router.post('/addproduct', uploadMultiple, addProduct);
 Router.put('/updateproduct/:id', updateProduct);
 Router.delete('/deleteproduct/:id', deleteProduct);
 Router.post("/sendotp/:phoneNumber",sendOTP)
+Router.get("/getRandomProducts",randomProducts);
+Router.get("/products/sort",getSortProduct);
+
+
 
 
 

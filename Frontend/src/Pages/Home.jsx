@@ -5,9 +5,10 @@ import { ShoppingCart } from "lucide-react";
 import ShoppingCartPopup from "../components/Cart";
 import { Link } from "react-router-dom";
 import PremiumResponsiveHero from "../components/HeroSection/HeroSection";
+import Loading from "../components/Loading/Loading";
 
-const Home = () => {
-  const [homeProducts,setHomeProducts] = useState([]);
+const Home = ({homeProducts}) => {
+  
 
   const categories = [
     {
@@ -26,23 +27,7 @@ const Home = () => {
 
   // console.log(process.env.REACT_APP_BACKEND_URL)
 
-  useEffect(()=>{
-    const fetchProducts = async() =>{
-      try {
-        const response = await fetch(`https://varahiorganics.onrender.com/getproducts`,{
-          method : "GET"
-        });
-        const data = await response.json();
-        if(data.products){
-          console.log(data.products)
-          setHomeProducts(data.products);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchProducts();
-  },[]);
+
 
 
   const handleAddToCart = (product) => {
@@ -66,6 +51,9 @@ const Home = () => {
     // Optional: Provide feedback to the user
     alert(`${product.name} added to cart!`);
   };
+
+
+
 
 
 
