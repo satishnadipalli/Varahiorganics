@@ -60,7 +60,7 @@ export default function FoodStore() {
   useEffect(()=>{
     const fetchProducts = async() =>{
       try {
-        const response = await fetch(`http://localhost:3000/getRandomProducts`,{
+        const response = await fetch(`https://varahiorganics.onrender.com/getRandomProducts`,{
           method : "GET"
         });
         const data = await response.json();
@@ -80,7 +80,7 @@ export default function FoodStore() {
   const fetchProducts = async(sort) =>{
     console.log(sort,priceRange?.[0],priceRange?.[1])
     try {
-      const response = await fetch(`http://localhost:3000/products/sort?sort=${sort}&minPrice=${priceRange?.[0]}&maxPrice=${priceRange?.[1]}&searchQuery=${searchQuery}`,{
+      const response = await fetch(`https://varahiorganics.onrender.com/products/sort?sort=${sort}&minPrice=${priceRange?.[0]}&maxPrice=${priceRange?.[1]}&searchQuery=${searchQuery}`,{
         method : "GET"
       });
       const data = await response.json();
