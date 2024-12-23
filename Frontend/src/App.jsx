@@ -39,6 +39,9 @@ const App = () => {
     fetchProducts();
   },[]);
 
+
+  
+
   const dummyOrder = {
     customer: {
       name: "John Doe",
@@ -87,7 +90,7 @@ return (
         <Route path="/basket" element={<BasketList />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/product/:id" element={<ProductView />} />
-        <Route path="/admin" element={<Dashboard />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/orderlist" element={<OrderList />} />
         <Route path="/store" element={<FoodStore />} />

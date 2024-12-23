@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 // Sample order data
 const orders = [
@@ -44,7 +45,7 @@ const OrderList = () => {
     useEffect(() => {
       const fetchOrders = async () => {
         try {
-          const response = await fetch(`${process.env.BACKEND_URL}/getorders`, {
+          const response = await fetch(`https://varahiorganics.onrender.com/getorders`, {
             method: "GET",
           });
     
@@ -64,8 +65,9 @@ const OrderList = () => {
     }, []);
     
 
-
-      console.log(orderlist)
+    if(!orderlist || orderlist<=0){
+      return <Loading/>
+    }
 
 
   return (

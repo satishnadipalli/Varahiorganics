@@ -1,19 +1,21 @@
 /* Header Container */
-.header {
+.headerrr {
     width: 100%;
     background-color: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     /* position: fixed; */
     z-index: 1000;
+    padding: 0;
 }
 
-.header-wrapper {
+.header-wrapperrr {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 90%;
     margin: 0 auto;
-    padding: 10px 0;
+    /* padding: 10px 0; */
+    /* background-color: orange; */
 }
 
 /* Logo */
@@ -21,7 +23,7 @@
     flex: 1;
 }
 
-.logo {
+.logos {
     height: 120px;
 }
 

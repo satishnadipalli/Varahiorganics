@@ -20,6 +20,7 @@ const { sendOTP } = require("./controllers/ordersControllers");
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const uploadPath = path.join(__dirname, '../../uploads');
+        //uploading the paths into the source folders
         cb(null, uploadPath);
     },
     filename: function (req, file, cb) {

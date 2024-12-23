@@ -112,7 +112,7 @@ export default function FoodStore() {
 
   return (
     <div className="page-wrapper">
-      <div className="container">
+      <div className="container-st" style={{backgroundColor:"white",padding:"10px"}}>
         <div className="layout">
           {/* Sidebar */}
           <aside className="sidebar">

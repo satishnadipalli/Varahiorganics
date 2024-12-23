@@ -17,11 +17,11 @@ const Header = () => {
 
     return (
         <>
-            <header className="header">
-                <div className="header-wrapper">
+            <header className="headerrr">
+                <div className="header-wrapperrr">
                     {/* Logo Section */}
                     <div className="logo-container">
-                        <img src="./logo.png" alt="Logo" className="logo" />
+                        <img src="./logo.png" alt="Logo" className="logos" />
                     </div>
 
                     {/* Navigation Links */}

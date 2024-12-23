@@ -6,21 +6,21 @@ const ShippingLabel = ({ clickedProduct, setIsUpdateForm }) => {
   // const { loginDetails } = useSelector(state => state.cart);
   const [showLabel, setShowLabel] = useState(false);
   const [productDetails, setProductDetails] = useState({
-    _id: clickedProduct._id,
-    title: clickedProduct.title,
-    image: clickedProduct.image,
-    subCategoery: clickedProduct.subCategoery,
-    categoery: clickedProduct.categoery,
-    image_small: clickedProduct.image_small,
-    attribute: clickedProduct.attribute,
-    brand: clickedProduct.brand,
-    description: clickedProduct.description,
-    avgRating: clickedProduct.avgRating,
-    ratings: clickedProduct.ratings,
-    price: clickedProduct.price,
-    oldPrice: clickedProduct.oldPrice,
-    badge: clickedProduct.badge,
-    quantity: clickedProduct.quantity
+    _id: clickedProduct?._id,
+    title: clickedProduct?.title,
+    image: clickedProduct?.image,
+    subCategoery: clickedProduct?.subCategoery,
+    categoery: clickedProduct?.categoery,
+    image_small: clickedProduct?.image_small,
+    attribute: clickedProduct?.attribute,
+    brand: clickedProduct?.brand,
+    description: clickedProduct?.description,
+    avgRating: clickedProduct?.avgRating,
+    ratings: clickedProduct?.ratings,
+    price: clickedProduct?.price,
+    oldPrice: clickedProduct?.oldPrice,
+    badge: clickedProduct?.badge,
+    quantity: clickedProduct?.quantity
   });
 
   function handleDetails(event) {
@@ -59,7 +59,7 @@ const ShippingLabel = ({ clickedProduct, setIsUpdateForm }) => {
 
   return (
     <div
-      className={`flex p-5 h-full flex top-0 bg-white absolute justify-center w-full`}
+      className={`flex p-5 h-full flex top-0 bg-white absolute justify-center w-full `}
     >
       <div className="w-1/2">
         <div className="mt-5 bg-white rounded-lg shadow-lg">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaBox, FaTruck, FaCreditCard, FaChevronDown, FaChevronUp, FaEdit, FaPrint } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 const EnhancedDeliveryDashboard = () => {
   const { id } = useParams();
@@ -28,7 +29,7 @@ const EnhancedDeliveryDashboard = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${BACKEND_URL}/updateorderstatus/${id}`, {
+      const response = await fetch(`https://varahiorganics.onrender.com/updateorderstatus/${id}`, {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +66,7 @@ const EnhancedDeliveryDashboard = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${BACKEND_URL}/getorder/${id}`, { method: "GET" });
+      const response = await fetch(`https://varahiorganics.onrender.com/getorder/${id}`, { method: "GET" });
       if (!response.ok) {
         throw new Error('Failed to fetch order details');
       }
@@ -85,9 +86,16 @@ const EnhancedDeliveryDashboard = () => {
     fetchOrder();
   }, [fetchOrder]);
 
-  if (isLoading) return <div>Loading...</div>;
+
+
+  
+  if(!order){
+    return <Loading/>
+  }
+
   if (error) return <div>Error: {error}</div>;
   if (!order) return <div>No order found</div>;
+  
 
   return (
     <div className="enhanced-delivery-dashboard">
@@ -222,6 +230,10 @@ const EnhancedDeliveryDashboard = () => {
           font-size: 1rem;
           transition: background-color 0.3s;
           margin-left: 10px;
+          display:flex;
+          align-items:center;
+          gap:15px;
+          
         }
 
         .header-actions .action-button:hover {
