@@ -60,8 +60,8 @@ const data = {
 
 const ReviewSection = () => {
   return (
-    <div style={{marginBottom:"60px",marginTop:"120px"}}>
-      <h4 style={{textAlign:"center",marginTop:"80px",marginBottom:"20px",color:"#2d3748",fontWeight:"500"}}>Feed From Employees and Clients</h4>
+    <div style={{marginBottom:"60px"}}>
+      <h4 className='feed-from' style={{textAlign:"center",marginTop:"80px",marginBottom:"20px",color:"#2d3748",fontWeight:"500"}}>Feed From Employees and Clients</h4>
       <h5 className='eco'>We've changed the way hundreds of teams work today with the products we are building in the HR ecosystem.</h5>
       <div className="testimonial-container">
         <Swiper
@@ -74,6 +74,7 @@ const ReviewSection = () => {
           }}
           modules={[Pagination, Navigation]}
           className="swiper-container"
+          // style={{backgroundColor:"orange"}}
         >
           {data.testimonials.map((testimonial) => (
             <SwiperSlide key={testimonial._id}>

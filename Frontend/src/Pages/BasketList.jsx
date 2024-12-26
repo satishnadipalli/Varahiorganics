@@ -55,11 +55,13 @@ const BasketList = () => {
                   <tbody>
                     {cartItems.map((item, index) => (
                       <tr key={index}>
+                        {console.log("https://varahiorganics.onrender.com/"+item.image[0])}
                         <td className="product-cell">
                           <div className="product-details">
+                            {console.log(item.image[0] )}
                             <img
-                              src={item.images[0] || "https://via.placeholder.com/80"}
-                              alt="Product"
+                              src={"https://varahiorganics.onrender.com/"+item.image[0] }
+                              // alt="Product"
                               className="product-images"
                             />
                             <span className="product-name">{item.name}</span>
@@ -98,9 +100,9 @@ const BasketList = () => {
                 {cartItems.map((item, index) => (
                   <div key={index} className="product-info">
                     <img
-                      src={item.image || "https://via.placeholder.com/80"}
+                      src={"https://varahiorganics.onrender.com/"+item.image[0]}
                       alt="Product"
-                      className="product-image"
+                      className="item-image"
                     />
                     <div className="product-details">
                       <h3 className="product-title">{item.name}</h3>
@@ -119,7 +121,7 @@ const BasketList = () => {
                         </div>
                         <div className="product-meta-row">
                           <p className="meta-label">Subtotal</p>
-                          <span className="meta-value subtotal">{item.subtotal}</span>
+                          <span className="meta-value subtotal">{item.quantity*item.price}</span>
                         </div>
                       </div>
                     </div>

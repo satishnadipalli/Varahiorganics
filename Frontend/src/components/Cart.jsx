@@ -26,11 +26,13 @@ const ShoppingCartPopup= ({ setIsCartOpen }) => {
   }, []);
 
   const handleBuyCartItems = () => {
+    setIsCartOpen(false)
     localStorage.removeItem("buyproduct");
     navigate("/checkout");
   };
 
   const handleBasket = () => {
+    setIsCartOpen(false)
     navigate("/basket");
   };
 
@@ -51,7 +53,7 @@ const ShoppingCartPopup= ({ setIsCartOpen }) => {
     cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence className="motion-presence">
       <motion.div
         className="backdrop"
         initial={{ opacity: 0 }}
@@ -96,12 +98,13 @@ const ShoppingCartPopup= ({ setIsCartOpen }) => {
                 transition={{ duration: 0.3 }}
               >
                 <img
-                  src={item.images[0] || "/placeholder.svg"}
+                  src={"https://varahiorganics.onrender.com/"+item.image[0]}
                   alt={item.name}
                   className="item-image"
+                  style={{marginTop:"-13px"}}
                 />
                 <div className="item-details">
-                  <h3 className="item-name">{item.name}</h3>
+                  <h3 className="item-name" style={{fontSize:"13px"}}>{item.name}</h3>
                   <div className="item-price">₹{item.price.toFixed(2)}</div>
                   <div className="item-quantity">
                     <button onClick={() => handleQuantityChange(item._id, "decrease")}>
@@ -117,6 +120,14 @@ const ShoppingCartPopup= ({ setIsCartOpen }) => {
               </motion.div>
             ))
           )}
+          {/* <div className="empty-cart"> */}
+            <button className="start-shoppings mt-0 flex items-center m-auto bg-transparent text-black justify-center gap-2" onClick={() =>{
+               navigate("/store")
+               setIsCartOpen(false)
+               }}>
+              <ShoppingCart color="black" size={30} /> Shop More
+            </button>
+          {/* </div> */}
         </div>
         {cartItems.length > 0 && (
           <div className="cart-footer">

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import './ProductView.css';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Loading from '../Loading/Loading';
+import { ToastContainer, toast } from "react-toastify"; // Import Toastify
+import ReviewCard from './Review';
+
 
 export default function ProductView() {
   
   const [selectedProduct,setSelectedProduct] = useState(null);
-  const [selectedQuantity, setSelectedQuantity] = useState('1.3 kgs');
-  const [selectedUnits, setSelectedUnits] = useState('1');
+  const [selectedQuantity, setSelectedQuantity] = useState('0.5 kgs');
+  const [selectedUnits, setSelectedUnits] = useState(1);
   const navigate = useNavigate();
   const {id} = useParams();
 
@@ -17,11 +20,7 @@ export default function ProductView() {
     if (selectedProduct) {
         // If it's an object, stringify it
         localStorage.setItem('buyproduct', JSON.stringify(selectedProduct));
-        
-        // Log for debugging
-        console.log(selectedProduct, "selected product added to localStorage");
 
-        // Navigate to the checkout page
         navigate("/checkout");
     } else {
         // Handle the case when no product is selected
@@ -30,33 +29,55 @@ export default function ProductView() {
 }
 
 
-  function handleAddToCart() {
-    if (selectedProduct) {
-      // Get the current cart from localStorage
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  
-      // Check if the product already exists in the cart
-      const existingItemIndex = cart.findIndex((item) => item._id === selectedProduct._id);
-  
-      if (existingItemIndex >= 0) {
-        // If the product already exists, update its quantity
-        cart[existingItemIndex].quantity =
-          parseInt(cart[existingItemIndex].quantity) + parseInt(selectedUnits);
-      } else {
-        // If it's a new product, add it to the cart with the selected quantity
-        cart.push({
-          ...selectedProduct,
-          quantity: parseInt(selectedUnits), // Add quantity to the new item
-        });
-      }
-  
-      // Save the updated cart to localStorage
-      localStorage.setItem('cart', JSON.stringify(cart));
-  
-      // Optionally show a success message or notification
-      alert(`${selectedProduct.name} added to cart!`);
-    }
+function handleAddToCart() {
+  if (!selectedProduct) {
+    toast.error("Please select a product first.", {
+      autoClose: 3000,
+      theme: "colored",
+    });
+    return;
   }
+
+  if (!selectedQuantity) {
+    toast.warning("Please select a weight before adding to cart.", {
+      autoClose: 3000,
+      theme: "colored",
+    });
+    return;
+  }
+
+  // Get the current cart from localStorage
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Check if the product already exists in the cart
+  const existingItemIndex = cart.findIndex((item) => 
+    item._id === selectedProduct._id && item.weight === selectedQuantity
+  );
+
+  if (existingItemIndex >= 0) {
+    // If the product already exists with the same weight, update its quantity
+    cart[existingItemIndex].quantity =
+      parseInt(cart[existingItemIndex].quantity) + parseInt(selectedUnits);
+  } else {
+    // If it's a new product or new weight, add it to the cart
+    cart.push({
+      ...selectedProduct,
+      weight: selectedQuantity,
+      quantity: parseInt(selectedUnits),
+    });
+  }
+
+  // Save the updated cart to localStorage
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  // Show a success message
+  toast.success(`${selectedProduct.name} (${selectedQuantity}) added to cart!`, {
+    autoClose: 3000,
+    theme: "colored",
+  });
+}
+
+
   
   
 
@@ -123,6 +144,20 @@ export default function ProductView() {
     return <Loading/> 
   }
 
+  function formatDescription(description) {
+    // Split the description by periods and remove any extra empty strings
+    const descriptionLines = description.split('.').filter(line => line.trim() !== '');
+    
+    // Return each line wrapped in a <p> tag
+    return descriptionLines.map((line, index) => (
+      <p key={index}>
+        {line.trim()}.
+      </p>
+    ));
+  }
+  
+  console.log(selectedQuantity)
+
   return (
     <>
    { 
@@ -131,8 +166,9 @@ export default function ProductView() {
       <div className="product-grid" style={{width:"90%",}}>
         <div className="product-image">
           <img
-            src={selectedProduct?.images[0]}
+            src={"https://varahiorganics.onrender.com/"+selectedProduct?.image?.[0]}
             alt="Natural Honey"
+            className='productveiw-img'
           />
         </div>
 
@@ -182,7 +218,7 @@ export default function ProductView() {
           <div>
             <label className="quantity-label">QUANTITY</label>
             <div className="quantity-buttons">
-              {['1.3 kgs', '950 gm', '700 gm', '500 gm', '400 gm'].map((qty, index) => (
+              {['0.5 kgs', '1 kgs', '2kgs',].map((qty, index) => (
                 <button
                   key={qty}
                   className={`quantity-button ${selectedQuantity === qty ? 'active' : ''} ${index > 2 ? 'disabled' : ''}`}
@@ -195,22 +231,6 @@ export default function ProductView() {
             </div>
           </div>
 
-          <div style={{marginTop:"10px"}}>
-            <label className="units-label">NO OF UNITS</label>
-            <div className="units-select-container">
-              <select
-                className="units-select"
-                value={selectedUnits}
-                onChange={(e) => setSelectedUnits(e.target.value)}
-              >
-                {[1, 2, 3, 4, 5].map((num) => (
-                  <option key={num} value={num.toString()}>
-                    {num}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
         </div>
           <div className="action-buttons">
             <button className="action-button" onClick={handleAddToCart}>ADD TO CART</button>
@@ -226,19 +246,10 @@ export default function ProductView() {
 
           <div className="product-description">
             <p>
-              Introducing Vamshi Farms Natural Honey! Experience the pure goodness of unfiltered and unpasteurized honey, that retains its rich flavor and nutritional benefits. Packed with vitamins, minerals, and antioxidants, our honey is a natural powerhouse.
-            </p>
-            <p>
-              Whether enjoyed on toast, drizzled over yogurt, or used as a natural sweetener in your favorite recipes, our honey adds a touch of wholesome goodness to every bite.
-            </p>
-            <p>
-              Taste the difference that comes from nature's own creation and experience the delight of this golden treasure today.
-            </p>
-            <p className="note">
-              Note : The thickness, color and taste will vary depending on season and flowering source available.
+              {/* dessc  */}
+              {formatDescription(selectedProduct?.description)}
             </p>
           </div>
-
           <details className="additional-details">
             <summary>Additional Details</summary>
             <p>Additional product details and information can be added here.</p>
@@ -252,7 +263,7 @@ export default function ProductView() {
       <div className="products-grid-r">
         {products.map((product,ele) => (
           <Link to={`/product/${ele}`} style={{textDecoration:"none"}}>
-            <div key={product.id} className="product-card" style={{textDecoration:"none"}} onClick={handleClick}>
+            <div key={product.id} className="product-cardss" style={{textDecoration:"none"}} onClick={handleClick}>
             <div className="product-image-r">
               <span className="sale-badge">Sale!</span>
               <img src={"https://vamshifarms.com/cdn/shop/files/honey-collection-mockuop_1.jpg?v=1717574373&width=980"} alt={product.title} />
@@ -282,7 +293,29 @@ export default function ProductView() {
           </Link>
         ))}
       </div>
+      <ToastContainer />
     </section>
+    <ReviewCard
+          name="Alice Johnson"
+          avatarSrc="/placeholder.svg?height=100&width=100"
+          review="I'm thoroughly impressed with this product. It has streamlined my workflow and increased productivity significantly. The user interface is intuitive, and the features are robust. Customer support has been responsive and helpful whenever I've had questions. I highly recommend this to anyone looking to improve their work efficiency."
+          rating={5}
+          position="Product Manager"
+        />
+        <ReviewCard
+          name="Bob Smith"
+          avatarSrc="/placeholder.svg?height=100&width=100"
+          review="Overall, a solid product with great potential. While there are a few areas that could use improvement, the core functionality is strong. The development team seems to be actively working on updates, which is encouraging. It's been a valuable addition to our toolkit, and I'm looking forward to seeing how it evolves."
+          rating={4}
+          position="Software Engineer"
+        />
+        <ReviewCard
+          name="Carol White"
+          avatarSrc="/placeholder.svg?height=100&width=100"
+          review="The customer support team deserves a special mention. They've been incredibly helpful and patient, going above and beyond to ensure I got the most out of the product. As for the product itself, it's feature-rich and has significantly improved our team's collaboration. The onboarding process was smooth, and the learning curve is manageable."
+          rating={5}
+          position="Marketing Specialist"
+        />
     </>
     }
   </>

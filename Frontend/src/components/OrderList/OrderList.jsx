@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Loading from '../Loading/Loading';
+import { ToastContainer, toast } from "react-toastify"; // Import Toastify
 
-// Sample order data
-const orders = [
-  {
-    id: '1',
-    productImage: 'https://via.placeholder.com/60',
-    orderedBy: 'Satish Nadipalli',
-    phone: '07993724192',
-    email: 'satishnadipalli1@gmail.com',
-  },
-  {
-    id: '2',
-    productImage: 'https://via.placeholder.com/60',
-    orderedBy: 'John Doe',
-    phone: '1234567890',
-    email: 'john.doe@example.com',
-  },
-  // Add more orders as needed
-];
 
 const OrderList = () => {
-
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const [orderlist,setorderslist] = useState([])
-
+  
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [orderlist,setorderslist] = useState([])
+  
+  async function deleteOrder(id) {
+    try {
+      const response = await fetch(`https://varahiorganics.onrender.com/deleteorder/${id}`,{
+        method:"DELETE",
+      });
+      if (response.ok) {
+        const data = await response.json();
+        toast.success("Order deleted successfully!", {
+          autoClose: 3000,
+          backgroundColor:"red",
+          theme: "colored",
+        });
+        const filteredOrders = data?.orders?.filter(order => order.orderStatus !== "Delivered");
+        setorderslist(filteredOrders);
+      }
+    } catch (error) {
+      
+    }
+  
+  }
     useEffect(() => {
       // Function to update window width state
       const handleResize = () => {
@@ -65,7 +68,7 @@ const OrderList = () => {
     }, []);
     
 
-    if(!orderlist || orderlist<=0){
+    if(!orderlist || orderlist.length<=0){
       return <Loading/>
     }
 
@@ -92,30 +95,31 @@ const OrderList = () => {
         <div className="order-list-body">
           {orderlist.length>0 && 
         orderlist.map((order) => (
-            <Link to={`/orderlist/${order?._id}`} style={{textDecoration:"none"}}>
-                {console.log(order)}
-                <div className="order-item" key={order.id}>
-                    <div className="product-image">
-                        <img src={"https://via.placeholder.com/60"} alt="Product" />
-                    </div>
-                    <div className="ordered-by">{order?.products.length >=2 ? "Multiple Products" : order?.products?.[0]?.productId?.name}</div>
-                    
-                    <div className="ordered-by">{order?.customer?.name}</div>
-                    {windowWidth > 700 
-                    &&
-                    <>
-                        <div className="phone">{order?.customer?.phone}</div>
-                        <div className="email">{order?.customer?.email}</div>
-                    </>
-                        }
-                    <div className="actions">
-                        <a href={`/view-order/${order.id}`} className="view-order">View</a>
-                        <a href={`tel:${order.phone}`} className="contact-customer">Contact</a>
-                    </div>
-                </div>
-            </Link>
+          <div className="order-item" key={order.id}>
+              <div className="product-image">
+                  <img src={"https://via.placeholder.com/60"} alt="Product" />
+              </div>
+              <div className="ordered-by">{order?.products.length >=2 ? "Multiple Products" : order?.products?.[0]?._id}</div>
+              
+              <div className="ordered-by">{order?.customer?.name}</div>
+              {windowWidth > 700 
+              &&
+              <>
+                  <div className="phone">{order?.customer?.phone}</div>
+                  <div className="email">{order?.customer?.email}</div>
+              </>
+                  }
+              <div className="actions">
+                  <Link to={`/orderlist/${order?._id}`} style={{textDecoration:"none",margin:"auto"}}>
+                    <a href={`/view-order/${order._id}`} className="view-order">View</a>
+                  </Link>
+                  <a href={`tel:${order.phone}`} className="contact-customer">Contact</a>
+                  <a className="contact-customer" style={{backgroundColor:'red',cursor:"pointer"}} onClick={()=>deleteOrder(order._id)}>Delete</a>
+              </div>
+          </div>
           ))}
         </div>
+        <ToastContainer />
       </div>
       <style jsx>{`
         .order-list-container {

@@ -3,6 +3,8 @@ import './Header.css';
 import { Bag, Hamberger, IntoMark } from '../../../Heroicons';
 import { FaGithub, FaInstagram, FaFacebook } from 'react-icons/fa';
 import ShoppingCartPopup from '../Cart';
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, ShoppingBag, X } from 'lucide-react';
 
 const Header = () => {
     const [width, setWidth] = useState(window.innerWidth);
@@ -14,6 +16,13 @@ const Header = () => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    const menuItems = [
+        { title: "Home", href: "/" },
+        { title: "About Us", href: "#about" },
+        { title: "Platforms", href: "#platforms" },
+        { title: "Contact Us", href: "#contact" },
+    ];
 
     return (
         <>
@@ -27,10 +36,11 @@ const Header = () => {
                     {/* Navigation Links */}
                     {width > 728 && (
                         <nav className="nav-links">
-                            <a href="/" className="nav-link">Home</a>
-                            <a href="#about" className="nav-link">About Us</a>
-                            <a href="#platforms" className="nav-link">Platforms</a>
-                            <a href="#contact" className="nav-link">Contact Us</a>
+                            {menuItems.map((item) => (
+                                <a key={item.title} href={item.href} className="nav-link">
+                                    {item.title}
+                                </a>
+                            ))}
                         </nav>
                     )}
 
@@ -38,7 +48,7 @@ const Header = () => {
                     <div className="action-links">
                         <div className="cart-icon" onClick={() => setIsCartOpen(true)}>
                             <Bag />
-                            <span className="cart-count">0</span>
+                            <span className="cart-count">{JSON.parse(localStorage.getItem('cart'))?.length || 0}</span>
                         </div>
                         {width <= 728 && (
                             <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
@@ -49,14 +59,42 @@ const Header = () => {
                 </div>
 
                 {/* Mobile Dropdown Menu */}
-                {width <= 728 && isOpen && (
-                    <nav className="mobile-menu">
-                        <a href="/" className="mobile-link">Home</a>
-                        <a href="#about" className="mobile-link">About Us</a>
-                        <a href="#platforms" className="mobile-link">Platforms</a>
-                        <a href="#contact" className="mobile-link">Contact Us</a>
-                    </nav>
-                )}
+                <AnimatePresence>
+                    {width <= 728 && isOpen && (
+                        <>
+                            <motion.div
+                                className="backdrop"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                onClick={() => setIsOpen(false)}
+                            />
+                            <motion.div
+                                className="mobile-menu"
+                                initial={{ x: "-100%" }}
+                                animate={{ x: 0 }}
+                                exit={{ x: "-100%" }}
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            >
+                                {menuItems.map((item) => (
+                                    <a
+                                        key={item.title}
+                                        href={item.href}
+                                        className="mobile-link"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        {item.title}
+                                    </a>
+                                ))}
+                                <div className="mobile-social-links">
+                                    <FaGithub className="social-icon" />
+                                    <FaInstagram className="social-icon" />
+                                    <FaFacebook className="social-icon" />
+                                </div>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
             </header>
             {isCartOpen && <ShoppingCartPopup setIsCartOpen={setIsCartOpen} />}
         </>
@@ -64,3 +102,4 @@ const Header = () => {
 };
 
 export default Header;
+

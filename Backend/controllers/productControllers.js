@@ -1,7 +1,7 @@
 const ProductsDB = require("../schema/productSchema");
 const mongoose = require("mongoose");
 const multer = require("multer");
-
+const path = require("path")
 // Set up multer for image uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -61,22 +61,30 @@ const getProductById = async (req, res) => {
 // Add a new product
 const addProduct = async (req, res) => {
     try {
-        const { name, description, price, quantity, category } = req.body;
+        console.log("Incoming Request Data:", req.body);
+        console.log("Uploaded Files:", req.files);
 
-        // Collect image file paths
-        const images = req.files.map(file => file.path);
+        const { name, description, price, quantity, category,oldPrice } = req.body;
+
+        // Transform absolute file paths to relative paths
+        const images = req.files.map(file => {
+            const relativePath = file.path.split('uploads').pop(); // Extract everything after 'uploads'
+            return `uploads${relativePath.replace(/\\/g, '/')}`; // Ensure proper formatting
+        });
+        
 
         const newProduct = new ProductsDB({
             name,
             description,
             price,
             quantity,
+            oldPrice,
             category,
-            images
+            image: images, // Use normalized relative paths here
         });
 
         await newProduct.save();
-
+        console.log("Saved Product:", newProduct);
         return res.status(201).json({ product: newProduct });
     } catch (error) {
         console.error("Error adding product:", error);
@@ -84,26 +92,34 @@ const addProduct = async (req, res) => {
     }
 };
 
+
 // Update a product
 const updateProduct = async (req, res) => {
+    
     try {
         const { id } = req.params;
-
+        console.log(id)
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "Invalid product ID." });
         }
 
-        const { name, description, price, quantity, category } = req.body;
+        
 
+        const { name, description, price, quantity, category,badge } = req.body;
+
+        console.log(name, description, price, quantity, category,req.body.name)
         const updatedProduct = await ProductsDB.findByIdAndUpdate(
             id,
-            { name, description, price, quantity, category },
+            { name, description, price, quantity, category,badge },
             { new: true }
         );
 
+        console.log(updatedProduct)
         if (!updatedProduct) {
+            console.log("Not found")
             return res.status(404).json({ error: "Product not found." });
         }
+        console.log("updated")
 
         return res.status(200).json({ product: updatedProduct });
     } catch (error) {

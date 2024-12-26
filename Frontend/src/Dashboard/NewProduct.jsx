@@ -7,13 +7,17 @@ import React, { useState } from 'react';
 import { FaFileUpload, FaTag, FaDollarSign, FaImage } from 'react-icons/fa';
 import { AiOutlineFileText } from 'react-icons/ai';
 import { RiGalleryLine } from 'react-icons/ri';
+import { ToastContainer, toast } from "react-toastify"; // Import Toastify
+import { IntoMark } from '../../Heroicons';
 
-const NewProduct = ({ setisadd, clickedProduct, SetIsLoading, setAllProducts,adminProducts=[] }) => {
+
+const NewProduct = ({ setIsAdd, clickedProduct, SetIsLoading, setAllProducts,adminProducts=[] }) => {
   // const { loginDetails, adminProducts } = useSelector(state => state.cart);
   // const dispatch = useDispatch();
+  const [isLoading,setisLoading] = useState(false);
   
   const [productDetails, setProductDetails] = useState({
-    title: "",
+    name: "",
     image: [],
     category: "",
     image_small: "",
@@ -47,6 +51,7 @@ const NewProduct = ({ setisadd, clickedProduct, SetIsLoading, setAllProducts,adm
   }
 
   async function handleSubmit(event) {
+    setisLoading(true)
     event.preventDefault();
     try {
       const formData = new FormData();
@@ -59,7 +64,7 @@ const NewProduct = ({ setisadd, clickedProduct, SetIsLoading, setAllProducts,adm
 
       productDetails.image.forEach(img => formData.append('image', img));
 
-      const response = await fetch("https://varahiorganics.onrender.com/addProductToStore", {
+      const response = await fetch("https://varahiorganics.onrender.com/addproduct", {
         method: "POST",
         // headers: {
         //   Authorization: `Bearer ${loginDetails.token}`,
@@ -68,19 +73,32 @@ const NewProduct = ({ setisadd, clickedProduct, SetIsLoading, setAllProducts,adm
       });
 
       if (response.ok) {
-        setisadd(false);
-        const responseTwo = await fetch("https://varahiorganics.onrender.com/getallproducts", {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${loginDetails.token}`
-          }
-        });
-        if (responseTwo.ok) {
-          const { products } = await responseTwo.json();
-          setAllProducts(products);
-          // dispatch(addAdminProducts(products));
-          SetIsLoading(false);
-        }
+        const data = await response.json();
+          toast.success("Product successfully Added.!!", {
+            // position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 3000,
+            backgroundColor:"red",
+            theme: "colored",
+          });
+        setProductDetails({
+          name: "",
+          image: [],
+          category: "",
+          image_small: "",
+          attribute: "",
+          brand: "",
+          subCategory: "",
+          description: "",
+          avgRating: 0,
+          ratings: 0,
+          price: '',
+          oldPrice: '',
+          badge: "'",
+          quantity: 1
+        })
+        setTimeout(()=>{
+          setisLoading(false)
+        },3000);
       } else {
         console.error(`Error: ${response.status} - ${response.statusText}`);
       }
@@ -91,20 +109,24 @@ const NewProduct = ({ setisadd, clickedProduct, SetIsLoading, setAllProducts,adm
 
   return (
     <div className='flex absolute w-full justify-center p-10 bg-gray-100'>
+      
       <form onSubmit={handleSubmit} className="w-full max-w-3xl bg-white p-8 rounded-lg ">
+      <div style={{float:'right',cursor:"pointer"}}>
+        <span onClick={() => setIsAdd(false)}><IntoMark/></span>
+      </div>
         <h2 className="text-2xl font-semibold text-gray-700 mb-6">Add New Product</h2>
         
-        {/* Product Title */}
+        {/* Product name */}
         <div className="mb-6">
           <label className="block text-gray-600 text-sm font-semibold mb-2 flex items-center">
-            <AiOutlineFileText className="text-gray-500 mr-2" /> Product Title
+            <AiOutlineFileText className="text-gray-500 mr-2" /> Product name
           </label>
           <input
             className="w-full border border-gray-300 rounded-lg py-2 px-4 text-gray-700 focus:outline-none focus:border-blue-500"
             type="text"
-            placeholder="Enter product title"
-            name='title'
-            value={productDetails.title}
+            placeholder="Enter product name"
+            name='name'
+            value={productDetails.name}
             onChange={handleDetails}
           />
         </div>
@@ -122,21 +144,8 @@ const NewProduct = ({ setisadd, clickedProduct, SetIsLoading, setAllProducts,adm
             value={productDetails.brand}
           >
             <option value="">Select Brand</option>
-            //               <option>defalut</option>
-                 <option>Apple</option>
-                 <option>Lg</option>
-                 <option>sony</option>
-                 <option>Olivia</option>
-                 <option >Rowdy</option>
-                 <option >Stricker</option>
-                 <option >Puma</option>
-                 <option >Polo</option>
-                 <option >Diesel</option>
-                 <option >Ponds</option>
-                 <option >Aula</option>
-                 <option>Nike</option>
-                 <option>Adidas</option>
-                 <option>Amazon</option>
+                <option value={"Varahi"}>Varahi</option>
+                 
           </select>
         </div>
 
@@ -183,10 +192,10 @@ const NewProduct = ({ setisadd, clickedProduct, SetIsLoading, setAllProducts,adm
             >
               <option value="">Select Category</option>
               {/* Add more options here */}
-                <option>Amazon</option>
-                 <option>Home</option>
-                 <option>Mobiles</option>
-                 <option>Fashion</option>
+                <option>Sweets</option>
+                 <option>Millets</option>
+                 <option>Hots</option>
+                 <option>Pickels</option>
                  <option>Deals</option>
                  <option>Computers</option>
                  <option>Electronics</option>
@@ -302,10 +311,12 @@ const NewProduct = ({ setisadd, clickedProduct, SetIsLoading, setAllProducts,adm
         <button 
           type='submit' 
           className="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition duration-300"
+          disabled={isLoading}
         >
           Add Product
         </button>
       </form>
+      <ToastContainer/>
     </div>
   );
 }

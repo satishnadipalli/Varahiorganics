@@ -12,10 +12,8 @@ export default function FoodStore() {
   const [storeProducts,setStoreProducts] = useState([]);
 
   const categories = [
-    { name: 'Healthy sweets and snacks', count: 23 },
-    { name: 'Masala and Kaaram Powders', count: 19 },
-    { name: 'Non-Vegetarian Pickles', count: 7 },
-    { name: 'Vegetarian Pickles', count: 21 },
+    { name: 'Sweets', count: 2 },
+    { name: 'Millets', count: 2 },
   ];
 
   const productTags = [
@@ -65,7 +63,6 @@ export default function FoodStore() {
         });
         const data = await response.json();
         if(data.products){
-          console.log(data.products,"fsdfd");
           setStoreProducts(data.products);
         }
       } catch (error) {
@@ -189,7 +186,7 @@ export default function FoodStore() {
                   <div key={product.id} className="product-card" style={{textDecoration:"none"}}>
                   <div className="product-image-r">
                     <span className="sale-badge">Sale!</span>
-                    <img src={product?.images[0] || "https://vamshifarms.com/cdn/shop/files/honey-collection-mockuop_1.jpg?v=1717574373&width=980"} alt={product.title} />
+                    <img src={"https://varahiorganics.onrender.com/"+product?.image[0]} alt={product.title} />
                   </div>
                   <a href="#" className="product-title-r">
                     {product.title}

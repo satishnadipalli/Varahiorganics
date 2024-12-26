@@ -53,37 +53,16 @@ const Home = ({homeProducts}) => {
   };
 
 
+  console.log(homeProducts)
+
+
 
 
 
 
   return (
     <div className="home-page">
-      {/* <section className="hero-section">
-        <div className="hero-overlay">
-          <h1 className="hero-title">Embrace the Essence of Nature</h1>
-          <p className="hero-subtitle">Pure. Natural. Organic. Discover the beauty in every product we offer.</p>
-          <button className="shop-now-btn">Discover Our Collection</button>
-        </div>
-        
-        <div className="hero-decor">
-          <div className="floating-leaves">
-            <img src="https://img.icons8.com/ios/100/leaf.png" alt="Leaf" className="leaf-leaf-1" />
-            <img src="https://img.icons8.com/ios/100/leaf.png" alt="Leaf" className="leaf-leaf-2" />
-          </div>
-          <div className="floating-flowers">
-            <img src="https://img.icons8.com/ios/100/flower.png" alt="Flower" className="flower-left" />
-            <img src="https://img.icons8.com/ios/100/flower.png" alt="Flower" className="flower-right" />
-          </div>
-          <div className="butterfly">
-            <img src="https://img.icons8.com/ios/100/butterfly.png" alt="Butterfly" className="butterfly-img" />
-          </div>
-        </div>
-      </section> */}
-
       <PremiumResponsiveHero/>
-
-      {/* Features Section */}
       <section className="features-section">
         <div className="feature">
           <span>Home Delivery</span>
@@ -103,7 +82,7 @@ const Home = ({homeProducts}) => {
       </section>
 
       {/* Shop By Category */}
-      <section className="shop-by-category">
+      {/* <section className="shop-by-category">
         <h2 className="section-title">Shop By Category</h2>
         <div className="categories-grid">
           {
@@ -114,19 +93,20 @@ const Home = ({homeProducts}) => {
             })
           }
         </div>
-      </section>
+      </section> */}
 
       <section className="new-arrivals">
         <h2 className="section-title">New Arrivals</h2>
         <div className="product-grid-h">
           {
             homeProducts.map((ele,id)=>{
+              
               return(
                 <Link to={`/product/${ele._id}`} style={{textDecoration:"none"}}>
-                  <div className="product-card" key={id}>
+                  <div className="product-cards" key={id}>
                     <div className="image-container" style={{marginBottom:"-10px"}}>
                       <img 
-                        src={ele.images[0]} 
+                        src={"https://varahiorganics.onrender.com/"+ele?.image?.[0]} 
                         alt="Gorumitilu" 
                         className="product-imagess" 
                       />
@@ -136,7 +116,7 @@ const Home = ({homeProducts}) => {
                       </div>
                     </div>
                     <div className="product-info" style={{display:"grid",gap:"0px"}}>
-                      <h3 className="product-title">Gorumitilu</h3>
+                      <h3 className="product-title">{ele.name}</h3>
                       <p className="product-price">Price: ₹{ele.price}</p>
                       <div className="button-container">
                         <button className="wishlist-btn">♡ Wishlist</button>

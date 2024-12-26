@@ -66,13 +66,18 @@ const EnhancedDeliveryDashboard = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`https://varahiorganics.onrender.com/getorder/${id}`, { method: "GET" });
+      const response = await fetch(`https://varahiorganics.onrender.com/getorder/${id}`, { 
+        method: "GET",
+        headers:{
+          "Content-Type" : "application/json"
+        }
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch order details');
       }
       const data = await response.json();
       setOrder(data?.order);
-      console.log("']]",data?.order?.orderStatus)
+      // console.log("']]",data?.order?.orderStatus)
       setStatus(data?.order?.orderStatus);
     } catch (error) {
       console.error('Error fetching order:', error);
@@ -88,7 +93,7 @@ const EnhancedDeliveryDashboard = () => {
 
 
 
-  
+  console.log(order)
   if(!order){
     return <Loading/>
   }
@@ -142,7 +147,7 @@ const EnhancedDeliveryDashboard = () => {
               <div className="info-item"><FaBox /> Order Date: {new Date(order?.orderDate).toLocaleString()}</div>
               <div className="info-item"><FaTruck /> Estimated Delivery: {new Date(order?.estimatedDelivery)?.toLocaleString()}</div>
               <div className="info-item"><FaCreditCard /> Payment Status: {order?.paymentStatus}</div>
-              <div className="info-item">Tracking Number: {order?.trackingNumber}</div>
+              <div className="info-item">OrderID: {order?._id}</div>
               <div className="order-status">
                 <label htmlFor="order-status">Order Status: </label>
                 <select disabled={!isEdit} id="order-status" value={status} onChange={handleStatusChange}>
@@ -167,7 +172,6 @@ const EnhancedDeliveryDashboard = () => {
             </div>
           )}
         </section>
-
         <section className={`dashboard-section ${expandedSections.productList ? 'expanded' : ''}`}>
           <div className="section-header" onClick={() => toggleSection('productList')}>
             <h2>Ordered Products</h2>
@@ -178,13 +182,14 @@ const EnhancedDeliveryDashboard = () => {
               <div className="product-grid">
                 {order?.products.length > 0 && order?.products?.map((product, index) => (
                   <div key={index} className="product-card">
-                    <img src={product?.productId?.images?.[0]} alt={product?.productId?.name} className="product-image" />
+                    <img src={"https://varahiorganics.onrender.com/"+product?.productId?.image?.[0]} alt={product?.productId?.name} className="product-image" />
                     <div className="product-details">
                       <h3>{product?.productId?.name}</h3>
-                      <p>{product?.productId?.description}</p>
-                      <div className="product-meta">
-                        <span>Quantity: {product?.quantity}</span>
-                        <span>Price: ₹{product?.price}</span>
+                      {/* <p>{product?.productId?.description}</p> */}
+                      <div className="product-metas">
+                        <p style={{display:"block"}}>weight : {product?.weight}</p>
+                        <p style={{display:"block"}}>Quantity: {product?.quantity}</p>
+                        <p style={{display:"block"}}>Price: ₹{product?.price}</p>
                       </div>
                       <div className="product-total">
                         <span>Subtotal:</span>

@@ -11,6 +11,7 @@ const OrderRouter = require("./routes/orderRoutes.js");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json())
+app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.json({ limit: '500mb' })); 
 

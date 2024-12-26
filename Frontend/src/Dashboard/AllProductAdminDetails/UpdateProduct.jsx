@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 // import { useSelector } from 'react-redux';
 import { FaTag, FaDollarSign, FaImage, FaListAlt, FaArrowCircleDown } from 'react-icons/fa'; // Icons for various fields
+import { IntoMark } from '../../../Heroicons';
 
 const ShippingLabel = ({ clickedProduct, setIsUpdateForm }) => {
-  // const { loginDetails } = useSelector(state => state.cart);
   const [showLabel, setShowLabel] = useState(false);
   const [productDetails, setProductDetails] = useState({
     _id: clickedProduct?._id,
-    title: clickedProduct?.title,
+    name: clickedProduct?.name,
     image: clickedProduct?.image,
     subCategoery: clickedProduct?.subCategoery,
-    categoery: clickedProduct?.categoery,
+    category: clickedProduct?.categoery,
     image_small: clickedProduct?.image_small,
     attribute: clickedProduct?.attribute,
     brand: clickedProduct?.brand,
@@ -33,13 +33,13 @@ const ShippingLabel = ({ clickedProduct, setIsUpdateForm }) => {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    console.log(productDetails)
     try {
-      const response = await fetch("https://varahiorganics.onrender.com/updatefullProduct", {
-        method: "PATCH",
-        // headers: {
-        //   "Authorization": `Bearer ${loginDetails.token}`,
-        //   "Content-Type": "application/json"
-        // },
+      const response = await fetch(`https://varahiorganics.onrender.com/updateproduct/${clickedProduct?._id}`, {
+        method: "PUT",
+        headers:{
+          "Content-Type" : "application/json",
+        },
         body: JSON.stringify(productDetails)
       });
 
@@ -62,6 +62,9 @@ const ShippingLabel = ({ clickedProduct, setIsUpdateForm }) => {
       className={`flex p-5 h-full flex top-0 bg-white absolute justify-center w-full `}
     >
       <div className="w-1/2">
+        <div style={{float:'right',cursor:"pointer"}} onClick={()=>setIsUpdateForm(false)}>
+          <span ><IntoMark/></span>
+        </div>
         <div className="mt-5 bg-white rounded-lg shadow-lg">
           <div className="flex">
             <h1 className="inline text-center text-2xl font-semibold leading-none pt-5 pl-6 mb-7">Update the Product</h1>
@@ -71,13 +74,13 @@ const ShippingLabel = ({ clickedProduct, setIsUpdateForm }) => {
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-semibold mb-2">
                 <FaTag className="inline-block mr-2" />
-                Product Title
+                Product name
               </label>
               <input
                 onChange={handleDetails}
-                value={productDetails.title}
-                placeholder="Enter product title"
-                name='title'
+                value={productDetails.name}
+                placeholder="Enter product name"
+                name='name'
                 className="block w-full bg-gray-100 border border-gray-300 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
               />
             </div>
@@ -124,9 +127,9 @@ const ShippingLabel = ({ clickedProduct, setIsUpdateForm }) => {
                 </label>
                 <select
                   className="block w-full bg-gray-100 border border-gray-300 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-                  name='categoery'
+                  name='category'
                   onChange={handleDetails}
-                  value={productDetails.categoery}
+                  value={productDetails.category}
                 >
                   <option value="">Select a category</option>
                   <option>Amazon</option>

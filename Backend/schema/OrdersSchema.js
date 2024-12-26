@@ -1,3 +1,4 @@
+// const { Weight } = require("lucide-react");
 const mongoose = require("mongoose");
 
 const orderSchema = mongoose.Schema(
@@ -18,7 +19,8 @@ const orderSchema = mongoose.Schema(
             {
                 productId: { type: mongoose.Schema.Types.ObjectId, ref: "ProductsDB", required: true },
                 quantity: { type: Number, required: true },
-                price: { type: Number, required: true } // Price at the time of the order
+                price: { type: Number, required: true },
+                weight:{type:String,required:false}
             }
         ],
         totalAmount: { type: Number, required: true }, // Total order amount

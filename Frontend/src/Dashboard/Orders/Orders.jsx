@@ -13,12 +13,9 @@ const Orders = ({ setComponent }) => {
   const [loading, SetIsLoading] = useState(true);
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
 
-  async function deleteOrder(id) {
-    
-  }
 
   function openShareDialog(product) {
     setCurrentProduct(product);

@@ -208,3 +208,7 @@ textarea {
     border-radius: 30px;
 }
 
+.error-message{
+  color: red;
+}
+

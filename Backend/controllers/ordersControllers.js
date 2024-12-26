@@ -26,7 +26,12 @@ const createOrder = async (req, res) => {
             paymentMethod,
             termsAccepted,
             orderNotes,
+            weight
         } = req.body;
+
+        const weights = products.map((ele)=>ele.weight)
+
+        console.log("Hello here are the weights of indivudual products",weights)
 
         // Validate required fields
         if (!termsAccepted) {
@@ -51,6 +56,7 @@ const createOrder = async (req, res) => {
         const newOrder = new OrdersDB({
             customer,
             products,
+            
             totalAmount,
             // paymentMethod,
             termsAccepted,
@@ -74,11 +80,11 @@ const createOrder = async (req, res) => {
 const getOrderById = async (req, res) => {
     try {
         const { id } = req.params;
-
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "Invalid order ID." });
         }
 
+        console.log("Hi")
         const order = await OrdersDB.findById(id).populate("products.productId");
 
         if (!order) {
@@ -168,7 +174,9 @@ const deleteOrder = async (req, res) => {
             return res.status(404).json({ error: "Order not found." });
         }
 
-        return res.status(200).json({ message: "Order deleted successfully." });
+        const orders = await OrdersDB.find({});
+
+        return res.status(200).json({ message: "Order deleted successfully.",orders });
     } catch (error) {
         console.error("Error deleting order:", error);
         return res.status(500).json({ error: "An error occurred while deleting the order." });

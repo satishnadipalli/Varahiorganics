@@ -255,3 +255,29 @@ h4 {
     border-top: 3px solid #d8e5d1; /* Soft line to divide content elegantly */
     padding-top: 10px;
 }
+
+@media (max-width: 728px) {
+    .feed-from{
+        font-size: 21px;
+        margin-top: -190px;
+    }
+    .eco{
+        font-size: 17px !important;
+    }
+    .swiper-container{
+        width: 100%;
+    }
+    .testimonial-container{
+        width: 98%;
+        width: 400px;
+        /* background-color: green; */
+    }
+    .testimonial-slide{
+        width: 110%;
+        /* width: 400px; */
+        background-color: gray;
+    }
+    .testimonial-review{
+        font-size: 17px;
+    }
+}

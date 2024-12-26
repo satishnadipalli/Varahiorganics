@@ -25,6 +25,6 @@ OrderRouter.put("/updateorderstatus/:id/", updateOrderStatus);
 OrderRouter.put("/:id/deliver", markOrderAsDelivered);
 
 // Delete an order
-OrderRouter.delete("/:id", deleteOrder);
+OrderRouter.delete("/deleteorder/:id", deleteOrder);
 
 module.exports = OrderRouter;
