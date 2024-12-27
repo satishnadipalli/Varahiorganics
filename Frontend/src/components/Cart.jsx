@@ -87,11 +87,16 @@ const ShoppingCartPopup= ({ setIsCartOpen }) => {
                 transition={{ duration: 0.3 }}
               >
                 <img
-                  src={"https://varahiorganics.onrender.com/"+item.image[0]}
+                  src={
+                    item.image && item.image[0]
+                      ? "https://varahiorganics.onrender.com/" + item.image[0]
+                      : "https://via.placeholder.com/150" // Fallback image
+                  }
                   alt={item.name}
                   className="item-image"
-                  style={{marginTop:"-13px"}}
+                  style={{ marginTop: "-13px" }}
                 />
+
                 <div className="item-details">
                   <h3 className="item-name" style={{fontSize:"13px"}}>{item.name}</h3>
                   <div className="item-price">₹{item.price.toFixed(2)}</div>
