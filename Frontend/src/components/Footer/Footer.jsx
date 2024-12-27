@@ -13,7 +13,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section brand-section">
-          <h2 className="footer-title">Food On Farm Pickles</h2>
+          <h2 className="footer-title">Varahi Grains</h2>
           <p className="footer-description">
             Bringing the finest, most flavorful, and authentic pickles to your table with love and tradition.
           </p>
@@ -66,7 +66,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; 2024 Food On Farm Pickles. All rights reserved.</p>
+        <p>&copy; 2024 Varahi Granins.in.</p>
       </div>
     </footer>
   );
