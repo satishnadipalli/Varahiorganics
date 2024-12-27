@@ -141,6 +141,8 @@ function CheckoutPage() {
       termsAccepted: formData.termsAccepted,
     };
 
+    console.log(orderPayload)
+
     try {
       // Make API request to the backend
       const response = await fetch("https://varahiorganics.onrender.com/createOrder", {
@@ -151,8 +153,6 @@ function CheckoutPage() {
         body: JSON.stringify(orderPayload),
       });
 
-      console.log("placing")
-
       if (response.ok) {
         const data = await response.json();
         setOrderDetails({
@@ -161,7 +161,6 @@ function CheckoutPage() {
         });
         setShowSuccessAnimation(true);
 
-        // Clear cart and reset form
         localStorage.removeItem("cart");
         setCartProducts([]);
         setFormData({

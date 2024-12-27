@@ -62,9 +62,6 @@ const createOrder = async (req, res) => {
             termsAccepted,
             orderNotes,
         });
-
-        console.log(newOrder)
-        console.log("success")
         await newOrder.save();
         return res
             .status(201)
@@ -120,8 +117,6 @@ const updateOrderStatus = async (req, res) => {
             { orderStatus: status },
             { new: true }
         );
-
-        console.log(updatedOrder)
 
         if (!updatedOrder) {
             return res.status(404).json({ error: "Order not found." });

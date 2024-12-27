@@ -4,17 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, X, Plus, Minus, ChevronRight, ShoppingCart } from 'lucide-react';
 import "./Cart.css";
 
-// interface CartItem {
-//   _id: string;
-//   name: string;
-//   price: number;
-//   quantity: number;
-//   images: string[];
-// }
-
-// interface ShoppingCartPopupProps {
-//   setIsCartOpen: (isOpen: boolean) => void;
-// }
 
 const ShoppingCartPopup= ({ setIsCartOpen }) => {
   const [cartItems, setCartItems] = useState([]);

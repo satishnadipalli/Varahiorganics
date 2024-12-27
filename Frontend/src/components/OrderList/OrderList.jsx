@@ -74,9 +74,9 @@ const OrderList = () => {
 
 
   return (
-    <div className="order-list-container">
-      <div className="order-list-table">
-        <div className="order-list-header">
+    <div className="order-list-container " >
+      <div className="order-list-table ">
+        <div className="order-list-header ">
           <div>Image</div>
           <div>Product</div>
           <div style={{marginLeft:`${windowWidth < 700 && "80px"}`,whiteSpace:"nowrap"}} >Ordered By</div>
@@ -92,31 +92,31 @@ const OrderList = () => {
           </>
         }
         </div>
-        <div className="order-list-body">
+        <div className="order-list-body " >
           {orderlist.length>0 && 
-        orderlist.map((order) => (
-          <div className="order-item" key={order.id}>
-              <div className="product-image">
-                  <img src={"https://via.placeholder.com/60"} alt="Product" />
+            orderlist.map((order) => (
+              <div className="order-item" key={order.id}>
+                  <div className="product-image">
+                      <img src={"https://via.placeholder.com/60"} alt="Product" />
+                  </div>
+                  <div className="ordered-by">{order?.products.length >=2 ? "Multiple Products" : order?.products?.[0]?._id}</div>
+                  
+                  <div className="ordered-by">{order?.customer?.name}</div>
+                  {windowWidth > 700 
+                  &&
+                  <>
+                      <div className="phone">{order?.customer?.phone}</div>
+                      <div className="email">{order?.customer?.email}</div>
+                  </>
+                      }
+                  <div className="actions">
+                      <Link to={`/orderlist/${order?._id}`} style={{textDecoration:"none",margin:"auto"}}>
+                        <a href={`/view-order/${order._id}`} className="view-order">View</a>
+                      </Link>
+                      <a href={`tel:${order.phone}`} className="contact-customer">Contact</a>
+                      <a className="contact-customer" style={{backgroundColor:'red',cursor:"pointer"}} onClick={()=>deleteOrder(order._id)}>Delete</a>
+                  </div>
               </div>
-              <div className="ordered-by">{order?.products.length >=2 ? "Multiple Products" : order?.products?.[0]?._id}</div>
-              
-              <div className="ordered-by">{order?.customer?.name}</div>
-              {windowWidth > 700 
-              &&
-              <>
-                  <div className="phone">{order?.customer?.phone}</div>
-                  <div className="email">{order?.customer?.email}</div>
-              </>
-                  }
-              <div className="actions">
-                  <Link to={`/orderlist/${order?._id}`} style={{textDecoration:"none",margin:"auto"}}>
-                    <a href={`/view-order/${order._id}`} className="view-order">View</a>
-                  </Link>
-                  <a href={`tel:${order.phone}`} className="contact-customer">Contact</a>
-                  <a className="contact-customer" style={{backgroundColor:'red',cursor:"pointer"}} onClick={()=>deleteOrder(order._id)}>Delete</a>
-              </div>
-          </div>
           ))}
         </div>
         <ToastContainer />
