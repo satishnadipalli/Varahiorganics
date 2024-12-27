@@ -145,3 +145,5 @@ const ShoppingCartPopup= ({ setIsCartOpen }) => {
 
 export default ShoppingCartPopup;
 
+
+
