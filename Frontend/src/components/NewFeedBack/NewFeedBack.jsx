@@ -34,7 +34,7 @@ const NewfeedBack = ({setIsOpen, productId}) => {
       e.preventDefault()
       feedData.rateGiven = rateValue;
       try {
-        const response = await fetch(`http://localhost:3000/addreview/${productId}`, {
+        const response = await fetch(`https://varahiorganics.onrender.com/addreview/${productId}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"

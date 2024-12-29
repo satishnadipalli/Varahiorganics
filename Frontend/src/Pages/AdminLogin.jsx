@@ -18,7 +18,7 @@ const LoginForm = ({ handleAdminLogin }) => {
 
     try {
       // Send API request to validate admin login credentials
-      const response = await fetch("http://localhost:3000/admin/login", {
+      const response = await fetch("https://varahiorganics.onrender.com/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
