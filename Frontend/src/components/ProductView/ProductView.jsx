@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import Loading from '../Loading/Loading';
 import { ToastContainer, toast } from "react-toastify"; // Import Toastify
 import ReviewCard from './Review';
+import NewfeedBack from '../NewFeedBack/NewFeedBack';
 
 
 export default function ProductView() {
@@ -11,6 +12,7 @@ export default function ProductView() {
   const [selectedProduct,setSelectedProduct] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState('0.5 kgs');
   const [selectedUnits, setSelectedUnits] = useState(1);
+  const [isOpenReview,setIsOpenReview] = useState(false);
   const navigate = useNavigate();
   const {id} = useParams();
 
@@ -156,7 +158,7 @@ function handleAddToCart() {
     ));
   }
   
-  console.log(selectedQuantity)
+  // console.log(selectedQuantity)
 
   return (
     <>
@@ -171,7 +173,6 @@ function handleAddToCart() {
             className='productveiw-img'
           />
         </div>
-
         <div className="product-details">
           <div>
             <div className="rating">
@@ -236,7 +237,9 @@ function handleAddToCart() {
             <button className="action-button" onClick={handleAddToCart}>ADD TO CART</button>
             <button className="action-button" onClick={handleBuy}>BUY IT NOW</button>
           </div>
-
+          <button className='fedbak' onClick={()=>setIsOpenReview(true)}>
+            Add a feedback about this product
+          </button>
           <div className="payment-icons">
             <img src="https://vamshifarms.com/cdn/shop/files/honey_187a8945-21f4-4ad4-b61a-34143ee13233.jpg?v=1717574377&width=88" alt="Mastercard" />
             <img src="https://vamshifarms.com/cdn/shop/files/honey_187a8945-21f4-4ad4-b61a-34143ee13233.jpg?v=1717574377&width=88" alt="Visa" />
@@ -295,27 +298,19 @@ function handleAddToCart() {
       </div>
       <ToastContainer />
     </section>
-    <ReviewCard
-          name="Alice Johnson"
+    {
+      selectedProduct?.feedbacks?.map((product)=>{
+        return <ReviewCard
+          name={product?.user}
           avatarSrc="/placeholder.svg?height=100&width=100"
-          review="I'm thoroughly impressed with this product. It has streamlined my workflow and increased productivity significantly. The user interface is intuitive, and the features are robust. Customer support has been responsive and helpful whenever I've had questions. I highly recommend this to anyone looking to improve their work efficiency."
-          rating={5}
-          position="Product Manager"
+          review={product?.feed}
+          rating={product?.rateGiven}
+          date = {product?.date}
         />
-        <ReviewCard
-          name="Bob Smith"
-          avatarSrc="/placeholder.svg?height=100&width=100"
-          review="Overall, a solid product with great potential. While there are a few areas that could use improvement, the core functionality is strong. The development team seems to be actively working on updates, which is encouraging. It's been a valuable addition to our toolkit, and I'm looking forward to seeing how it evolves."
-          rating={4}
-          position="Software Engineer"
-        />
-        <ReviewCard
-          name="Carol White"
-          avatarSrc="/placeholder.svg?height=100&width=100"
-          review="The customer support team deserves a special mention. They've been incredibly helpful and patient, going above and beyond to ensure I got the most out of the product. As for the product itself, it's feature-rich and has significantly improved our team's collaboration. The onboarding process was smooth, and the learning curve is manageable."
-          rating={5}
-          position="Marketing Specialist"
-        />
+      })
+    }
+
+    {isOpenReview && <NewfeedBack setIsOpen={setIsOpenReview} productId={selectedProduct?._id} />}
     </>
     }
   </>

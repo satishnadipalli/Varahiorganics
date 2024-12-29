@@ -17,6 +17,15 @@ const Header = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    //   useEffect(() => {
+    //     // Prevent scrolling when the popup is open
+    //     document.body.style.overflow = "hidden";
+    //     return () => {
+    //       // Re-enable scrolling when the popup closes
+    //       document.body.style.overflow = "auto";
+    //     };
+    //   }, []);
+
     const menuItems = [
         { title: "Home", href: "/" },
         { title: "About Us", href: "#about" },

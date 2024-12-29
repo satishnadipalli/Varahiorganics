@@ -7,7 +7,9 @@ const {
     deleteProduct,
     upload,
     randomProducts,
-    getSortProduct
+    getSortProduct,
+    addreview,
+    adminlogin
 } = require("./controllers/productControllers");
 
 
@@ -52,9 +54,7 @@ Router.delete('/deleteproduct/:id', deleteProduct);
 Router.post("/sendotp/:phoneNumber",sendOTP)
 Router.get("/getRandomProducts",randomProducts);
 Router.get("/products/sort",getSortProduct);
-
-
-
-
+Router.put("/addreview/:productId",addreview);
+Router.post("/admin/login",adminlogin)
 
 module.exports = Router;

@@ -2,6 +2,8 @@ const ProductsDB = require("../schema/productSchema");
 const mongoose = require("mongoose");
 const multer = require("multer");
 const path = require("path")
+const REVIEW = require("../schema/ReviewSchema")
+
 // Set up multer for image uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -229,6 +231,100 @@ const getSortProduct = async (req, res) => {
 };
 
 
+// const addReview = async(req,res) =>{
+//     const {user, rateGiven, feed} = req.body;
+    
+//     if(!user || !rateGiven || !feed){
+//         res.status(400).json({msg:"please fill all the details given"});
+//     }
+
+//     try {
+//         const newReview = await REVIEW.create({user,rateGiven,feed});
+
+//         if(!newReview){
+//             res.status(400).json({msg:"Something went wrong"});
+//         }
+
+//         const reviews = await REVIEW.find({});
+
+//         return res.status(201).json({newReview,reviews})
+//     } catch (error) {
+        
+//     }
+// }
+
+
+
+
+const addreview = async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const { user, feed, rateGiven } = req.body;
+        const today = new Date();
+
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+
+        const formattedDate = `${year}-${month}-${day}`;
+
+        const updatedFeed = { user, feed, date: formattedDate, rateGiven };
+
+        console.log(updatedFeed,productId)
+
+        // Find the product by ID
+        const product = await ProductsDB.findById("676bf660e56d837f6411dc66");
+
+        console.log(product)
+        
+        // If the product does not exist, return an error
+        if (!product) {
+            console.log("error")
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        // Ensure the `feedbacks` array exists
+        if (!product.feedbacks) {
+            product.feedbacks = [];
+        }
+
+        // Add the new review to feedbacks
+        product.feedbacks.push(updatedFeed);
+
+        // Calculate average rating
+        const totalRating = product.feedbacks.reduce((total, review) => total + review.rateGiven, 0);
+        const avgRating = product.feedbacks.length > 0 ? totalRating / product.feedbacks.length : 0;
+
+        // Update the product with new feedbacks and average rating
+        product.avgRating = avgRating;
+        await product.save();
+
+        console.log(product);
+        return res.status(201).json({ product });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "An error occurred", error });
+    }
+};
+
+
+
+const adminlogin = async(req, res) => {
+  const { username, password } = req.body;
+
+  // Example logic for validating credentials (use your own database validation)
+  if (username === "varahigrainsxxy" && password === "vgrainspwd") {
+    return res.status(200).json({ message: "Login successful" });
+  }
+
+  return res.status(401).json({ message: "Invalid credentials" });
+};
+
+
+
+
+
+
 
 
 
@@ -242,5 +338,7 @@ module.exports = {
     deleteProduct,
     upload,
     randomProducts,
-    getSortProduct
+    getSortProduct,
+    addreview,
+    adminlogin
 };

@@ -4,10 +4,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, X, Plus, Minus, ChevronRight, ShoppingCart } from 'lucide-react';
 import "./Cart.css";
 
-
-const ShoppingCartPopup= ({ setIsCartOpen }) => {
+const ShoppingCartPopup = ({ setIsCartOpen }) => {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Prevent scrolling when the popup is open
+    document.body.style.overflow = "hidden";
+    return () => {
+      // Re-enable scrolling when the popup closes
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -15,13 +23,13 @@ const ShoppingCartPopup= ({ setIsCartOpen }) => {
   }, []);
 
   const handleBuyCartItems = () => {
-    setIsCartOpen(false)
+    setIsCartOpen(false);
     localStorage.removeItem("buyproduct");
     navigate("/checkout");
   };
 
   const handleBasket = () => {
-    setIsCartOpen(false)
+    setIsCartOpen(false);
     navigate("/basket");
   };
 
@@ -42,7 +50,7 @@ const ShoppingCartPopup= ({ setIsCartOpen }) => {
     cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
-    <AnimatePresence className="motion-presence">
+    <AnimatePresence className="motion-presence ">
       <motion.div
         className="backdrop"
         initial={{ opacity: 0 }}
@@ -61,7 +69,6 @@ const ShoppingCartPopup= ({ setIsCartOpen }) => {
           <h2>
             <ShoppingBag size={24} />
             Your Cart
-            {/* <span className="item-count">{cartItems.length}</span> */}
           </h2>
           <button className="close-btn" onClick={() => setIsCartOpen(false)}>
             <X size={24} />
@@ -90,15 +97,16 @@ const ShoppingCartPopup= ({ setIsCartOpen }) => {
                   src={
                     item.image && item.image[0]
                       ? "https://varahiorganics.onrender.com/" + item.image[0]
-                      : "https://via.placeholder.com/150" // Fallback image
+                      : "https://via.placeholder.com/150"
                   }
                   alt={item.name}
                   className="item-image"
                   style={{ marginTop: "-13px" }}
                 />
-
                 <div className="item-details">
-                  <h3 className="item-name" style={{fontSize:"13px"}}>{item.name}</h3>
+                  <h3 className="item-name" style={{ fontSize: "13px" }}>
+                    {item.name}
+                  </h3>
                   <div className="item-price">₹{item.price.toFixed(2)}</div>
                   <div className="item-quantity">
                     <button onClick={() => handleQuantityChange(item._id, "decrease")}>
@@ -114,14 +122,15 @@ const ShoppingCartPopup= ({ setIsCartOpen }) => {
               </motion.div>
             ))
           )}
-          {/* <div className="empty-cart"> */}
-            <button className="start-shoppings mt-0 flex items-center m-auto bg-transparent text-black justify-center gap-2" onClick={() =>{
-               navigate("/store")
-               setIsCartOpen(false)
-               }}>
-              <ShoppingCart color="black" size={30} /> Shop More
-            </button>
-          {/* </div> */}
+          <button
+            className="start-shoppings mt-0 flex items-center m-auto bg-transparent text-black justify-center gap-2"
+            onClick={() => {
+              navigate("/store");
+              setIsCartOpen(false);
+            }}
+          >
+            <ShoppingCart color="black" size={30} /> Shop More
+          </button>
         </div>
         {cartItems.length > 0 && (
           <div className="cart-footer">
@@ -144,6 +153,3 @@ const ShoppingCartPopup= ({ setIsCartOpen }) => {
 };
 
 export default ShoppingCartPopup;
-
-
-

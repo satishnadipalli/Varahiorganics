@@ -56,7 +56,6 @@ const Admin = () => {
   }, []);
 
   const handleDeleteProduct = async (id) => {
-    console.log("Deleting product:", id);
     const response = await fetch(`https://varahiorganics.onrender.com/deleteproduct/${id}`, {
       method: "DELETE",
     });
@@ -109,7 +108,7 @@ const Admin = () => {
     <>
       <div className="admin-dashboard">
         <div className="dashboard-header">
-          <h1>Admin Dashboard</h1>
+          <h1>Admin Dashboard <p style={{fontSize:"13px",cursor:"pointer"}} onClick={()=>navigate("/orderlist", { replace: true })}>Go To Live Orders</p></h1>
           <button className="add-product-btn" onClick={() => setIsAdd(true)}>
             Add Product
           </button>
