@@ -273,11 +273,8 @@ const addreview = async (req, res) => {
         console.log(updatedFeed,productId)
 
         // Find the product by ID
-        const product = await ProductsDB.findById("676bf660e56d837f6411dc66");
-
-        console.log(product)
+        const product = await ProductsDB.findById(productId);
         
-        // If the product does not exist, return an error
         if (!product) {
             console.log("error")
             return res.status(404).json({ message: "Product not found" });

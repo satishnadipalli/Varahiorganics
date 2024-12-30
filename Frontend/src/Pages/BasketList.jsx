@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./BasketList.css";
 import { useNavigate } from "react-router-dom";
+import { Minus, Plus, Trash2 } from "lucide-react";
+import { Bag } from "../../Heroicons";
 
 const BasketList = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -29,6 +31,15 @@ const BasketList = () => {
     setCartItems(storedCart); // Set cart items from localStorage
   }, []);
 
+
+  
+  const handleRemoveItem = (id) => {
+    const updatedCart = cartItems.filter((item) => item._id !== id);
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+
   return (
     <>
       <div className="cart-header">
@@ -43,7 +54,7 @@ const BasketList = () => {
             // Render cart items if available
             !isMobile ? (
               <div className="cart-table">
-                <table className="cart-items-table">
+                <table className="cart-items-table text-sm">
                   <thead>
                     <tr>
                       <th>Product</th>
@@ -54,11 +65,9 @@ const BasketList = () => {
                   </thead>
                   <tbody>
                     {cartItems.map((item, index) => (
-                      <tr key={index}>
-                        {console.log("https://varahiorganics.onrender.com/"+item.image[0])}
+                      <tr key={index} className="relative">
                         <td className="product-cell">
-                          <div className="product-details">
-                            {console.log(item.image[0] )}
+                          <div className="product-detailsss">
                             <img
                               src={"https://varahiorganics.onrender.com/"+item.image[0] }
                               // alt="Product"
@@ -69,30 +78,31 @@ const BasketList = () => {
                         </td>
                         <td className="price-cell">{item.price}</td>
                         <td className="quantity-cell">
-                          <div className="quantity-controls">
-                            <button className="quantity-btn">-</button>
-                            <span className="quantity-value">{item.quantity}</span>
-                            <button className="quantity-btn">+</button>
+                          <div className="item-quantity">
+                            <button onClick={() => handleQuantityChange(item._id, "decrease")}>
+                              <Minus size={16} />
+                            </button>
+                            <span>{item.quantity}</span>
+                            <button onClick={() => handleQuantityChange(item._id, "increase")}>
+                              <Plus size={16} />
+                            </button>
                           </div>
                         </td>
-                        <td className="subtotal-cell">{item.subtotal}</td>
+                        <td>
+                          {item.price}
+                        </td>
+                        <td className="subtotal-cell">
+                          {item.subtotal}
+                        </td>
+                        <td>
+                          <button className="remove-btns " onClick={() => handleRemoveItem(item._id)}>
+                            <Trash2 size={13} />
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
-
-                {/* Coupon Section */}
-                <div className="coupon-section">
-                  <input
-                    type="text"
-                    className="coupon-input"
-                    placeholder="Enter coupon code"
-                  />
-                  <div className="coupon-buttons">
-                    <button className="apply-coupon">Apply Coupon</button>
-                    <button className="update-basket">Update Basket</button>
-                  </div>
-                </div>
               </div>
             ) : (
               // Render mobile view if available
@@ -119,45 +129,31 @@ const BasketList = () => {
                             <button className="quantity-btn">+</button>
                           </div>
                         </div>
-                        <div className="product-meta-row">
-                          <p className="meta-label">Subtotal</p>
-                          <span className="meta-value subtotal">{item.quantity*item.price}</span>
-                        </div>
                       </div>
                     </div>
-                    <button className="remove-item">✖</button>
+                    <button className="remove-btn mt-8 mr-3" onClick={() => handleRemoveItem(item._id)}>
+                      <Trash2 size={13} />
+                    </button>
                   </div>
                 ))}
-                <div className="coupon-section">
-                  <input
-                    type="text"
-                    className="coupon-input"
-                    placeholder="Enter coupon code"
-                  />
-                  <div className="coupon-buttons">
-                    <button className="apply-coupon">Apply Coupon</button>
-                    <button className="update-basket">Update Basket</button>
-                  </div>
-                </div>
               </div>
             )
           ) : (
             // Render "empty cart" message if no products in the cart
-            <div className="empty-cart-message">
-              <h3>Your cart is empty!</h3>
-              <p>Looks like you haven't added any products yet. Start shopping now!</p>
-              <img
-                src="https://via.placeholder.com/150" // Replace with an attractive image if needed
-                alt="Empty Cart"
-                className="empty-cart-image"
-              />
-              <button className="shop-now-button">Shop Now</button>
+            <div className="empty-cart-message shadow-none">
+              <div className="empty-cart-icon">🛒</div>
+              <h3>Your Cart is Empty</h3>
+              <p>It looks like you haven't added any products yet.</p>
+              <button className="shop-now-button" onClick={() => (window.location.href = "/shop")}>
+                Start Shopping
+              </button>
             </div>
+
           )}
 
           {/* Basket Totals */}
           {cartItems.length > 0 && (
-            <div className="basket-totals">
+            <div className="basket-totalss min-w-[400px] bg-white">
               <h2 className="totals-heading">Basket Totals</h2>
               <div className="totals-row">
                 <span className="label">Subtotal:</span>
@@ -167,9 +163,8 @@ const BasketList = () => {
                 <span className="label">Shipping:</span>
                 <span className="value">Flat rate: ₹110.00</span>
               </div>
-              <p className="shipping-address">
-                Shipping to <b>Rajamundry, Andhra Pradesh</b>.{" "}
-                <a href="#" className="change-address-link">Change address</a>
+              <p className="shipping-address text-left">
+                Shipping to <b>Andhra Pradesh</b>.{" "}
               </p>
               <div className="totals-row total">
                 <span className="label">Total:</span>

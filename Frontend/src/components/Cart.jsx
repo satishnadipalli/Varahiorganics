@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, X, Plus, Minus, ChevronRight, ShoppingCart } from 'lucide-react';
+import { ShoppingBag, X, Plus, Minus, ChevronRight, ShoppingCart, Trash2 } from 'lucide-react';
 import "./Cart.css";
 
 const ShoppingCartPopup = ({ setIsCartOpen }) => {
@@ -9,10 +9,8 @@ const ShoppingCartPopup = ({ setIsCartOpen }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Prevent scrolling when the popup is open
     document.body.style.overflow = "hidden";
     return () => {
-      // Re-enable scrolling when the popup closes
       document.body.style.overflow = "auto";
     };
   }, []);
@@ -46,11 +44,17 @@ const ShoppingCartPopup = ({ setIsCartOpen }) => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  const handleRemoveItem = (id) => {
+    const updatedCart = cartItems.filter((item) => item._id !== id);
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
   const calculateSubtotal = () =>
     cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
-    <AnimatePresence className="motion-presence ">
+    <AnimatePresence className="motion-presence">
       <motion.div
         className="backdrop"
         initial={{ opacity: 0 }}
@@ -119,6 +123,9 @@ const ShoppingCartPopup = ({ setIsCartOpen }) => {
                   </div>
                 </div>
                 <div className="item-total">₹{(item.price * item.quantity).toFixed(2)}</div>
+                <button className="remove-btn" onClick={() => handleRemoveItem(item._id)}>
+                  <Trash2 size={13} />
+                </button>
               </motion.div>
             ))
           )}
@@ -153,3 +160,4 @@ const ShoppingCartPopup = ({ setIsCartOpen }) => {
 };
 
 export default ShoppingCartPopup;
+

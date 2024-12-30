@@ -5,6 +5,7 @@ import NewProduct from "../Dashboard/NewProduct";
 import ShippingLabel from "../Dashboard/AllProductAdminDetails/UpdateProduct";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+// import { useState, useEffect } from "react";
 
 const Admin = () => {
   const [homeProducts, setHomeProducts] = useState([]);
@@ -17,6 +18,7 @@ const Admin = () => {
   const [activeTab, setActiveTab] = useState("products");
   const [filterMonth, setFilterMonth] = useState("");
   const [orderpending,setorderpending] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -72,6 +74,11 @@ const Admin = () => {
     }
   };
 
+  const filteredProducts = homeProducts.filter((product) =>
+  product._id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  product.name.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
   if (!homeProducts || homeProducts.length <= 0) {
     return <Loading />;
   }
@@ -109,6 +116,15 @@ const Admin = () => {
       <div className="admin-dashboard">
         <div className="dashboard-header">
           <h1>Admin Dashboard <p style={{fontSize:"13px",cursor:"pointer"}} onClick={()=>navigate("/orderlist", { replace: true })}>Go To Live Orders</p></h1>
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="Search by ID or Name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
+          </div>
           <button className="add-product-btn" onClick={() => setIsAdd(true)}>
             Add Product
           </button>
@@ -166,7 +182,7 @@ const Admin = () => {
                 </tr>
               </thead>
               <tbody>
-                {homeProducts.map((product, index) => (
+                {filteredProducts.map((product, index) => (
                   <tr key={product._id}>
                     <td>{index + 1}</td>
                     <td>{product._id}</td>
@@ -290,5 +306,4 @@ const Admin = () => {
 };
 
 export default Admin;
-
 

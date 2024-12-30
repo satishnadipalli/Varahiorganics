@@ -7,9 +7,10 @@ import ReviewCard from './Review';
 import NewfeedBack from '../NewFeedBack/NewFeedBack';
 
 
-export default function ProductView() {
+export default function ProductView({homeProducts}) {
   
   const [selectedProduct,setSelectedProduct] = useState(null);
+  const [isLoading,setIsloading] = useState(false)
   const [selectedQuantity, setSelectedQuantity] = useState('0.5 kgs');
   const [selectedUnits, setSelectedUnits] = useState(1);
   const [isOpenReview,setIsOpenReview] = useState(false);
@@ -85,6 +86,9 @@ function handleAddToCart() {
 
   useEffect(()=>{
     const fetchProduct = async() =>{
+      handleClick()
+      setIsloading(true)
+      
       try {
         const response = await fetch( `https://varahiorganics.onrender.com/getproduct/${id}`,{
           method : "GET"
@@ -92,15 +96,16 @@ function handleAddToCart() {
   
         const data = await response.json();
         if(data.product){
-          console.log(data.product);
           setSelectedProduct(data.product);
+          setIsloading(false)
         }
       } catch (error) {
+        setIsloading(false)
         console.log(error);
       }
     }
     fetchProduct();
-  },[]);
+  },[id]);
 
 
   const products = [
@@ -142,7 +147,7 @@ function handleAddToCart() {
     window.scrollTo({top:0,behavior:"smooth"});
   }
   
-  if(!selectedProduct){
+  if(!selectedProduct || isLoading){
     return <Loading/> 
   }
 
@@ -264,18 +269,18 @@ function handleAddToCart() {
     <section className="related-products">
       <h2>Related products</h2>
       <div className="products-grid-r">
-        {products.map((product,ele) => (
-          <Link to={`/product/${ele}`} style={{textDecoration:"none"}}>
-            <div key={product.id} className="product-cardss" style={{textDecoration:"none"}} onClick={handleClick}>
+        {homeProducts.map((product,ele) => (
+          <Link to={`/product/${product?._id}`} style={{textDecoration:"none"}}>
+            <div key={product._id} className="product-cardss" style={{textDecoration:"none"}} onClick={handleClick}>
             <div className="product-image-r">
-              <span className="sale-badge">Sale!</span>
-              <img src={"https://vamshifarms.com/cdn/shop/files/honey-collection-mockuop_1.jpg?v=1717574373&width=980"} alt={product.title} />
+              <span className="sale-badge">{product?.badge || "Sale"}</span>
+              <img src={"https://varahiorganics.onrender.com/"+product?.image?.[0]} alt={product.name} />
             </div>
             <a href="#" className="product-title-r">
               {product.title}
             </a>
             <div className="price-range-r">
-              ₹{product.minPrice.toFixed(2)} – ₹{product.maxPrice.toFixed(2)}
+              ₹{product?.price?.toFixed(2)} – ₹{product?.price?.toFixed(2)}
             </div>
             <button className="wishlist-button">
               <svg

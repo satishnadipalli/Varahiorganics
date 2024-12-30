@@ -3,10 +3,10 @@ import { StarIcon, QuoteIcon } from 'lucide-react'
 
 export default function ReviewCard({ name, avatarSrc, review, rating, position,date }) {
   return (
-    <div className="w-full mt-10 max-w-3xl mx-auto bg-white dark:bg-gray-300 shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg">
+    <div className="w-full mt-10 max-w-3xl mx-auto bg-white dark:bg-gray-300 shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg bg-white">
       <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 bg-white text-black">
         <div className="flex items-center space-x-4">
-          <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-800">
+          <div className="relative w-12 h-12 rounded-full overflow-hidden">
             <img 
               src={avatarSrc} 
               alt={name} 

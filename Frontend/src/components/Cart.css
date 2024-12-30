@@ -278,6 +278,43 @@ body {
   transform: scale(0.98);
 }
 
+.cart-item {
+  position: relative;
+}
+
+.remove-btn {
+  position: absolute;
+  top: -15px;
+  right: 5px;
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.remove-btn:hover {
+  background-color: #ff7875;
+  transform: scale(1.1);
+}
+
+.remove-btn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 720px) {
+  .remove-btn {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 @media (max-width: 720px) {
 
   .cart-popup {

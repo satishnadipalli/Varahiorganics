@@ -30,7 +30,6 @@ const OrderList = () => {
   
   }
     useEffect(() => {
-      // Function to update window width state
       const handleResize = () => {
         setWindowWidth(window.innerWidth);
       };
@@ -58,7 +57,7 @@ const OrderList = () => {
     
             // Filter out orders where status is "Delivered"
             const filteredOrders = data.filter(order => order.orderStatus !== "Delivered");
-            setorderslist(filteredOrders);
+            setorderslist(filteredOrders?.reverse());
           }
         } catch (error) {
           console.log(error);
@@ -84,6 +83,7 @@ const OrderList = () => {
           <>
           <div>Phone</div>
           <div>Email</div>
+          
           </>
           }
           {windowWidth > 700 &&

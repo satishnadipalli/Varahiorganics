@@ -16,6 +16,7 @@ import OrderList from "./components/OrderList/OrderList";
 import FoodStore from "./Pages/FoodStore";
 import Loading from "./components/Loading/Loading";
 import LoginForm from "./Pages/AdminLogin";
+import NotFound from "./Pages/NotFound";
 
 const App = () => {
   const [homeProducts, setHomeProducts] = useState([]);
@@ -88,7 +89,8 @@ const App = () => {
         <Route path="/" element={<Home homeProducts={homeProducts} />} />
         <Route path="/basket" element={<BasketList />} />
         <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/product/:id" element={<ProductView />} />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/product/:id" element={<ProductView homeProducts={homeProducts}/>} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/store" element={<FoodStore />} />
         <Route path="/orderlist/:id" element={<DeliveryDashboard order={dummyOrder} />} />

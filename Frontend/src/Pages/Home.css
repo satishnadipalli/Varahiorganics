@@ -89,10 +89,10 @@ body {
   justify-content: center;
   background: #2e2929;
   justify-content: center;
-    color: #e79115 !important;
-    font-size: 15px !important;
-    box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.5);
-  padding: 15px;
+  color: #e79115 !important;
+  font-size: 13px !important;
+  box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+  padding: 5px;
   font-family: 'Arial', sans-serif; /* Subtle border for distinction */
   position: relative;
 }
