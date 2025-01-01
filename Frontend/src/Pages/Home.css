@@ -70,7 +70,7 @@
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
   /* background-color: #fef8e0; */
   color: #2e2929;
 }
@@ -78,6 +78,7 @@ body {
 .home-page {
   display: flex;
   flex-direction: column;
+  font-family: "Manrope-Regular";
 }
 
 /* Top Indicator Bar */
@@ -91,9 +92,9 @@ body {
   justify-content: center;
   color: #e79115 !important;
   font-size: 13px !important;
+  font-family: "Manrope-Bold";
   box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.5);
   padding: 5px;
-  font-family: 'Arial', sans-serif; /* Subtle border for distinction */
   position: relative;
 }
 
@@ -102,7 +103,6 @@ body {
   font-size: 1rem;
   font-weight: bold;
   margin-bottom: 10px;
-  font-family: monospace;
   display: flex;
   align-items: center;
 }
@@ -190,7 +190,6 @@ body {
 
 .hero-title {
   font-size: 4.5rem;
-  font-family: 'Playfair Display', serif;
   margin-bottom: 20px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -200,7 +199,6 @@ body {
 
 .hero-subtitle {
   font-size: 1.8rem;
-  font-family: 'Merriweather', serif;
   margin-bottom: 40px;
   opacity: 0;
   animation: fadeInText 2.5s forwards 0.5s;
@@ -212,7 +210,6 @@ body {
   border: none;
   border-radius: 50px;
   font-size: 1.4rem;
-  font-family: 'Poppins', sans-serif;
   color: white;
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.2s ease;
@@ -393,7 +390,6 @@ header {
   color: white;
   padding: 20px 0;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
   z-index: 10;
 }
 
@@ -428,7 +424,6 @@ header {
 
 .hero-title {
   font-size: 4.5rem;
-  font-family: 'Playfair Display', serif;
   margin-bottom: 20px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -438,7 +433,6 @@ header {
 
 .hero-subtitle {
   font-size: 1.8rem;
-  font-family: 'Merriweather', serif;
   margin-bottom: 40px;
   opacity: 0;
   animation: fadeInText 2.5s forwards 0.5s;
@@ -450,7 +444,6 @@ header {
   border: none;
   border-radius: 50px;
   font-size: 1.4rem;
-  font-family: 'Poppins', sans-serif;
   color: white;
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.2s ease;
@@ -535,7 +528,6 @@ header {
 .section-title{
   text-align: center;
   font-size: 28px;
-  font-family: monospace;
 }
 
 .product-grid-h{
@@ -551,10 +543,10 @@ header {
 .product-cards {
   width: 300px;
   border-radius: 14px;
+  height: 400px;
   background-color: #ffffff;
   /* box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); */
   overflow: hidden;
-  font-family: 'Poppins', sans-serif;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin: 20px;
 }
@@ -573,7 +565,7 @@ header {
 
 .product-imagess {
   width: 100%;
-  max-height: 280px;
+  max-height: 270px;
   height: auto;
   transition: transform 0.5s ease, filter 0.3s ease;
 }
@@ -705,10 +697,12 @@ header {
   .features-section {
     background: #003134;
     padding: 20px 10px;
+    flex-direction: column;
+    gap: 30px;
   }
   
   .features-section .feature {
-    font-size: 12px;
+    font-size: 13px;
   }
   .product-grid-h {
     display: flex; /* Using flexbox */
@@ -718,13 +712,13 @@ header {
     
   }
   .product-cards{
-    width: 300px;
-    
-    height: 340px;
+    width: 360px;
+    height: 370px;
+    /* padding: 5px; */
   }
   .product-imagess{
-    width: 300px;
-    height:200px;
+    width: 360px;
+    height:250px;
   }
   
   .product-grid-h .product-cards {
@@ -754,7 +748,7 @@ header {
   }
   .add-to-cart-btn{
     font-size: 13px !important;
-    width: 270px;
+    width: 320px;
   }
   .product-grid-h > .product-cards {
     width: calc(50% - 10px); /* Make each item take up half of the row width, minus any spacing */

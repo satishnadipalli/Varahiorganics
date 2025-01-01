@@ -90,7 +90,7 @@ function handleAddToCart() {
       setIsloading(true)
       
       try {
-        const response = await fetch( `https://varahiorganics.onrender.com/getproduct/${id}`,{
+        const response = await fetch( `http://localhost:3000/getproduct/${id}`,{
           method : "GET"
         });
   
@@ -139,6 +139,8 @@ function handleAddToCart() {
     },
   ];
 
+
+  console.log(selectedProduct)
   useEffect(()=>{
     window.scrollTo({top:0,behavior:"smooth"});
   },[]);
@@ -180,17 +182,18 @@ function handleAddToCart() {
         </div>
         <div className="product-details">
           <div>
-            <div className="rating">
-              <div className="stars">
+            <div className="rating flex-col">
+            <h1 className="product-title block">{selectedProduct?.name}</h1>
+              <div className="stars items-center">
                 {[...Array(5)].map((_, i) => (
                   <span key={i} className="star">★</span>
                 ))}
+                <span className="reviews inline-block ml-2">61 reviews</span>
               </div>
-              <span className="reviews">61 reviews</span>
+              
             </div>
-            <h1 className="product-title">{selectedProduct?.name}</h1>
-            <div className="price-rating">
-              <div className="price">Rs. {selectedProduct?.price}</div>
+            <div className="price-rating -mt-4">
+              <div className="price text-black">Rs. {selectedProduct?.price}</div>
               <div className="rating">
                 <span className="star">★</span>
                 <span>5.0 (61)</span>
@@ -199,7 +202,7 @@ function handleAddToCart() {
           </div>
 
           <div className="stock-shipping">
-            <div className="stock">
+            <div className="stock mt-3">
               <div className="stock-dot"></div>
               <p style={{}}>Item is in stock</p>
             </div>
@@ -216,7 +219,8 @@ function handleAddToCart() {
               >
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
-              <p>Free shipping On Orders Above 500/-</p>
+              <p className='mt-3 mb-3'>Free shipping On Orders Above 500/-</p>
+              <p>Note: Please Click here for bulk orders</p>
             </div>
           </div>
 
@@ -227,7 +231,7 @@ function handleAddToCart() {
               {['0.5 kgs', '1 kgs', '2kgs',].map((qty, index) => (
                 <button
                   key={qty}
-                  className={`quantity-button ${selectedQuantity === qty ? 'active' : ''} ${index > 2 ? 'disabled' : ''}`}
+                  className={`quantity-button text-nowrap ${selectedQuantity === qty ? 'active' : ''} ${index > 2 ? 'disabled' : ''}`}
                   onClick={() => setSelectedQuantity(qty)}
                   disabled={index > 2}
                 >
@@ -264,9 +268,9 @@ function handleAddToCart() {
           </details>
         </div>
       </div>
-    </div>
+  </div>
     
-    <section className="related-products">
+    <section className="related-products mt-10">
       <h2>Related products</h2>
       <div className="products-grid-r">
         {homeProducts.map((product,ele) => (
@@ -306,6 +310,7 @@ function handleAddToCart() {
     {
       selectedProduct?.feedbacks?.map((product)=>{
         return <ReviewCard
+
           name={product?.user}
           avatarSrc="/placeholder.svg?height=100&width=100"
           review={product?.feed}

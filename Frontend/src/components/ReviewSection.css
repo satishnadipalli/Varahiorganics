@@ -12,7 +12,7 @@
 
 /* Swiper styling */
 .swiper-container {
-    padding: 30px;
+    /* padding: 30px; */
     display: flex;
     justify-content: center;
     width: 100%;
@@ -201,7 +201,7 @@ h4 {
     color: #6b6b6b; /* Darker grey for more contrast */
     margin-bottom: 25px;
     font-weight: 400; /* Regular weight for a cleaner feel */
-    font-family: 'Georgia', serif; /* Elegant serif font for refinement */
+  
 }
 
 /* Information Section: Image and Details */
@@ -238,7 +238,7 @@ h4 {
     margin-bottom: 5px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-family: 'Arial', sans-serif; /* Clean font for a modern look */
+
 }
 
 /* Position Styling */
@@ -246,7 +246,7 @@ h4 {
     font-size: 1rem;
     color: #7d7d7d;
     font-style: italic;
-    font-family: 'Georgia', serif; /* Elegant font for a softer look */
+
 }
 
 /* Decorative Element */

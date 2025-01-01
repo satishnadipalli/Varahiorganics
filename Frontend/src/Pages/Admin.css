@@ -258,7 +258,7 @@ Container
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  /* font-family: 'Arial', sans-serif; */
 }
 
 .dashboard-header {
@@ -507,7 +507,7 @@ Container
 /* Toast Notification Styles */
 .Toastify__toast {
   border-radius: 4px;
-  font-family: 'Arial', sans-serif;
+  /* font-family: 'Arial', sans-serif; */
 }
 
 .Toastify__toast--success {

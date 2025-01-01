@@ -94,7 +94,7 @@ import React from 'react'
 
 const Loading= ({height}) => {
   return (
-    <div className="loader-container" style={{height:`${height ? "100vh" : ""}`,backgroundColor:"white",minHeight:"70vh"}}>
+    <div className="loader-container " style={{height:`${height ? "100vh" : "100vh"}`,backgroundColor:"white",minHeight:"70vh",overflow:"hidden"}}>
       {/* <div className="leaf-loader"> */}
         <div class="loader"></div>
       {/* </div> */}

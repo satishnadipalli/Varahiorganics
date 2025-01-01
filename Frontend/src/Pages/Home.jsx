@@ -53,13 +53,6 @@ const Home = ({homeProducts}) => {
   };
 
 
-  console.log(homeProducts)
-
-
-
-
-
-
   return (
     <div className="home-page">
       <PremiumResponsiveHero/>
@@ -81,19 +74,6 @@ const Home = ({homeProducts}) => {
         </div>
       </section>
 
-      {/* Shop By Category */}
-      {/* <section className="shop-by-category">
-        <h2 className="section-title">Shop By Category</h2>
-        <div className="categories-grid">
-          {
-            categories.map((item)=>{
-              return(
-                <img className="category-item" src={item.image} alt="" />
-              )
-            })
-          }
-        </div>
-      </section> */}
 
       <section className="new-arrivals">
         <h2 className="section-title">New Arrivals</h2>

@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Footer.css';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
+    const [isMobile, setIsMobile] = useState(false);
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 728);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Call on mount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,25 +42,30 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="footer-section">
-          <h3 className="footer-title">Navigate</h3>
-          <div className="footer-links">
-            <a href="#" className="footer-link">Home</a>
-            <a href="#" className="footer-link">Shop</a>
-            <a href="#" className="footer-link">Recipes</a>
-            <a href="#" className="footer-link">About Us</a>
-            <a href="#" className="footer-link">Contact Us</a>
+        {
+          !isMobile &&
+          <>
+          <div className="footer-section">
+            <h3 className="footer-title">Navigate</h3>
+            <div className="footer-links">
+              <a href="#" className="footer-link">Home</a>
+              <a href="#" className="footer-link">Shop</a>
+              <a href="#" className="footer-link">Recipes</a>
+              <a href="#" className="footer-link">About Us</a>
+              <a href="#" className="footer-link">Contact Us</a>
+            </div>
           </div>
-        </div>
 
-        <div className="footer-section">
-          <h3 className="footer-title">Policies</h3>
-          <div className="footer-links">
-            <a href="#" className="footer-link">Shipping Policy</a>
-            <a href="#" className="footer-link">Privacy Policy</a>
-            <a href="#" className="footer-link">Terms & Conditions</a>
-          </div>
+          <div className="footer-section">
+            <h3 className="footer-title">Policies</h3>
+            <div className="footer-links">
+              <a href="#" className="footer-link">Shipping Policy</a>
+              <a href="#" className="footer-link">Privacy Policy</a>
+              <a href="#" className="footer-link">Terms & Conditions</a>
+            </div>
         </div>
+        </>
+        }
 
         <div className="footer-section">
           <h3 className="footer-title">Newsletter</h3>

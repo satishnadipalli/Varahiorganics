@@ -9,7 +9,7 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  /* font-family: 'Poppins', sans-serif; */
 }
 
 .backdrop {
@@ -36,6 +36,7 @@ body {
   display: flex;
   flex-direction: column;
   z-index: 1000;
+  font-family: "Manrope-Regular";
 }
 
 .cart-header {
@@ -53,6 +54,7 @@ body {
   color: var(--text-color);
   display: flex;
   align-items: center;
+  font-family: "Manrope-regular";
   gap: 0.5rem;
 }
 
