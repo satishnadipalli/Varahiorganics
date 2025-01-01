@@ -90,7 +90,7 @@ function handleAddToCart() {
       setIsloading(true)
       
       try {
-        const response = await fetch( `http://localhost:3000/getproduct/${id}`,{
+        const response = await fetch( `https://varahiorganics.onrender.com/getproduct/${id}`,{
           method : "GET"
         });
   
