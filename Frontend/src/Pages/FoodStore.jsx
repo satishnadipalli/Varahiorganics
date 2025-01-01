@@ -159,7 +159,7 @@ export default function FoodStore() {
           <main className="main-content">
             <div className="top-bar">
               <div className="search-box">
-                <Search className="search-icon" size={20} />
+                <Search className="search-icon" size={15} />
                 <input
                   type="text"
                   placeholder="Search products..."
