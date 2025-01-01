@@ -6,7 +6,7 @@
 
 .container-st {
   width: 90%;
-  /* max-width: 1200px; */
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -256,6 +256,10 @@
 @media (max-width: 728px) {
   .sidebar{
     display: none;
+  }
+  .container-st{
+    width: 100%;
+    padding: 5px;
   }
   .product-grid {
     display: grid;
