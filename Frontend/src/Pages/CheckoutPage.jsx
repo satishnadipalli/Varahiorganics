@@ -349,27 +349,6 @@ function CheckoutPage() {
               {errors.email && <div className="error-message">{errors.email}</div>}
             </div>
 
-            <div className="form-group checkbox">
-              <input
-                type="checkbox"
-                id="createAccount"
-                name="createAccount"
-                checked={formData.createAccount}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="createAccount">Create an account?</label>
-            </div>
-
-            <div className="form-group checkbox">
-              <input
-                type="checkbox"
-                id="differentAddress"
-                name="differentAddress"
-                checked={formData.differentAddress}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="differentAddress">Deliver to a different address?</label>
-            </div>
 
             <div className="form-group">
               <label htmlFor="orderNotes">Order notes (optional)</label>
@@ -381,22 +360,6 @@ function CheckoutPage() {
                 placeholder="Notes about your order, e.g. special notes for delivery."
               />
             </div>
-
-            {errors.termsAccepted && <div className="error-message">{errors.termsAccepted}</div>}
-            <div className="form-group terms-checkbox">
-              <input
-                type="checkbox"
-                id="terms"
-                name="termsAccepted"
-                checked={formData.termsAccepted}
-                onChange={handleInputChange}
-                required
-              />
-              <label htmlFor="terms">
-                I have read and agree to the website terms and conditions *
-              </label>
-            </div>
-
             {/* <button className="place-order-btn" type="submit">
               PLACE ORDER
             </button> */}
@@ -437,19 +400,24 @@ function CheckoutPage() {
             <span>Total</span>
             <span>₹{calculateTotal()}</span>
           </div>
-
           <div className="payment-section">
-            {/* <h3>PhonePe Payment Solutions</h3>
-            <div className="phonepe-logo">
-              <img src="/phonepe-logo.png" alt="PhonePe" />
-              <span>UPI, Credit/Debit Card, NetBanking</span>
-            </div>
-            <p className="payment-info">
-              All UPI apps, Debit and Credit Cards, and NetBanking accepted | Powered by PhonePe
-            </p> */}
             <p className="privacy-notice">
               Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.
             </p>
+            {errors.termsAccepted && <div className="error-message">{errors.termsAccepted}</div>}
+            <div className="form-group terms-checkbox">
+              <input
+                type="checkbox"
+                id="terms"
+                name="termsAccepted"
+                checked={formData.termsAccepted}
+                onChange={handleInputChange}
+                required
+              />
+              <label htmlFor="terms">
+                I have read and agree to the website terms and conditions *
+              </label>
+            </div>
             <button className="place-order-btn" onClick={handleSubmit}>
               PLACE ORDER
             </button>
@@ -471,97 +439,3 @@ function CheckoutPage() {
 }
 
 export default CheckoutPage;
-
-// Handle form submission
-
-
-
-// const handleSubmit = async (e) => {
-//   e.preventDefault();
-
-//   // Validate that there are products in the cart
-//   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-//   if (cart.length === 0) {
-//       alert("Your cart is empty. Add items to proceed.");
-//       return;
-//   }
-
-//   if (!formData.termsAccepted) {
-//       alert("You must accept the terms and conditions to place an order.");
-//       return;
-//   }
-
-//   // Prepare the order payload
-//   const orderPayload = {
-//       customer: {
-//         name: `${formData.firstName} ${formData.lastName}`,
-//           firstName: formData.firstName,
-//           lastName: formData.lastName,
-//           email: formData.email,
-//           phone: formData.phone,
-//           companyName: formData.companyName,
-//           address: {
-//               street: formData.streetAddress,
-//               apartment: formData.apartment,
-//               city: formData.townCity,
-//               state: formData.state,
-//               zipCode: formData.pinCode,
-//               country: formData.country,
-//           },
-//       },
-//       products: cart.map((product) => ({
-//           productId: product._id,
-//           quantity: product.quantity,
-//           price: product.price,
-//       })),
-//       orderNotes: formData.orderNotes,
-//       totalAmount: calculateTotal(),
-//       paymentMethod: "Pending", // Default to UPI, or dynamically set this based on user input
-//       termsAccepted: formData.termsAccepted,
-//   };
-
-//   try {
-//       // Make API request to the backend
-//       const response = await fetch("https://varahiorganics.onrender.com/createOrder", {
-//           method: "POST",
-//           headers: {
-//               "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify(orderPayload),
-//       });
-
-//       if (response.ok) {
-//           const data = await response.json();
-//           // setOrderDetails({
-//           //   orderNumber: data.orderNumber, // Assuming the API returns an order number
-//           //   total: calculateTotal()
-//           // });
-//           setShowSuccessAnimation(true);
-          
-//           // Clear cart and reset form
-//           localStorage.removeItem("cart");
-//           setCartProducts([]);
-//           setFormData({
-//               ...formData,
-//               firstName: '',
-//               lastName: '',
-//               companyName: '',
-//               streetAddress: '',
-//               apartment: '',
-//               townCity: '',
-//               state: 'Andhra Pradesh',
-//               pinCode: '',
-//               phone: '',
-//               email: '',
-//               orderNotes: '',
-//               termsAccepted: false,
-//           });
-//       } else {
-//           const error = await response.json();
-//           alert(`Failed to place order: ${error.message}`);
-//       }
-//   } catch (error) {
-//       console.error("Error placing order:", error);
-//       alert("An error occurred while placing the order. Please try again.");
-//   }
-// };

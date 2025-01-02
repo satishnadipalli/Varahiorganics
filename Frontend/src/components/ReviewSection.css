@@ -25,22 +25,21 @@
     padding: 20px;
     background-color: #f4f4f4; /* Light grey background */
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Soft shadow */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 70%;
+    /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
+    width: 95% !important;
     /* max-width: 350px; */
-    margin: 20px;
-    margin: auto;
+    /* margin: 20px; */
+    /* margin: auto; */
 }
 
 .testimonial-slide:hover {
-    transform: translateY(-10px); /* Elevation effect on hover */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    /* transform: translateY(-10px);  */
+    /* box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); */
 }
 
 /* Testimonial text */
 .testimonial-review {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.6;
     font-style: italic;
     color: #4a4a4a; /* Soft grey for readability */
@@ -147,12 +146,12 @@ h4 {
 
     .testimonial-slide {
         width: 100%;
-        max-width: none;
-        padding: 15px;
+        /* max-width: none; */
+        padding: 5px;
     }
 
     .testimonial-review {
-        font-size: 16px;
+        font-size: 16px !important;
     }
 
     .slide_info {
@@ -214,8 +213,8 @@ h4 {
 
 /* Testimonial Image */
 .testimonial-image {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid #9bbf92; /* Soft green border for an organic touch */
@@ -232,7 +231,7 @@ h4 {
 
 /* Name Styling */
 .testimonial-name {
-    font-size: 1.4rem;
+    font-size: 15px;
     font-weight: 700;
     color: #4d4d4d; /* Dark grey for name */
     margin-bottom: 5px;

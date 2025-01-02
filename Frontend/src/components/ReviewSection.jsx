@@ -60,7 +60,7 @@ const data = {
 
 const ReviewSection = () => {
   return (
-    <div style={{marginBottom:"60px"}}>
+    <div style={{boxShadow:"none",width:'100%',margin:"auto"}}>
       <h4 className='feed-from' style={{textAlign:"center",marginTop:"80px",marginBottom:"20px",color:"#2d3748",fontWeight:"500"}}>Feed From Employees and Clients</h4>
       <h5 className='eco'>We've changed the way hundreds of teams work today with the products we are building in the HR ecosystem.</h5>
       <div className="testimonial-container">
@@ -73,12 +73,12 @@ const ReviewSection = () => {
             prevEl: '.swiper-button-prev',
           }}
           modules={[Pagination, Navigation]}
-          className="swiper-container"
-          // style={{backgroundColor:"orange"}}
+          // className="swiper-container"
+          style={{width:"100%"}}
         >
           {data.testimonials.map((testimonial) => (
             <SwiperSlide key={testimonial._id}>
-              <div className="testimonial-slide " style={{display:"grid"}}>
+              <div className="testimonial-slide" style={{display:"grid"}}>
                 {/* <img src={semicolum} className='semicol' alt="Here is your semi column" /> */}
                 <p className="testimonial-review">"{testimonial.review}"</p>
                 <div className='slide_info'>
@@ -92,7 +92,6 @@ const ReviewSection = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-
       </div>
     </div>
   );

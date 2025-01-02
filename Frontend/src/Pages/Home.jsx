@@ -56,7 +56,7 @@ const Home = ({homeProducts}) => {
   return (
     <div className="home-page">
       <PremiumResponsiveHero/>
-      <section className="features-section">
+      {/* <section className="features-section">
         <div className="feature">
           <span>Home Delivery</span>
         </div>
@@ -72,7 +72,7 @@ const Home = ({homeProducts}) => {
         <div className="feature">
           <span>Pure Authentic Flavors</span>
         </div>
-      </section>
+      </section> */}
 
 
       <section className="new-arrivals">
@@ -83,7 +83,7 @@ const Home = ({homeProducts}) => {
               
               return(
                 <Link to={`/product/${ele._id}`} style={{textDecoration:"none"}}>
-                  <div className="product-cards" key={id}>
+                  <div className="product-cardsr" key={id}>
                     <div className="image-container" style={{marginBottom:"-10px"}}>
                       <img 
                         src={"https://varahiorganics.onrender.com/"+ele?.image?.[0]} 

@@ -51,7 +51,6 @@ export default function Footer() {
               <a href="#" className="footer-link">Home</a>
               <a href="#" className="footer-link">Shop</a>
               <a href="#" className="footer-link">Recipes</a>
-              <a href="#" className="footer-link">About Us</a>
               <a href="#" className="footer-link">Contact Us</a>
             </div>
           </div>
@@ -66,7 +65,8 @@ export default function Footer() {
         </div>
         </>
         }
-
+        {
+        !isMobile &&
         <div className="footer-section">
           <h3 className="footer-title">Newsletter</h3>
           <form onSubmit={handleSubmit} className="newsletter-form">
@@ -80,6 +80,7 @@ export default function Footer() {
             <button type="submit" className="newsletter-button">Subscribe</button>
           </form>
         </div>
+      }
       </div>
       <div className="footer-bottom">
         <p>&copy; 2024 Varahi Granins.in.</p>
