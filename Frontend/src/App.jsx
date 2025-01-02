@@ -17,6 +17,7 @@ import FoodStore from "./Pages/FoodStore";
 import Loading from "./components/Loading/Loading";
 import LoginForm from "./Pages/AdminLogin";
 import NotFound from "./Pages/NotFound";
+import ContactUs from "./Pages/Contactus";
 
 const App = () => {
   const [homeProducts, setHomeProducts] = useState([]);
@@ -95,7 +96,7 @@ const App = () => {
         <Route path="/store" element={<FoodStore />} />
         <Route path="/orderlist/:id" element={<DeliveryDashboard order={dummyOrder} />} />
         <Route path="adminlogin" element={<LoginForm handleAdminLogin={handleAdminLogin} />} />
-        
+        <Route path="/contactus" element={<ContactUs/> }></Route>
         {/* Protected Admin Routes */}
         <Route
           path="/orderlist"

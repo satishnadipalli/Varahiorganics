@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, X, Plus, Minus, ChevronRight, ShoppingCart, Trash2 } from 'lucide-react';
 import "./Cart.css";
 
-const ShoppingCartPopup = ({ setIsCartOpen, setOpenCart }) => {
+const ShoppingCartPopup = ({ setIsCartOpen, setOpenCart, }) => {
   const [cartItems, setCartItems] = useState([]);
   const [isBlinking, setIsBlinking] = useState(true);
   const navigate = useNavigate();
@@ -158,7 +158,8 @@ const ShoppingCartPopup = ({ setIsCartOpen, setOpenCart }) => {
           <button
             className="start-shoppings mt-0 flex items-center m-auto bg-transparent text-black justify-center gap-2"
             onClick={() => {
-              navigate("/store");
+              navigate("/store")
+              setOpenCart(false)
               setIsCartOpen(false);
             }}
           >

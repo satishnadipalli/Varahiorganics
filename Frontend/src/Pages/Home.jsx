@@ -53,7 +53,7 @@ const Home = ({homeProducts,setOpenCart}) => {
 
   return (
     <div className="home-page">
-      <PremiumResponsiveHero/>
+      <PremiumResponsiveHero setOpenCart={setOpenCart}/>
       {/* <section className="features-section">
         <div className="feature">
           <span>Home Delivery</span>

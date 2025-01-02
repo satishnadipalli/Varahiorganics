@@ -12,10 +12,10 @@ const data = {
     {
       image: {
         public_id: 'portfolio3/1710357726628-c4dr18.png',
-        url: 'https://th.bing.com/th/id/OIP.EPkaFgMMDNRVNbu15yC5wwHaEK?rs=1&pid=ImgDetMain',
+        url: './bglessprofile.png',
       },
-      name: 'Samantha Wu',
-      review: 'I had the pleasure of working closely with John on a challenging project. He is a highly skilled developer who consistently delivered excellent results  making to stay consistant at out times to us good environment...',
+      name: 'Swetha',
+      review: "I switched to organic rice and I can feel the difference. The taste of basmati is so pure, and it cooks perfectly every time. It's a healthier choice for my family!",
       position: 'Software Engineer',
       enabled: true,
       _id: '65f1fcdf0556c3f887e9d74c',
@@ -23,10 +23,10 @@ const data = {
     {
       image: {
         public_id: 'portfolio3/1710357705657-aimydg.png',
-        url: 'https://th.bing.com/th/id/OIP.EPkaFgMMDNRVNbu15yC5wwHaEK?rs=1&pid=ImgDetMain',
+        url: './bglessprofile.png',
       },
-      name: 'David Rodriguez',
-      review: 'Throughout our project, John demonstrated exceptional technical skills and a strong work ethic. He consistently met deadlines and produced high-quality code and making to stay consistant at out times to us good environment...',
+      name: 'Meera',
+      review: 'I purchased  Varahi organic rice, and it’s amazing! The aroma is so natural, and the rice is perfect for traditional  dishes .I’m never going back to regular rice again.',
       position: 'Project Manager',
       enabled: true,
       _id: '65f1fcca0556c3f887e9d6e8',
@@ -34,10 +34,10 @@ const data = {
     {
       image: {
         public_id: 'portfolio3/1710357726628-c4dr18.png',
-        url: 'https://th.bing.com/th/id/OIP.EPkaFgMMDNRVNbu15yC5wwHaEK?rs=1&pid=ImgDetMain',
+        url: './bglessprofile.png',
       },
-      name: 'Samantha Wu',
-      review: 'I had the pleasure of working closely with John on a challenging project. He is a highly skilled developer who consistently delivered excellent results  making to stay consistant at out times to us good environment...',
+      name: 'Jyoti',
+      review: 'Organic rice is not just healthy; it also reminds me of the rice my grandmother used to cook. I love how clean and chemical-free it is. My family can taste the difference too!',
       position: 'Software Engineer',
       enabled: true,
       _id: '65f1fcdf0556c3f887e9d74c',
@@ -45,10 +45,10 @@ const data = {
     {
       image: {
         public_id: 'portfolio3/1710357705657-aimydg.png',
-        url: 'https://th.bing.com/th/id/OIP.EPkaFgMMDNRVNbu15yC5wwHaEK?rs=1&pid=ImgDetMain',
+        url: './bglessprofile.png',
       },
-      name: 'David Rodriguez',
-      review: 'Throughout our project, John demonstrated exceptional technical skills and a strong work ethic. He consistently met deadlines and produced high-quality code  making to stay consistant at out times to us good environment...',
+      name: 'Aditi',
+      review: 'The quality of this  varahi organic rice is unmatched. I love how fluffy the cooked grains are, and the earthy aroma makes it so appetizing. Great value for money!',
       position: 'Project Manager',
       enabled: true,
       _id: '65f1fcca0556c3f887e9d6e8',
@@ -81,8 +81,8 @@ const ReviewSection = () => {
               <div className="testimonial-slide" style={{display:"grid"}}>
                 {/* <img src={semicolum} className='semicol' alt="Here is your semi column" /> */}
                 <p className="testimonial-review">"{testimonial.review}"</p>
-                <div className='slide_info'>
-                  <img className='testimonial-image' src={testimonial.image.url} alt="" />
+                <div className='slide_info '>
+                  <img className='testimonial-image ml-5' src={testimonial.image.url} alt="" />
                   <div className='ccc'>
                     <span className='testimonial-name'>{testimonial.name}</span>
                     <span className='testimonial-position'>{testimonial.position}</span>

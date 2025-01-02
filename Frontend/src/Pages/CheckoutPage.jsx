@@ -27,11 +27,14 @@ function CheckoutPage() {
   const [cartProducts, setCartProducts] = useState([]);
   const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
   const [orderDetails, setOrderDetails] = useState(null);
+  const [buyproduct,setBuyProduct] = useState(null);
   const [errors, setErrors] = useState({});
 
   // Fetch products from localStorage when the component mounts
   useEffect(() => {
     const storedProducts = JSON.parse(localStorage.getItem('cart')) || [];
+    const buyproduct = JSON.parse(localStorage.getItem('buyproduct'));
+    setBuyProduct(buyproduct);
     setCartProducts(storedProducts);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -129,7 +132,10 @@ function CheckoutPage() {
           country: formData.country,
         },
       },
-      products: cart.map((product) => ({
+      products: buyproduct? {productId: buyproduct?._id,
+        weight:buyproduct?.weight,
+        quantity: buyproduct?.quantity,
+        price: buyproduct?.price,}: cart.map((product) => ({
         productId: product._id,
         weight:product.weight,
         quantity: product.quantity,
@@ -375,22 +381,35 @@ function CheckoutPage() {
           </div>
 
           {/* Loop through cart products */}
-          {cartProducts.length > 0 ? (
-            cartProducts.map((product, index) => (
-              <div key={index} className="summary-product">
-                <span>{product.name} × {product.quantity}</span>
-                <span>₹{product.price * product.quantity}</span>
-              </div>
-            ))
-          ) : (
+
+          {
+            buyproduct ? 
             <div className="summary-product">
-              <span>No products in the cart</span>
+              <span>{buyproduct.name} × {buyproduct.quantity}</span>
+              <span>₹{buyproduct.price * buyproduct.quantity}</span>
             </div>
-          )}
+            :
+            (
+              cartProducts.length > 0  ? (
+                cartProducts.map((product, index) => (
+                  <div key={index} className="summary-product">
+                    <span>{product.name} × {product.quantity}</span>
+                    <span>₹{product.price * product.quantity}</span>
+                  </div>
+                ))
+              ) : (
+                <div className="summary-product">
+                  <span>No products in the cart</span>
+                </div>
+              )
+            )
+
+          }
+          {}
 
           <div className="summary-subtotal">
             <span>Subtotal</span>
-            <span>₹{cartProducts.reduce((total, product) => total + product.price * product.quantity, 0)}</span>
+            <span>₹{buyproduct ? buyproduct?.price : cartProducts.reduce((total, product) => total + product.price * product.quantity, 0)}</span>
           </div>
           <div className="summary-shipping">
             <span>Shipping</span>
@@ -398,7 +417,7 @@ function CheckoutPage() {
           </div>
           <div className="summary-total">
             <span>Total</span>
-            <span>₹{calculateTotal()}</span>
+            <span>₹{buyproduct ? buyproduct?.price+110 : calculateTotal()}</span>
           </div>
           <div className="payment-section">
             <p className="privacy-notice">
@@ -418,7 +437,7 @@ function CheckoutPage() {
                 I have read and agree to the website terms and conditions *
               </label>
             </div>
-            <button className="place-order-btn" onClick={handleSubmit}>
+            <button disabled={formData?.termsAccepted} className={`place-order-btn ${formData?.termsAccepted ? "bg-red-700" : "bg-gray-500"}`} onClick={handleSubmit}>
               PLACE ORDER
             </button>
           </div>

@@ -177,7 +177,7 @@ textarea {
 .place-order-btn {
   width: 100%;
   padding: 15px;
-  background-color: #c4442a;
+  /* background-color: #c4442a; */
   color: white;
   border: none;
   border-radius: 4px;

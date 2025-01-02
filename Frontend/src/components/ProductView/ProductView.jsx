@@ -251,12 +251,12 @@ function handleAddToCart() {
           <button className='fedbak' onClick={()=>setIsOpenReview(true)}>
             Add a feedback about this product
           </button>
-          <div className="payment-icons">
+          {/* <div className="payment-icons">
             <img src="https://vamshifarms.com/cdn/shop/files/honey_187a8945-21f4-4ad4-b61a-34143ee13233.jpg?v=1717574377&width=88" alt="Mastercard" />
             <img src="https://vamshifarms.com/cdn/shop/files/honey_187a8945-21f4-4ad4-b61a-34143ee13233.jpg?v=1717574377&width=88" alt="Visa" />
             <img src="https://vamshifarms.com/cdn/shop/files/honey_187a8945-21f4-4ad4-b61a-34143ee13233.jpg?v=1717574377&width=88" alt="American Express" />
             <img src="https://vamshifarms.com/cdn/shop/files/honey_187a8945-21f4-4ad4-b61a-34143ee13233.jpg?v=1717574377&width=88" alt="Apple Pay" />
-          </div>
+          </div> */}
 
           <div className="product-description">
             <p>
@@ -309,7 +309,9 @@ function handleAddToCart() {
       </div>
       <ToastContainer />
     </section>
-    <h2 className='mt-10 text-lg text-black text-center' style={{fontFamily:"Manrope-Bold"}}>Customer feedbacks</h2>
+    {
+      selectedProduct?.feedbacks?.length > 0 && <h2 className='mt-10 text-lg text-black text-center' style={{fontFamily:"Manrope-Bold"}}>Customer feedbacks</h2>
+    }
     {
       selectedProduct?.feedbacks?.map((product)=>{
         return <ReviewCard

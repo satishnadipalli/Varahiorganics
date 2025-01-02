@@ -59,8 +59,9 @@ const Header = ({openCart,setOpenCart}) => {
         console.log(isOpen)
     const menuItems = [
         { title: "Home", href: "/" },
-        { title: "About Us", href: "#about" },
-        { title: "Contact Us", href: "#contact" },
+        { title: "About Us", href: "/aboutus" },
+        { title: "Contact Us", href: "/contactus" },
+        { title: "Organic Products", href: "/store"}
     ];
 
     return (
