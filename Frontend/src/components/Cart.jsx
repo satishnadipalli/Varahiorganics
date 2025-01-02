@@ -4,8 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, X, Plus, Minus, ChevronRight, ShoppingCart, Trash2 } from 'lucide-react';
 import "./Cart.css";
 
-const ShoppingCartPopup = ({ setIsCartOpen }) => {
+const ShoppingCartPopup = ({ setIsCartOpen, setOpenCart }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [isBlinking, setIsBlinking] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,18 +17,29 @@ const ShoppingCartPopup = ({ setIsCartOpen }) => {
   }, []);
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]").reverse();
     setCartItems(storedCart);
   }, []);
 
+  useEffect(() => {
+    if (isBlinking) {
+      const timer = setTimeout(() => {
+        setIsBlinking(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isBlinking]);
+
   const handleBuyCartItems = () => {
     setIsCartOpen(false);
+    setOpenCart(false)
     localStorage.removeItem("buyproduct");
     navigate("/checkout");
   };
 
   const handleBasket = () => {
     setIsCartOpen(false);
+    setOpenCart(false)
     navigate("/basket");
   };
 
@@ -53,6 +65,17 @@ const ShoppingCartPopup = ({ setIsCartOpen }) => {
   const calculateSubtotal = () =>
     cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
+  const blinkingAnimation = `
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    .blinking {
+      animation: blink 0.5s ease-in-out 2;
+    }
+  `;
+
   return (
     <AnimatePresence className="motion-presence">
       <motion.div
@@ -74,7 +97,10 @@ const ShoppingCartPopup = ({ setIsCartOpen }) => {
             <ShoppingBag size={24} />
             Your Cart
           </h2>
-          <button className="close-btn" onClick={() => setIsCartOpen(false)}>
+          <button className="close-btn" onClick={() =>{ 
+            setIsCartOpen(false)
+            setOpenCart(false)
+          }}>
             <X size={24} />
           </button>
         </div>
@@ -88,9 +114,9 @@ const ShoppingCartPopup = ({ setIsCartOpen }) => {
               </button>
             </div>
           ) : (
-            cartItems.map((item) => (
+            cartItems.map((item, index) => (
               <motion.div
-                className="cart-item"
+                className={`cart-item ${index === 0 && isBlinking ? 'blinking' : ''}`}
                 key={item._id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -155,6 +181,7 @@ const ShoppingCartPopup = ({ setIsCartOpen }) => {
           </div>
         )}
       </motion.div>
+      <style>{blinkingAnimation}</style>
     </AnimatePresence>
   );
 };

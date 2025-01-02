@@ -21,7 +21,7 @@ import NotFound from "./Pages/NotFound";
 const App = () => {
   const [homeProducts, setHomeProducts] = useState([]);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false); // New state for admin login
-
+  const [openCart,setOpenCart] = useState(false);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -84,13 +84,13 @@ const App = () => {
   return (
     <Router>
       <SubHeader />
-      <Header />
+      <Header openCart={openCart} setOpenCart={setOpenCart}/>
       <Routes>
-        <Route path="/" element={<Home homeProducts={homeProducts} />} />
+        <Route path="/" element={<Home setOpenCart={setOpenCart} homeProducts={homeProducts} />} />
         <Route path="/basket" element={<BasketList />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/product/:id" element={<ProductView homeProducts={homeProducts}/>} />
+        <Route path="/product/:id" element={<ProductView homeProducts={homeProducts} setOpenCart={setOpenCart}/>} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/store" element={<FoodStore />} />
         <Route path="/orderlist/:id" element={<DeliveryDashboard order={dummyOrder} />} />

@@ -39,9 +39,24 @@ const BasketList = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  const handleQuantityChange = (id, type) => {
+    console.log(id,type)
+    const updatedCart = cartItems.map((item) => {
+      if (item._id === id) {
+        const updatedQuantity =
+          type === "increase" ? item.quantity + 1 : Math.max(item.quantity - 1, 1);
+        return { ...item, quantity: updatedQuantity };
+      }
+      return item;
+    });
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+  const calculateSubtotal = () =>
+    cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
-    <>
+    <div className="main-wrpaer overflow-x-clip">
       <div className="cart-header">
         <h2>Your Cart</h2>
         <p>varahifoods / cart</p>
@@ -106,9 +121,9 @@ const BasketList = () => {
               </div>
             ) : (
               // Render mobile view if available
-              <div className="product-item">
+              <div className="product-items">
                 {cartItems.map((item, index) => (
-                  <div key={index} className="product-info">
+                  <div key={index} className="product-info relative">
                     <img
                       src={"https://varahiorganics.onrender.com/"+item.image[0]}
                       alt="Product"
@@ -123,15 +138,19 @@ const BasketList = () => {
                         </div>
                         <div className="product-meta-row">
                           <p className="meta-label">Quantity</p>
-                          <div className="quantity-controls">
-                            <button className="quantity-btn">-</button>
-                            <span className="quantity-value">{item.quantity}</span>
-                            <button className="quantity-btn">+</button>
+                          <div className="item-quantity">
+                            <button onClick={() => handleQuantityChange(item._id, "decrease")}>
+                              <Minus size={16} />
+                            </button>
+                            <span>{item.quantity}</span>
+                            <button onClick={() => handleQuantityChange(item._id, "increase")}>
+                              <Plus size={16} />
+                            </button>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <button className="remove-btn mt-8 mr-3" onClick={() => handleRemoveItem(item._id)}>
+                    <button className="remove-btns absolute top-2 right-4 text-red-500 " onClick={() => handleRemoveItem(item._id)}>
                       <Trash2 size={13} />
                     </button>
                   </div>
@@ -157,7 +176,7 @@ const BasketList = () => {
               <h2 className="totals-heading">Basket Totals</h2>
               <div className="totals-row">
                 <span className="label">Subtotal:</span>
-                <span className="value">₹360.00</span>
+                <span className="value">₹{calculateSubtotal()?.toFixed(2)}</span>
               </div>
               <div className="totals-row">
                 <span className="label">Shipping:</span>
@@ -168,14 +187,14 @@ const BasketList = () => {
               </p>
               <div className="totals-row total">
                 <span className="label">Total:</span>
-                <span className="value total-value">₹470.00</span>
+                <span className="value total-value">₹{(calculateSubtotal()+110)?.toFixed(2)}</span>
               </div>
               <button className="checkout-button" onClick={handleCheckout}>Proceed to Checkout</button>
             </div>
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

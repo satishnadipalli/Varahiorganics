@@ -6,7 +6,7 @@ import ShoppingCartPopup from '../Cart';
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ShoppingBag, X } from 'lucide-react';
 
-const Header = () => {
+const Header = ({openCart,setOpenCart}) => {
     const [width, setWidth] = useState(window.innerWidth);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -56,6 +56,7 @@ const Header = () => {
           }
         };
 
+        console.log(isOpen)
     const menuItems = [
         { title: "Home", href: "/" },
         { title: "About Us", href: "#about" },
@@ -82,14 +83,18 @@ const Header = () => {
                         </nav>
                     )}
 
+                    {console.log(isCartOpen,isOpen)}
                     {/* Cart and Social Links */}
                     <div className="action-links">
-                        <div className="cart-icon" onClick={() => setIsCartOpen(true)}>
+                        <div className="cart-icon" onClick={() => {
+                            setIsCartOpen(true)
+                            setOpenCart(true)
+                        }}>
                             <Bag />
                             <span className="cart-count">{JSON.parse(localStorage.getItem('cart'))?.length || 0}</span>
                         </div>
                         {width <= 728 && (
-                            <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
+                            <div className="hamburger" onClick={() => setIsOpen(true)}>
                                 {isOpen ? <IntoMark /> : <Hamberger />}
                             </div>
                         )}
@@ -135,7 +140,7 @@ const Header = () => {
                     )}
                 </AnimatePresence>
             </header>
-            {isCartOpen && <ShoppingCartPopup setIsCartOpen={setIsCartOpen} />}
+            {(isCartOpen || openCart) && <ShoppingCartPopup setIsCartOpen={setIsCartOpen} setOpenCart={setOpenCart} />}
         </>
     );
 };

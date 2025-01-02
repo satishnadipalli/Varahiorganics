@@ -7,7 +7,7 @@ import ReviewCard from './Review';
 import NewfeedBack from '../NewFeedBack/NewFeedBack';
 
 
-export default function ProductView({homeProducts}) {
+export default function ProductView({homeProducts,setOpenCart}) {
   
   const [selectedProduct,setSelectedProduct] = useState(null);
   const [isLoading,setIsloading] = useState(false)
@@ -61,6 +61,7 @@ function handleAddToCart() {
     // If the product already exists with the same weight, update its quantity
     cart[existingItemIndex].quantity =
       parseInt(cart[existingItemIndex].quantity) + parseInt(selectedUnits);
+      setOpenCart(true)
   } else {
     // If it's a new product or new weight, add it to the cart
     cart.push({
@@ -68,6 +69,7 @@ function handleAddToCart() {
       weight: selectedQuantity,
       quantity: parseInt(selectedUnits),
     });
+    setOpenCart(true)
   }
 
   // Save the updated cart to localStorage
@@ -307,10 +309,10 @@ function handleAddToCart() {
       </div>
       <ToastContainer />
     </section>
+    <h2 className='mt-10 text-lg text-black text-center' style={{fontFamily:"Manrope-Bold"}}>Customer feedbacks</h2>
     {
       selectedProduct?.feedbacks?.map((product)=>{
         return <ReviewCard
-
           name={product?.user}
           avatarSrc="/placeholder.svg?height=100&width=100"
           review={product?.feed}

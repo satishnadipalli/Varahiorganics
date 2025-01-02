@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import PremiumResponsiveHero from "../components/HeroSection/HeroSection";
 import Loading from "../components/Loading/Loading";
 
-const Home = ({homeProducts}) => {
+const Home = ({homeProducts,setOpenCart}) => {
   
 
   const categories = [
@@ -25,10 +25,7 @@ const Home = ({homeProducts}) => {
     }
   ]
 
-  // console.log(process.env.REACT_APP_BACKEND_URL)
-
-
-
+  
 
   const handleAddToCart = (product) => {
     // Retrieve current cart from local storage or initialize an empty array
@@ -40,16 +37,17 @@ const Home = ({homeProducts}) => {
     if (existingItemIndex >= 0) {
       // If the product exists, update its quantity
       cart[existingItemIndex].quantity += 1;
+      setOpenCart(true)
     } else {
       // If the product doesn't exist, add it with a quantity of 1
       cart.push({ ...product, quantity: 1 });
+      setOpenCart(true)
+
     }
 
     // Save the updated cart back to local storage
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    // Optional: Provide feedback to the user
-    alert(`${product.name} added to cart!`);
   };
 
 
