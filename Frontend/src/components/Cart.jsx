@@ -137,7 +137,7 @@ const ShoppingCartPopup = ({ setIsCartOpen, setOpenCart, }) => {
                   <h3 className="item-name" style={{ fontSize: "13px" }}>
                     {item.name}
                   </h3>
-                  <div className="item-price">₹{item.price.toFixed(2)}</div>
+                  <div className="item-price">₹{item.price?.toFixed(2)}</div>
                   <div className="item-quantity">
                     <button onClick={() => handleQuantityChange(item._id, "decrease")}>
                       <Minus size={16} />
@@ -148,7 +148,7 @@ const ShoppingCartPopup = ({ setIsCartOpen, setOpenCart, }) => {
                     </button>
                   </div>
                 </div>
-                <div className="item-total">₹{(item.price * item.quantity).toFixed(2)}</div>
+                <div className="item-total">₹{(item.price * item.quantity)?.toFixed(2)}</div>
                 <button className="remove-btn" onClick={() => handleRemoveItem(item._id)}>
                   <Trash2 size={13} />
                 </button>
@@ -170,7 +170,7 @@ const ShoppingCartPopup = ({ setIsCartOpen, setOpenCart, }) => {
           <div className="cart-footer">
             <div className="subtotal">
               <span>Subtotal:</span>
-              <span className="price">₹{calculateSubtotal().toFixed(2)}</span>
+              <span className="price">₹{calculateSubtotal()?.toFixed(2)}</span>
             </div>
             <button className="view-basket" onClick={handleBasket}>
               View Basket

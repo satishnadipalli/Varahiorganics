@@ -11,12 +11,14 @@ export default function ProductView({homeProducts,setOpenCart}) {
   
   const [selectedProduct,setSelectedProduct] = useState(null);
   const [isLoading,setIsloading] = useState(false)
-  const [selectedQuantity, setSelectedQuantity] = useState('0.5 kgs');
+  const [selectedQuantity, setSelectedQuantity] = useState(selectedProduct?.weights?.[0]);
   const [selectedUnits, setSelectedUnits] = useState(1);
   const [isOpenReview,setIsOpenReview] = useState(false);
   const navigate = useNavigate();
   const {id} = useParams();
 
+
+  console.log(selectedProduct?.weights?.[0],";;;;;;;;")
 
   function handleBuy() {
     // Check if selectedProduct is defined
@@ -166,8 +168,31 @@ function handleAddToCart() {
       </p>
     ));
   }
-  
-  // console.log(selectedQuantity)
+
+
+    const handleAddToCartBelow = (product) => {
+    // Retrieve current cart from local storage or initialize an empty array
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+    console.log(product,"product",cart,"-Below logs");
+
+    // Check if the product already exists in the cart
+    const existingItemIndex = cart.findIndex((item) => item._id == product._id);
+
+    if (existingItemIndex >= 0) {
+      // If the product exists, update its quantity
+      cart[existingItemIndex].quantity += 1;
+      setOpenCart(true)
+    } else {
+      // If the product doesn't exist, add it with a quantity of 1
+      cart.push({ ...product, quantity: 1 });
+      setOpenCart(true)
+
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+  };
 
   return (
     <>
@@ -230,13 +255,15 @@ function handleAddToCart() {
           <div>
             <label className="quantity-label">QUANTITY</label>
             <div className="quantity-buttons">
-              {['0.5 kgs', '1 kgs', '2kgs',].map((qty, index) => (
+              {selectedProduct?.weights?.map((qty, index) => (
+                
                 <button
                   key={qty}
                   className={`quantity-button text-nowrap ${selectedQuantity === qty ? 'active' : ''} ${index > 2 ? 'disabled' : ''}`}
                   onClick={() => setSelectedQuantity(qty)}
                   disabled={index > 2}
                 >
+                  {console.log(qty,selectedQuantity)}
                   {qty}
                 </button>
               ))}
@@ -288,20 +315,11 @@ function handleAddToCart() {
             <div className="price-range-r">
               ₹{product?.price?.toFixed(2)} – ₹{product?.price?.toFixed(2)}
             </div>
-            <button className="wishlist-button">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-              </svg>
-              Add to Wishlist
+            <button className="wishlist-button"
+              onClick={() => handleAddToCartBelow(product)}
+            >
+              🛒
+              Add to Cart
             </button>
           </div>
           </Link>

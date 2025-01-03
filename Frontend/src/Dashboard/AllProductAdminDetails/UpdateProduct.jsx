@@ -20,7 +20,8 @@ const ShippingLabel = ({ clickedProduct, setIsUpdateForm }) => {
     price: clickedProduct?.price,
     oldPrice: clickedProduct?.oldPrice,
     badge: clickedProduct?.badge,
-    quantity: clickedProduct?.quantity
+    quantity: clickedProduct?.quantity,
+    weights:clickedProduct?.weights
   });
 
   function handleDetails(event) {

@@ -29,7 +29,7 @@ const Home = ({homeProducts,setOpenCart}) => {
 
   const handleAddToCart = (product) => {
     // Retrieve current cart from local storage or initialize an empty array
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = JSON.parse(localStorage.getItem("cart")) || [] ;
 
     // Check if the product already exists in the cart
     const existingItemIndex = cart.findIndex((item) => item._id === product._id);
@@ -42,7 +42,6 @@ const Home = ({homeProducts,setOpenCart}) => {
       // If the product doesn't exist, add it with a quantity of 1
       cart.push({ ...product, quantity: 1 });
       setOpenCart(true)
-
     }
 
     // Save the updated cart back to local storage
@@ -80,29 +79,30 @@ const Home = ({homeProducts,setOpenCart}) => {
             homeProducts.map((ele,id)=>{
               
               return(
-                <Link to={`/product/${ele._id}`} style={{textDecoration:"none"}}>
+                
                   <div className="product-cardsr" key={id}>
-                    <div className="image-container" style={{marginBottom:"-10px"}}>
-                      <img 
-                        src={"https://varahiorganics.onrender.com/"+ele?.image?.[0]} 
-                        alt="Gorumitilu" 
-                        className="product-imagess" 
-                      />
-                      <span className="sale-badge">Sale</span>
-                      <div className="gradient-overlay">
-                        <button className="quick-view-btn">👁 Quick View</button>
+                    <Link to={`/product/${ele._id}`} style={{textDecoration:"none"}}>
+                      <div className="image-container" style={{marginBottom:"-10px"}}>
+                        <img 
+                          src={"https://varahiorganics.onrender.com/"+ele?.image?.[0]} 
+                          alt="Gorumitilu" 
+                          className="product-imagess" 
+                        />
+                        <span className="sale-badge">Sale</span>
+                        <div className="gradient-overlay">
+                          <button className="quick-view-btn">👁 Quick View</button>
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                     <div className="product-info" style={{display:"grid",gap:"0px"}}>
                       <h3 className="product-title">{ele.name}</h3>
                       <p className="product-price">Price: ₹{ele.price}</p>
                       <div className="button-container">
-                        <button className="wishlist-btn">♡ Wishlist</button>
+                        <button className="wishlist-btn">♡ Watch</button>
                         <button className="add-to-cart-btn" onClick={() => handleAddToCart(ele)}>🛒 Add to Cart</button>
                       </div>
                     </div>
                   </div>
-                </Link>
               )
             })
           }

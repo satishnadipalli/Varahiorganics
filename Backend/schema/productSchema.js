@@ -16,9 +16,10 @@ const productSchema = mongoose.Schema(
       date:String,
       rateGiven:Number
   }], 
+  weights: [{type:String,required:false}],
   avgRating: {
     type:Number,
-    required:[false,"please provide the avgRating of the product"],
+    required:[ false,"please provide the avgRating of the product" ],
     default:0
   },
     image: [{ type: String, required: true }], // Array of image URLs

@@ -63,10 +63,14 @@ const getProductById = async (req, res) => {
 // Add a new product
 const addProduct = async (req, res) => {
     try {
-        console.log("Incoming Request Data:", req.body);
-        console.log("Uploaded Files:", req.files);
 
-        const { name, description, price, quantity, category,oldPrice } = req.body;
+        const { name, description, price, quantity, category,oldPrice,weights } = req.body;
+
+        
+
+        console.log({ name, description, price, quantity, category,oldPrice,weights })
+
+        const parseweights = JSON.parse(weights);
 
         // Transform absolute file paths to relative paths
         const images = req.files.map(file => {
@@ -82,6 +86,7 @@ const addProduct = async (req, res) => {
             quantity,
             oldPrice,
             category,
+            weights : parseweights,
             image: images, // Use normalized relative paths here
         });
 
@@ -107,12 +112,11 @@ const updateProduct = async (req, res) => {
 
         
 
-        const { name, description, price, quantity, category,badge } = req.body;
+        const { name, description, price, quantity, category,badge,weights } = req.body;
 
-        console.log(name, description, price, quantity, category,req.body.name)
         const updatedProduct = await ProductsDB.findByIdAndUpdate(
             id,
-            { name, description, price, quantity, category,badge },
+            { name, description, price, quantity, category, badge, weights },
             { new: true }
         );
 
