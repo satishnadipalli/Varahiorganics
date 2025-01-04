@@ -11,6 +11,7 @@ const Header = ({openCart,setOpenCart}) => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [deferredPrompt, setDeferredPrompt] = useState(null);
+    const [isOpenLogo,setIsOpenLogo] = useState(false)
 
     useEffect(() => {
         const handleResize = () => setWidth(window.innerWidth);
@@ -70,7 +71,7 @@ const Header = ({openCart,setOpenCart}) => {
                 <div className="header-wrapperrr">
                     {/* Logo Section */}
                     <div className="logo-container">
-                        <img src="./logo.png" alt="Logo" className="logos" />
+                        <img src="https://i.postimg.cc/Fsj0BKwv/logo.png" alt="Logo" className="logos" onClick={()=>setIsOpenLogo(true)} />
                     </div>
 
                     {/* Navigation Links */}
@@ -148,6 +149,13 @@ const Header = ({openCart,setOpenCart}) => {
                 </AnimatePresence>
             </header>
             {(isCartOpen || openCart) && <ShoppingCartPopup setIsCartOpen={setIsCartOpen} setOpenCart={setOpenCart} />}
+            {   isOpenLogo &&
+                <div className='w-full h-screen absolute bg-red-700 top-0 flex items-center justify-center left-0 backdrop'
+                    onClick={()=>setIsOpenLogo(false)}
+                >
+                    <img src="https://i.postimg.cc/Fsj0BKwv/logo.png" alt="" />
+                </div>
+            }
         </>
     );
 };

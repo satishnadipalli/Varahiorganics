@@ -109,7 +109,10 @@ const ShoppingCartPopup = ({ setIsCartOpen, setOpenCart, }) => {
             <div className="empty-cart">
               <ShoppingCart size={64} />
               <p>Your cart is empty</p>
-              <button className="start-shopping" onClick={() => setIsCartOpen(false)}>
+              <button className="start-shopping" onClick={() => {
+                setIsCartOpen(false)
+                setOpenCart(false)
+              }}>
                 Start Shopping
               </button>
             </div>
