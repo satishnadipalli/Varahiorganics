@@ -536,7 +536,7 @@ header {
 }
 /* Product card container */
 /* Product card container */
-.product-cardsr {
+.product-cardsrr {
   width: 300px;
   border-radius: 14px;
   height: 400px;
@@ -547,7 +547,7 @@ header {
   margin: 20px;
 }
 
-.product-cardsr:hover {
+.product-cardsrr:hover {
   transform: translateY(-8px);
   /* box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15); */
 }
@@ -566,7 +566,7 @@ header {
   transition: transform 0.5s ease, filter 0.3s ease;
 }
 
-.product-cardsr:hover .product-imagess {
+.product-cardsrr:hover .product-imagess {
   transform: scale(1.08);
   filter: brightness(90%);
 }
@@ -586,7 +586,7 @@ header {
   transition: opacity 0.5s ease;
 }
 
-.product-cardsr:hover .gradient-overlay {
+.product-cardsrr:hover .gradient-overlay {
   opacity: 1;
 }
 
@@ -636,7 +636,7 @@ header {
   transition: color 0.3s ease;
 }
 
-.product-cardsrr:hover .product-title {
+.product-cardsrrr:hover .product-title {
   color: #2e7c31;
 }
 
@@ -707,17 +707,19 @@ header {
     gap: 0;
     
   }
-  .product-cardsr{
-    width: 360px;
-    height: 380px;
+  .product-cardsrr{
+    width: 360px !important; 
+    height: 400px;
     /* padding: 5px; */
   }
-  .product-imagess{
-    width: 360px;
-    height:250px;
-  }
+  .product-imagess {
+    width: 100%; /* Take up the full width of the container */
+    height: 100%; /* Take up the full height of the container */
+    object-fit: cover; /* Ensures the image scales nicely without distortion */
+}
+
   
-  .product-grid-h .product-cardsr {
+  .product-grid-h .product-cardsrr {
     flex: 1 1 48%;
     margin: 10px; 
     
@@ -728,10 +730,13 @@ header {
     margin-bottom: 10px;
   }
   .button-container{
-    display: grid;
+    display: flex;
     width: 100%;
+    /* background-color: gray; */
     /* place-items: c; */
     /* background-color: gray; */
+    align-items: center;
+    justify-content: center;
   }
   .product-price{
     font-size: 14px;
@@ -745,8 +750,9 @@ header {
   .add-to-cart-btn{
     font-size: 13px !important;
     width: 320px;
+    margin: auto !important;
   }
-  .product-grid-h > .product-cardsr {
+  .product-grid-h > .product-cardsrr {
     width: calc(50% - 10px); /* Make each item take up half of the row width, minus any spacing */
     margin-bottom: 20px; /* Optional: Add space between rows */
   }

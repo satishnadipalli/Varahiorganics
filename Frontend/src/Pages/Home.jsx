@@ -80,7 +80,7 @@ const Home = ({homeProducts,setOpenCart}) => {
               
               return(
                 
-                  <div className="product-cardsr" key={id}>
+                  <div className="product-cardsrr" key={id}>
                     <Link to={`/product/${ele._id}`} style={{textDecoration:"none"}}>
                       <div className="image-container" style={{marginBottom:"-10px"}}>
                         <img 
