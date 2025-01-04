@@ -39,8 +39,8 @@ const Home = ({homeProducts,setOpenCart}) => {
       cart[existingItemIndex].quantity += 1;
       setOpenCart(true)
     } else {
-      // If the product doesn't exist, add it with a quantity of 1
-      cart.push({ ...product, quantity: 1 });
+     console.log({ ...product,price:product?.weightPrices?.[0]?.price,weight: product?.weightPrices?.[0].weight, quantity: 1 })
+      cart.push({ ...product,price:product?.weightPrices?.[0]?.price,weight: product?.weightPrices?.[0].weight, quantity: 1 });
       setOpenCart(true)
     }
 
@@ -84,7 +84,7 @@ const Home = ({homeProducts,setOpenCart}) => {
                     <Link to={`/product/${ele._id}`} style={{textDecoration:"none"}}>
                       <div className="image-container" style={{marginBottom:"-10px"}}>
                         <img 
-                          src={"https://varahiorganics.onrender.com/"+ele?.image?.[0]} 
+                          src={"http://localhost:3000/"+ele?.image?.[0]} 
                           alt="Gorumitilu" 
                           className="product-imagess" 
                         />
@@ -96,7 +96,7 @@ const Home = ({homeProducts,setOpenCart}) => {
                     </Link>
                     <div className="product-info" style={{display:"grid",gap:"0px"}}>
                       <h3 className="product-title">{ele.name}</h3>
-                      <p className="product-price">Price: ₹{ele.price}</p>
+                      <p className="product-price">Price: ₹{ele?.weightPrices?.[0]?.price} - {ele?.weightPrices?.[ele?.weightPrices?.length -1]?.price} </p>
                       <div className="button-container">
                         <button className="wishlist-btn">♡ Watch</button>
                         <button className="add-to-cart-btn" onClick={() => handleAddToCart(ele)}>🛒 Add to Cart</button>

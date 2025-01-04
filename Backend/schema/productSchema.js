@@ -16,7 +16,11 @@ const productSchema = mongoose.Schema(
       date:String,
       rateGiven:Number
   }], 
-  weights: [{type:String,required:false}],
+  // weights: [{type:String,required:false}],
+  weightPrices :  [{
+    weight: { type: String, required: true },
+    price: { type: Number, required: true }
+  }],
   avgRating: {
     type:Number,
     required:[ false,"please provide the avgRating of the product" ],

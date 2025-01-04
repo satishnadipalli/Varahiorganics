@@ -21,10 +21,20 @@ export default function ProductView({homeProducts,setOpenCart}) {
   console.log(selectedProduct?.weights?.[0],";;;;;;;;")
 
   function handleBuy() {
-    // Check if selectedProduct is defined
+    
+    if (!selectedQuantity) {
+      toast.warning("Please select a weight before adding to cart.", {
+        autoClose: 3000,
+        theme: "colored",
+      });
+      return;
+    }
+
+
     if (selectedProduct) {
         // If it's an object, stringify it
-        localStorage.setItem('buyproduct', JSON.stringify(selectedProduct));
+
+        localStorage.setItem('buyproduct', JSON.stringify({...selectedProduct,price:selectedQuantity?.price}));
 
         navigate("/checkout");
     } else {
@@ -56,7 +66,7 @@ function handleAddToCart() {
 
   // Check if the product already exists in the cart
   const existingItemIndex = cart.findIndex((item) => 
-    item._id === selectedProduct._id && item.weight === selectedQuantity
+    item._id === selectedProduct._id && item.weight === selectedQuantity.weight
   );
 
   if (existingItemIndex >= 0) {
@@ -68,7 +78,8 @@ function handleAddToCart() {
     // If it's a new product or new weight, add it to the cart
     cart.push({
       ...selectedProduct,
-      weight: selectedQuantity,
+      weight: selectedQuantity?.weight,
+      price : selectedQuantity?.price,
       quantity: parseInt(selectedUnits),
     });
     setOpenCart(true)
@@ -144,7 +155,6 @@ function handleAddToCart() {
   ];
 
 
-  console.log(selectedProduct)
   useEffect(()=>{
     window.scrollTo({top:0,behavior:"smooth"});
   },[]);
@@ -173,8 +183,7 @@ function handleAddToCart() {
     const handleAddToCartBelow = (product) => {
     // Retrieve current cart from local storage or initialize an empty array
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    
-    console.log(product,"product",cart,"-Below logs");
+
 
     // Check if the product already exists in the cart
     const existingItemIndex = cart.findIndex((item) => item._id == product._id);
@@ -185,7 +194,7 @@ function handleAddToCart() {
       setOpenCart(true)
     } else {
       // If the product doesn't exist, add it with a quantity of 1
-      cart.push({ ...product, quantity: 1 });
+      cart.push({ ...product,weight:product?.weightPrices?.[0]?.weight,price:product?.weightPrices?.[0]?.price, quantity: 1 });
       setOpenCart(true)
 
     }
@@ -202,7 +211,7 @@ function handleAddToCart() {
       <div className="product-grid" style={{width:"90%",}}>
         <div className="product-image">
           <img
-            src={"https://varahiorganics.onrender.com/"+selectedProduct?.image?.[0]}
+            src={"http://localhost:3000/"+selectedProduct?.image?.[0]}
             alt="Natural Honey"
             className='productveiw-img'
           />
@@ -221,7 +230,7 @@ function handleAddToCart() {
               
             </div>
             <div className="price-rating -mt-4">
-              <div className="price text-black">Rs. {selectedProduct?.price}</div>
+              <div className="price text-black">Rs. {selectedProduct?.weightPrices?.[0].price} - {selectedProduct?.weightPrices?.[selectedProduct?.weightPrices?.length-1].price}</div>
               <div className="rating">
                 <span className="star">★</span>
                 <span>5.0 (61)</span>
@@ -256,16 +265,14 @@ function handleAddToCart() {
           <div>
             <label className="quantity-label">QUANTITY</label>
             <div className="quantity-buttons">
-              {selectedProduct?.weights?.map((qty, index) => (
-                
+              {selectedProduct?.weightPrices?.map((qty, index) => (
                 <button
-                  key={qty}
-                  className={`quantity-button text-nowrap ${selectedQuantity === qty ? 'active' : ''} ${index > 2 ? 'disabled' : ''}`}
+                  key={index}
+                  className={`quantity-button text-nowrap ${selectedQuantity?.weight === qty?.weight ? 'active' : ''} ${index > 2 ? 'disabled' : ''}`}
                   onClick={() => setSelectedQuantity(qty)}
                   disabled={index > 2}
                 >
-                  {console.log(qty,selectedQuantity)}
-                  {qty}
+                  {qty?.weight}
                 </button>
               ))}
             </div>
@@ -273,7 +280,7 @@ function handleAddToCart() {
 
         </div>
           <div className="action-buttons">
-            <button className="action-button" onClick={handleAddToCart}>ADD TO CART</button>
+            <button className="action-button" onClick={()=>handleAddToCart()}>ADD TO CART</button>
             <button className="action-button" onClick={handleBuy}>BUY IT NOW</button>
           </div>
           <button className='fedbak' onClick={()=>setIsOpenReview(true)}>

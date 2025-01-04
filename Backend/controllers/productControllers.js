@@ -64,13 +64,15 @@ const getProductById = async (req, res) => {
 const addProduct = async (req, res) => {
     try {
 
-        const { name, description, price, quantity, category,oldPrice,weights } = req.body;
+        const { name, description, price, quantity, category,oldPrice,weights,weightPrices } = req.body;
 
         
 
-        console.log({ name, description, price, quantity, category,oldPrice,weights })
+        console.log({ name, description, price, quantity, category,oldPrice,weightPrices })
 
-        const parseweights = JSON.parse(weights);
+        // return
+        // const parseweights = JSON.parse(weights);
+        const weightPricesparsed = JSON.parse(weightPrices);
 
         // Transform absolute file paths to relative paths
         const images = req.files.map(file => {
@@ -82,12 +84,13 @@ const addProduct = async (req, res) => {
         const newProduct = new ProductsDB({
             name,
             description,
-            price,
+            price:0,
             quantity,
             oldPrice,
             category,
-            weights : parseweights,
-            image: images, // Use normalized relative paths here
+            // weights : parseweights,
+            image: images,
+            weightPrices : weightPricesparsed
         });
 
         await newProduct.save();

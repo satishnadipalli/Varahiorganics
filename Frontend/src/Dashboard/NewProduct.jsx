@@ -9,8 +9,9 @@ import "react-toastify/dist/ReactToastify.css"
 
 const NewProduct = ({ setIsAdd }) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [weights, setWeights] = useState([])
-  const [weight, setWeight] = useState("")
+  const [weightPrices, setWeightPrices] = useState([])
+  const [currentWeight, setCurrentWeight] = useState("")
+  const [currentPrice, setCurrentPrice] = useState("")
   
   const [productDetails, setProductDetails] = useState({
     name: "",
@@ -44,6 +45,7 @@ const NewProduct = ({ setIsAdd }) => {
       image: [...prev.image, ...selectedFiles]
     }))
   }
+
   async function handleSubmit(event) {
     event.preventDefault();
     setIsLoading(true);
@@ -61,10 +63,10 @@ const NewProduct = ({ setIsAdd }) => {
       // Append image files
       productDetails.image.forEach((img) => formData.append('image', img));
   
-      // Append weights as a JSON string
-      formData.append('weights', JSON.stringify(weights));
+      // Append weightPrices as a JSON string
+      formData.append('weightPrices', JSON.stringify(weightPrices));
   
-      const response = await fetch("https://varahiorganics.onrender.com/addproduct", {
+      const response = await fetch("http://localhost:3000/addproduct", {
         method: "POST",
         body: formData,
       });
@@ -93,7 +95,7 @@ const NewProduct = ({ setIsAdd }) => {
           badge: "",
           quantity: 1,
         });
-        setWeights([]);
+        setWeightPrices([]);
   
         setIsLoading(false);
       } else {
@@ -109,16 +111,17 @@ const NewProduct = ({ setIsAdd }) => {
     }
   }
   
-  const handleAddWeight = (e) => {
+  const handleAddWeightPrice = (e) => {
     e.preventDefault()
-    if (weight.trim() !== "") {
-      setWeights(prev => [...prev, weight.trim()])
-      setWeight('')
+    if (currentWeight.trim() !== "" && currentPrice.trim() !== "") {
+      setWeightPrices(prev => [...prev, { weight: currentWeight.trim(), price: currentPrice.trim() }])
+      setCurrentWeight('')
+      setCurrentPrice('')
     }
   }
 
-  const handleRemoveWeight = (index) => {
-    setWeights(prev => prev.filter((_, i) => i !== index))
+  const handleRemoveWeightPrice = (index) => {
+    setWeightPrices(prev => prev.filter((_, i) => i !== index))
   }
 
   return (
@@ -143,7 +146,7 @@ const NewProduct = ({ setIsAdd }) => {
               value={productDetails.name}
               onChange={handleDetails}
               placeholder="Enter product name"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
             />
           </div>
 
@@ -156,7 +159,7 @@ const NewProduct = ({ setIsAdd }) => {
               name="brand"
               value={productDetails.brand}
               onChange={handleDetails}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
             >
               <option value="">Select Brand</option>
               <option value="Varahi">Varahi</option>
@@ -174,7 +177,7 @@ const NewProduct = ({ setIsAdd }) => {
               onChange={handleDetails}
               placeholder="Enter product description"
               rows={4}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
             />
           </div>
 
@@ -206,7 +209,7 @@ const NewProduct = ({ setIsAdd }) => {
                 name="category"
                 value={productDetails.category}
                 onChange={handleDetails}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
               >
                 <option value="">Select Category</option>
                 <option value="Sweets">Sweets</option>
@@ -226,7 +229,7 @@ const NewProduct = ({ setIsAdd }) => {
                 name="badge"
                 value={productDetails.badge}
                 onChange={handleDetails}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
               >
                 <option value="">Select Badge</option>
                 <option value="Choice">Choice</option>
@@ -246,22 +249,7 @@ const NewProduct = ({ setIsAdd }) => {
                 value={productDetails.attribute}
                 onChange={handleDetails}
                 placeholder="Search keyword"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="price" className="block text-sm font-medium text-gray-700 flex items-center">
-                <FaDollarSign className="text-gray-500 mr-2" /> Price
-              </label>
-              <input
-                id="price"
-                name="price"
-                type="number"
-                value={productDetails.price}
-                onChange={handleDetails}
-                placeholder="Price"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
               />
             </div>
 
@@ -276,7 +264,7 @@ const NewProduct = ({ setIsAdd }) => {
                 value={productDetails.oldPrice}
                 onChange={handleDetails}
                 placeholder="Old Price"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
               />
             </div>
 
@@ -291,38 +279,46 @@ const NewProduct = ({ setIsAdd }) => {
                 value={productDetails.quantity}
                 onChange={handleDetails}
                 placeholder="Number of products"
-                className="mt-1 block w-full border-zinc-700 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="mt-1 block w-full border-zinc-700 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="weights" className="block text-sm font-medium text-gray-700 flex items-center">
-              <RiGalleryLine className="text-gray-500 mr-2"/> Weights
+            <label htmlFor="weights" className="block text-sm font-medium text-gray-700 flex items-center mb-2">
+              <RiGalleryLine className="text-gray-500 mr-2"/> Weights and Prices
             </label>
             <div className="flex space-x-2">
               <input
                 id="weights"
                 type="text"
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
+                value={currentWeight}
+                onChange={(e) => setCurrentWeight(e.target.value)}
                 placeholder="Enter weight (e.g., 100g, 1kg)"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
+              />
+              <input
+                id="weightPrice"
+                type="number"
+                value={currentPrice}
+                onChange={(e) => setCurrentPrice(e.target.value)}
+                placeholder="Enter price for this weight"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 px-3 py-2"
               />
               <button
-                onClick={handleAddWeight}
+                onClick={handleAddWeightPrice}
                 type="button"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="mt-1 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 <FaPlus className="mr-2" /> Add
               </button>
             </div>
-            {weights.length > 0 && (
+            {weightPrices.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-2">
-                {weights.map((w, index) => (
-                  <span key={index} className="bg-gray-200 px-2 py-1 rounded-full text-sm flex items-center">
-                    {w}
-                    <button onClick={() => handleRemoveWeight(index)} className="ml-2 text-red-500">
+                {weightPrices.map((wp, index) => (
+                  <span key={index} className="bg-gray-200 px-3 py-1 rounded-full text-sm flex items-center">
+                    {wp.weight} - ₹{wp.price}
+                    <button onClick={() => handleRemoveWeightPrice(index)} className="ml-2 text-red-500 hover:text-red-700">
                       <FaTimes />
                     </button>
                   </span>
@@ -346,6 +342,4 @@ const NewProduct = ({ setIsAdd }) => {
 }
 
 export default NewProduct
-
-
 
