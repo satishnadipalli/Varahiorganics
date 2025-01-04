@@ -66,7 +66,7 @@ const NewProduct = ({ setIsAdd }) => {
       // Append weightPrices as a JSON string
       formData.append('weightPrices', JSON.stringify(weightPrices));
   
-      const response = await fetch("http://localhost:3000/addproduct", {
+      const response = await fetch("https://varahiorganics.onrender.com/addproduct", {
         method: "POST",
         body: formData,
       });

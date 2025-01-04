@@ -84,7 +84,7 @@ const Home = ({homeProducts,setOpenCart}) => {
                     <Link to={`/product/${ele._id}`} style={{textDecoration:"none"}}>
                       <div className="image-container" style={{marginBottom:"-10px"}}>
                         <img 
-                          src={"http://localhost:3000/"+ele?.image?.[0]} 
+                          src={"https://varahiorganics.onrender.com/"+ele?.image?.[0]} 
                           alt="Gorumitilu" 
                           className="product-imagess" 
                         />

@@ -227,7 +227,7 @@ function handleAddToCart() {
       <div className="product-grid" style={{width:"90%",}}>
         <div className="product-image">
           <img
-            src={"http://localhost:3000/"+selectedProduct?.image?.[0]}
+            src={"https://varahiorganics.onrender.com/"+selectedProduct?.image?.[0]}
             alt="Natural Honey"
             className='productveiw-img'
           />
