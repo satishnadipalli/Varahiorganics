@@ -208,6 +208,7 @@ function handleAddToCart() {
           />
         </div>
         <div className="product-details">
+          {/* Hello updated te parts */}
           <div>
             <div className="rating flex-col">
             <h1 className="product-title block">{selectedProduct?.name}</h1>
