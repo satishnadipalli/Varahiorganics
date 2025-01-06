@@ -638,6 +638,12 @@ header {
   color: #222;
   margin-bottom: 10px;
   transition: color 0.3s ease;
+
+}
+.ooo{
+  text-align: center !important;
+  /* background-color: green; */
+
 }
 
 .product-cardsrrr:hover .product-title {
