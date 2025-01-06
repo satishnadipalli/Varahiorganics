@@ -170,14 +170,25 @@ function handleAddToCart() {
   function formatDescription(description) {
     // Split the description by periods and remove any extra empty strings
     const descriptionLines = description.split('.').filter(line => line.trim() !== '');
-    
-    // Return each line wrapped in a <p> tag
-    return descriptionLines.map((line, index) => (
-      <p key={index}>
-        {line.trim()}.
-      </p>
-    ));
+  
+    // Return each line wrapped in a <p> tag with bold formatting for words before ':'
+    return descriptionLines.map((line, index) => {
+      // Check if a colon exists and extract the part before and after it
+      const [beforeColon, afterColon] = line.split(':');
+  
+      // If no colon is found, return the line as is
+      if (!afterColon) {
+        return <p key={index}>{line.trim()}.</p>;
+      }
+  
+      return (
+        <p key={index}>
+          <strong style={{color:"black"}}>{beforeColon.trim()}</strong>: {afterColon.trim()}.
+        </p>
+      );
+    });
   }
+  
 
 
     const handleAddToCartBelow = (product) => {
@@ -325,7 +336,7 @@ function handleAddToCart() {
     
     <section className="related-products mt-10">
       <h2>Related products</h2>
-      <div className="products-grid-r">
+      <div className="products-grid-r ">
         {homeProducts.map((product,ele) => (
           <Link to={`/product/${product?._id}`} style={{textDecoration:"none"}}>
             <div key={product._id} className="product-cardss" style={{textDecoration:"none"}} onClick={handleClick}>
@@ -337,7 +348,7 @@ function handleAddToCart() {
               {product.title}
             </a>
             <div className="price-range-r">
-              ₹{product?.price?.toFixed(2)} – ₹{product?.price?.toFixed(2)}
+              ₹{product?.weightPrices?.[0]?.price?.toFixed(2)} – ₹{product?.weightPrices?.[0]?.price?.toFixed(2)}
             </div>
             <button className="wishlist-button"
               onClick={() => handleAddToCartBelow(product)}
