@@ -84,7 +84,7 @@ const BasketList = () => {
                         <td className="product-cell">
                           <div className="product-detailsss">
                             <img
-                              src={"https://varahiorganics.onrender.com/"+item.image[0] }
+                              src={item.image[0] }
                               // alt="Product"
                               className="product-images"
                             />
@@ -125,7 +125,7 @@ const BasketList = () => {
                 {cartItems.map((item, index) => (
                   <div key={index} className="product-info relative">
                     <img
-                      src={"https://varahiorganics.onrender.com/"+item.image[0]}
+                      src={item.image[0]}
                       alt="Product"
                       className="item-image"
                     />
@@ -179,15 +179,15 @@ const BasketList = () => {
                 <span className="value">₹{calculateSubtotal()?.toFixed(2)}</span>
               </div>
               <div className="totals-row">
-                <span className="label">Shipping:</span>
-                <span className="value">Flat rate: ₹110.00</span>
+                <span className="label">Shipping Charges:</span>
+                <span className="value">₹60.00</span>
               </div>
               <p className="shipping-address text-left">
-                Shipping to <b>Andhra Pradesh</b>.{" "}
+                Shipping to <b>all over India</b>.{" "}
               </p>
               <div className="totals-row total">
                 <span className="label">Total:</span>
-                <span className="value total-value">₹{(calculateSubtotal()+110)?.toFixed(2)}</span>
+                <span className="value total-value">₹{(calculateSubtotal()+60)?.toFixed(2)}</span>
               </div>
               <button className="checkout-button" onClick={handleCheckout}>Proceed to Checkout</button>
             </div>

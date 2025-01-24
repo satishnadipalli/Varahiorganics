@@ -238,7 +238,7 @@ function handleAddToCart() {
       <div className="product-grid" style={{width:"90%",}}>
         <div className="product-image">
           <img
-            src={"https://varahiorganics.onrender.com/"+selectedProduct?.image?.[0]}
+            src={selectedProduct?.image?.[0]}
             alt="Natural Honey"
             className='productveiw-img'
           />
@@ -342,7 +342,7 @@ function handleAddToCart() {
             <div key={product._id} className="product-cardss" style={{textDecoration:"none"}} onClick={handleClick}>
             <div className="product-image-r">
               <span className="sale-badge">{product?.badge || "Sale"}</span>
-              <img src={"https://varahiorganics.onrender.com/"+product?.image?.[0]} alt={product.name} />
+              <img src={product?.image?.[0]} alt={product.name} />
             </div>
             <a href="#" className="product-title-r">
               {product.title}

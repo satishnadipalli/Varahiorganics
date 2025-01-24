@@ -8,9 +8,9 @@ import { Link, useNavigate } from 'react-router-dom'
 
 const products = [
   { name: 'Organic Rice', image: 'https://img.freepik.com/free-photo/overhead-view-bowls-with-red-brown-white-rice-bowls_23-2147883320.jpg?size=626&ext=jpg', description: 'Pure, aromatic grains', _id:"676bf718e56d837f6411dc68" },
-  { name: 'Organic Dal', image: 'https://vamshifarms.com/cdn/shop/files/ecommified_httpss.mj.run1YPvs8udvp4_toor_dal_yellow_pusles_in_a_81c0e10d-f0ed-4888-b86a-2168b1a0c6ad.png?v=1720156594&width=848', description: 'Protein-rich lentils',_id:"676bee288a637338c5920889" },
-  { name: 'Organic Sweetning', image: 'https://th.bing.com/th/id/OIP.HZgttQGNXBcqLChShgBrKAAAAA?w=400&h=400&rs=1&pid=ImgDetMain', description: 'Traditional delicacies',_id:"676ba9033060423fc482f792" },
-  { name: 'Fresh Vegetables', image: 'https://vamshifarms.com/cdn/shop/files/coconut_oil_image_2.jpg?v=1723485819&width=848', description: 'Farm-fresh produce' },
+  { name: 'Honey', image: 'https://masalamonk.com/wp-content/uploads/2024/05/Honey-1.jpg', description: 'Pattu Teaney',_id:"676bee288a637338c5920889" },
+  { name: 'Organic Jaggery ', image: 'https://www.wildturmeric.net/wp-content/uploads/2017/03/026-1024x1536.jpg', description: 'Thati Bellam/Palm Jaggery',_id:"676ba9033060423fc482f792" },
+  { name: 'Cashew nuts', image: 'https://d3kgrlupo77sg7.cloudfront.net/media/chococoorgspice.com/images/products/organic-coorg-cashew-nuts-500-gm-coorg-dry-fruits-whole-big-size.20220919003557.webp', description: 'Organic & Pesticide-Free ' },
 ]
 
 export default function PremiumResponsiveHero() {

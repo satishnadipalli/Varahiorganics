@@ -4,6 +4,7 @@ import OrderSuccessAnimation from '../components/OrderSuccess/OrderSuccess';
 
 function CheckoutPage() {
   const [isOpen, setIsOpen] = useState(true);
+  const [isSubmittingCompleted,setIsSubmittingCompleted] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -12,7 +13,7 @@ function CheckoutPage() {
     streetAddress: '',
     apartment: '',
     townCity: '',
-    state: 'Andhra Pradesh',
+    state: '',
     pinCode: '',
     phone: '',
     email: '',
@@ -98,8 +99,11 @@ function CheckoutPage() {
 
   // Handle form submission
   const handleSubmit = async (e) => {
+    console.log("Hei iam get")
     e.preventDefault();
+    setIsSubmittingCompleted(true);
 
+    console.log(orderDetails,'hii')
     // Validate form data
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
@@ -183,9 +187,11 @@ function CheckoutPage() {
           orderNotes: '',
           termsAccepted: false,
         });
+        setIsSubmittingCompleted(false);
         setErrors({});
       } else {
         const error = await response.json();
+        setIsSubmittingCompleted(false);
         alert(`Failed to place order: ${error.message}`);
       }
     } catch (error) {
@@ -197,7 +203,7 @@ function CheckoutPage() {
   // Calculate total price of all products (including shipping)
   const calculateTotal = () => {
     const productTotal = cartProducts?.reduce((total, product) => total + product.price * product.quantity, 0);
-    const shippingCost = 110; // Flat shipping rate
+    const shippingCost = 60; // Flat shipping rate
     return productTotal + shippingCost;
   };
 
@@ -221,6 +227,7 @@ function CheckoutPage() {
                   type="text"
                   id="firstName"
                   name="firstName"
+                  placeholder='John'
                   value={formData.firstName}
                   onChange={handleInputChange}
                   required
@@ -233,6 +240,7 @@ function CheckoutPage() {
                   type="text"
                   id="lastName"
                   name="lastName"
+                  placeholder='Doe'
                   value={formData.lastName}
                   onChange={handleInputChange}
                   required
@@ -247,6 +255,7 @@ function CheckoutPage() {
                 type="text"
                 id="companyName"
                 name="companyName"
+                
                 value={formData.companyName}
                 onChange={handleInputChange}
               />
@@ -311,10 +320,46 @@ function CheckoutPage() {
                 onChange={handleInputChange}
                 required
               >
+                <option value="" disabled>Select your state</option>
                 <option value="Andhra Pradesh">Andhra Pradesh</option>
-                {/* Add other states as needed */}
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Ladakh">Ladakh</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Puducherry">Puducherry</option>
               </select>
             </div>
+
 
             <div className="form-group">
               <label htmlFor="pinCode">PIN Code *</label>
@@ -413,11 +458,11 @@ function CheckoutPage() {
           </div>
           <div className="summary-shipping">
             <span>Shipping</span>
-            <span>Flat rate: ₹110.00</span>
+            <span>₹60.00</span>
           </div>
           <div className="summary-total">
             <span>Total</span>
-            <span>₹{buyproduct ? buyproduct?.price+110 : calculateTotal()}</span>
+            <span>₹{buyproduct ? buyproduct?.price+60 : calculateTotal()}</span>
           </div>
           <div className="payment-section">
             <p className="privacy-notice">
@@ -437,8 +482,8 @@ function CheckoutPage() {
                 I have read and agree to the website terms and conditions *
               </label>
             </div>
-            <button disabled={formData?.termsAccepted} className={`place-order-btn ${formData?.termsAccepted ? "bg-red-700" : "bg-gray-500"}`} onClick={handleSubmit}>
-              PLACE ORDER
+            <button type='submit' disabled={!(formData?.termsAccepted) || (isSubmittingCompleted) } className={`place-order-btn ${formData?.termsAccepted ? "bg-red-700" : "bg-gray-500"}`} onClick={handleSubmit}>
+              { isSubmittingCompleted ? "Please wait" : "PLACE ORDER"}
             </button>
           </div>
         </div>

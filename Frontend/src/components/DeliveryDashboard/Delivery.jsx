@@ -182,7 +182,7 @@ const EnhancedDeliveryDashboard = () => {
               <div className="product-grid">
                 {order?.products.length > 0 && order?.products?.map((product, index) => (
                   <div key={index} className="product-card">
-                    <img src={"https://varahiorganics.onrender.com/"+product?.productId?.image?.[0]} alt={product?.productId?.name} className="product-image" />
+                    <img src={product?.productId?.image?.[0]} alt={product?.productId?.name} className="product-image" />
                     <div className="product-details">
                       <h3>{product?.productId?.name}</h3>
                       {/* <p>{product?.productId?.description}</p> */}

@@ -137,14 +137,14 @@ export default function FoodStore() {
                     className="price-range"
                   />
                   <div className="price-inputs">
-                    <button className="filter-button" onClick={handlestartsorting}>Filter</button>
+                    <button className="filter-button relative mt-5 text-sm" onClick={handlestartsorting}>Filter</button>
                     <span className="price-text">
                       Price: ₹{priceRange[0]} — ₹{priceRange[1]}
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="widget">
+              {/* <div className="widget">
                 <h2 className="widget-title">Product Tags</h2>
                 <div className="tag-cloud">
                   {productTags.map((tag) => (
@@ -153,7 +153,7 @@ export default function FoodStore() {
                     </span>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
           </aside>
           <main className="main-content">
@@ -171,10 +171,10 @@ export default function FoodStore() {
               </div>
               <div className="sort-box">
                 <select className="sort-select" onChange={(e)=>handlestartsorting(e)}>
-                  <option>Default sorting</option>
-                  <option>Sort by popularity</option>
-                  <option value="asc" >Sort by price: low to high</option>
-                  <option value="desc" >Sort by price: high to low</option>
+                  <option>Default</option>
+                  <option>Popularity</option>
+                  <option value="asc" >Price: low to high</option>
+                  <option value="desc" >Price: high to low</option>
                 </select>
                 <ChevronDown className="sort-icon" size={20} />
               </div>
@@ -186,7 +186,7 @@ export default function FoodStore() {
                   <div key={product.id} className="product-card" style={{textDecoration:"none"}}>
                   <div className="product-image-r">
                     <span className="sale-badge">Sale!</span>
-                    <img src={"https://varahiorganics.onrender.com/"+product?.image[0]} alt={product.title} />
+                    <img src={product?.image[0]} alt={product.title} />
                   </div>
                   <a href="#" className="product-title-r">
                     {product.title}

@@ -61,7 +61,7 @@ const data = {
 const ReviewSection = () => {
   return (
     <div style={{boxShadow:"none",width:'100%',margin:"auto"}}>
-      <h4 className='feed-from' style={{textAlign:"center",marginTop:"80px",marginBottom:"20px",color:"#2d3748",fontWeight:"500"}}>Feed From Employees and Clients</h4>
+      <h4 className='feed-from' style={{textAlign:"center",marginTop:"80px",marginBottom:"20px",color:"#2d3748",fontWeight:"500"}}>Feed Back From Our Customers</h4>
       <h5 className='eco'>We've changed the way hundreds of teams work today with the products we are building in the HR ecosystem.</h5>
       <div className="testimonial-container">
         <Swiper

@@ -47,9 +47,9 @@ const Home = ({homeProducts,setOpenCart}) => {
     // Save the updated cart back to local storage
     localStorage.setItem("cart", JSON.stringify(cart));
 
-  };
+      };
 
-
+      console.log(homeProducts)
   return (
     <div className="home-page">
       <PremiumResponsiveHero setOpenCart={setOpenCart}/>
@@ -70,7 +70,7 @@ const Home = ({homeProducts,setOpenCart}) => {
           <span>Pure Authentic Flavors</span>
         </div>
       </section> */}
-
+  
 
       <section className="new-arrivals">
         <h2 className="section-title">New Arrivals</h2>
@@ -84,7 +84,7 @@ const Home = ({homeProducts,setOpenCart}) => {
                     <Link to={`/product/${ele._id}`} style={{textDecoration:"none"}}>
                       <div className="image-container" style={{marginBottom:"-10px"}}>
                         <img 
-                          src={"https://varahiorganics.onrender.com/"+ele?.image?.[0]} 
+                          src={ ele?.image?.[0]} 
                           alt="Gorumitilu" 
                           className="product-imagess" 
                         />

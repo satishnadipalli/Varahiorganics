@@ -132,12 +132,7 @@ const Header = ({openCart,setOpenCart}) => {
                                         {item.title}
                                     </a>
                                 ))}
-                                <a href=""
-                                    className="mobile-link"
-                                    onClick={handleInstallClick}
-                                >
-                                    Download App
-                                </a>
+                        
                                 <div className="mobile-social-links">
                                     <FaGithub className="social-icon" />
                                     <FaInstagram className="social-icon" />

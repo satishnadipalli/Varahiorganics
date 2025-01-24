@@ -1,31 +1,73 @@
 const ProductsDB = require("../schema/productSchema");
 const mongoose = require("mongoose");
-const multer = require("multer");
-const path = require("path")
-const REVIEW = require("../schema/ReviewSchema")
+const cloudinary = require('cloudinary').v2; // Cloudinary package
+const { CloudinaryStorage } = require('multer-storage-cloudinary'); // Cloudinary storage adapter
+const multer = require('multer');
+const path = require("path");
+const REVIEW = require("../schema/ReviewSchema");
+require('dotenv').config(); 
 
-// Set up multer for image uploads
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "./uploads/"); // Directory where images will be stored
+// Cloudinary configuration
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+console.log('Cloudinary credentials:', {
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+
+// Set up Cloudinary storage for image uploads
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'ecommerce-products', // Cloudinary folder to store images
+        allowed_formats: ['jpg', 'jpeg', 'png', 'gif'], // Allowed formats
     },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`); // Unique filenames
-    }
 });
 
-const upload = multer({ 
-    storage, 
-    fileFilter: (req, file, cb) => {
-        const fileTypes = /jpeg|jpg|png|gif/; // Allowed file types
-        const extname = fileTypes.test(file.mimetype.toLowerCase());
-        if (extname) {
-            return cb(null, true);
-        } else {
-            cb(new Error("Only images are allowed!"));
-        }
-    } 
-});
+// Multer middleware for uploading images using Cloudinary
+const upload = multer({ storage });
+
+// Modified `addProduct` function to handle Cloudinary image upload URLs
+const addProduct = async (req, res) => {
+    try {
+        const { name, description, price, quantity, category, oldPrice, weights, weightPrices } = req.body;
+        console.log({ name, description, price, quantity, category, oldPrice, weightPrices });
+
+        const weightPricesParsed = JSON.parse(weightPrices); // Parse weightPrices JSON
+
+        // Get Cloudinary image URLs from the uploaded files
+        const images = req.files.map(file => file.path); // Cloudinary returns image URLs in 'file.path'
+
+        // Create a new product document
+        const newProduct = new ProductsDB({
+            name,
+            description,
+            price: 0, // You can assign a default price if needed
+            quantity,
+            oldPrice,
+            category,
+            image: images, // Store Cloudinary image URLs
+            weightPrices: weightPricesParsed,
+        });
+
+        // Save the product to the database
+        await newProduct.save();
+        console.log("Saved Product:", newProduct);
+
+        return res.status(201).json({ product: newProduct });
+    } catch (error) {
+        console.error("Error adding product:", error);
+        return res.status(500).json({ error: "An error occurred while adding the product." });
+    }
+};
+
+module.exports = { addProduct, upload };
 
 // Get all products
 const getProducts = async (req, res) => {
@@ -61,46 +103,6 @@ const getProductById = async (req, res) => {
 };
 
 // Add a new product
-const addProduct = async (req, res) => {
-    try {
-
-        const { name, description, price, quantity, category,oldPrice,weights,weightPrices } = req.body;
-
-        
-
-        console.log({ name, description, price, quantity, category,oldPrice,weightPrices })
-
-        // return
-        // const parseweights = JSON.parse(weights);
-        const weightPricesparsed = JSON.parse(weightPrices);
-
-        // Transform absolute file paths to relative paths
-        const images = req.files.map(file => {
-            const relativePath = file.path.split('uploads').pop(); // Extract everything after 'uploads'
-            return `uploads${relativePath.replace(/\\/g, '/')}`; // Ensure proper formatting
-        });
-        
-
-        const newProduct = new ProductsDB({
-            name,
-            description,
-            price:0,
-            quantity,
-            oldPrice,
-            category,
-            // weights : parseweights,
-            image: images,
-            weightPrices : weightPricesparsed
-        });
-
-        await newProduct.save();
-        console.log("Saved Product:", newProduct);
-        return res.status(201).json({ product: newProduct });
-    } catch (error) {
-        console.error("Error adding product:", error);
-        return res.status(500).json({ error: "An error occurred while adding the product." });
-    }
-};
 
 
 // Update a product
