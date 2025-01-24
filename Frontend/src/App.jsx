@@ -18,6 +18,7 @@ import Loading from "./components/Loading/Loading";
 import LoginForm from "./Pages/AdminLogin";
 import NotFound from "./Pages/NotFound";
 import ContactUs from "./Pages/Contactus";
+import PrivacyPolicy from "./Pages/PrivacyPolicy";
 
 const App = () => {
   const [homeProducts, setHomeProducts] = useState([]);
@@ -91,6 +92,7 @@ const App = () => {
         <Route path="/basket" element={<BasketList />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         <Route path="/product/:id" element={<ProductView homeProducts={homeProducts} setOpenCart={setOpenCart}/>} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/store" element={<FoodStore />} />

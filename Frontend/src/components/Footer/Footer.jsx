@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Footer.css';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -64,9 +65,15 @@ export default function Footer() {
           <div className="footer-section">
             <h3 className="footer-title">Policies</h3>
             <div className="footer-links">
+              <Link to={"/privacypolicy"}>
               <a href="#" className="footer-link">Shipping Policy</a>
+              </Link>
+              <Link to={"/privacypolicy"}>
               <a href="#" className="footer-link">Privacy Policy</a>
-              <a href="#" className="footer-link">Terms & Conditions</a>
+              </Link>
+              <Link to={"/privacypolicy"}>
+              <a href="#" className="footer-link">Terms and Conditions</a>
+              </Link>
             </div>
         </div>
         </>

@@ -78,24 +78,23 @@ const NewProduct = ({ setIsAdd }) => {
           theme: "colored",
         });
   
-        // Reset form states
-        // setProductDetails({
-        //   name: "",
-        //   image: [],
-        //   category: "",
-        //   image_small: "",
-        //   attribute: "",
-        //   brand: "",
-        //   subCategory: "",
-        //   description: "",
-        //   avgRating: 0,
-        //   ratings: 0,
-        //   price: '',
-        //   oldPrice: '',
-        //   badge: "",
-        //   quantity: 1,
-        // });
-        // setWeightPrices([]);
+        setProductDetails({
+          name: "",
+          image: [],
+          category: "",
+          image_small: "",
+          attribute: "",
+          brand: "",
+          subCategory: "",
+          description: "",
+          avgRating: 0,
+          ratings: 0,
+          price: '',
+          oldPrice: '',
+          badge: "",
+          quantity: 1,
+        });
+        setWeightPrices([]);
   
         setIsLoading(false);
       } else {

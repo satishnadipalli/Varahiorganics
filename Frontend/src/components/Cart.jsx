@@ -129,7 +129,7 @@ const ShoppingCartPopup = ({ setIsCartOpen, setOpenCart, }) => {
                 <img
                   src={
                     item.image && item.image[0]
-                      ? "https://varahiorganics.onrender.com/" + item.image[0]
+                      ? item.image[0]
                       : "https://via.placeholder.com/150"
                   }
                   alt={item.name}

@@ -19,7 +19,7 @@ const SubHeader = () => {
   return (
     <div className="top-indicator">
       <div className="buttons-container">
-        <span className="offer-text">🎉 You can Order from here!</span>
+        <span className="offer-text">🎉 Order From Watsapp!</span>
         <button className="order-now-btn" onClick={handleOrderNowClick}>
           Order Now
         </button>
