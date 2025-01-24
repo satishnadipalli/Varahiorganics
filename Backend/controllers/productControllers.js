@@ -107,31 +107,46 @@ const getProductById = async (req, res) => {
 
 // Update a product
 const updateProduct = async (req, res) => {
-    
     try {
         const { id } = req.params;
-        console.log(id)
+        
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "Invalid product ID." });
         }
 
-        
+        // Extract the fields from the request body
+        const { name, description, price, quantity, category, badge, weightPrices, feedbacks, avgRating, image } = req.body;
 
-        const { name, description, price, quantity, category,badge,weights } = req.body;
+        // Find the existing product
+        const existingProduct = await ProductsDB.findById(id);
 
-        const updatedProduct = await ProductsDB.findByIdAndUpdate(
-            id,
-            { name, description, price, quantity, category, badge, weights },
-            { new: true }
-        );
-
-        console.log(updatedProduct)
-        if (!updatedProduct) {
-            console.log("Not found")
+        if (!existingProduct) {
             return res.status(404).json({ error: "Product not found." });
         }
-        console.log("updated")
 
+        // Update only the fields that are provided in the request, keeping the existing ones if not updated
+        const updatedProduct = await ProductsDB.findByIdAndUpdate(
+            id,
+            {
+                name: name || existingProduct.name,            // Use existing value if not provided
+                description: description || existingProduct.description,
+                price: price || existingProduct.price,
+                quantity: quantity || existingProduct.quantity,
+                category: category || existingProduct.category,
+                badge: badge || existingProduct.badge,
+                weightPrices: weightPrices || existingProduct.weightPrices,
+                feedbacks: feedbacks || existingProduct.feedbacks,
+                avgRating: avgRating || existingProduct.avgRating, // Ensure avgRating is updated if provided
+                image: image || existingProduct.image             // Update images only if provided
+            },
+            { new: true }  // Return the updated document
+        );
+
+        if (!updatedProduct) {
+            return res.status(404).json({ error: "Product not found." });
+        }
+
+        console.log("Product updated:", updatedProduct);
         return res.status(200).json({ product: updatedProduct });
     } catch (error) {
         console.error("Error updating product:", error);

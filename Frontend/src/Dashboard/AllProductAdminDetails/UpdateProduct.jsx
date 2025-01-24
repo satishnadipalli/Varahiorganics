@@ -34,9 +34,9 @@ const ShippingLabel = ({ clickedProduct, setIsUpdateForm }) => {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(productDetails)
+    
     try {
-      const response = await fetch(`https://varahiorganics.onrender.com/updateproduct/${clickedProduct?._id}`, {
+      const response = await fetch(`http://localhost:3000/updateproduct/${clickedProduct?._id}`, {
         method: "PUT",
         headers:{
           "Content-Type" : "application/json",
