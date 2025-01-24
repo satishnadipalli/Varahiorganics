@@ -88,7 +88,7 @@ const Home = ({homeProducts,setOpenCart}) => {
                           alt="Gorumitilu" 
                           className="product-imagess" 
                         />
-                        <span className="sale-badge">Sale</span>
+                        <span className="sale-badge">{ele?.badge || "Limited"}</span>
                         <div className="gradient-overlay">
                           <button className="quick-view-btn">👁 Quick View</button>
                         </div>
