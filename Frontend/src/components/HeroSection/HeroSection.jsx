@@ -89,7 +89,7 @@ export default function PremiumResponsiveHero() {
               <div className="product-info-hm">
                 <h2 className="product-title-hm">{products[currentProduct].name}</h2>
                 <p className="product-description-hm">{products[currentProduct].description}</p>
-                <motion.button
+                {/* <motion.button
                   className="learn-more-button-hm"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -97,7 +97,7 @@ export default function PremiumResponsiveHero() {
                 >
                   View product
                   <ArrowRight className="ml-2" size={16} />
-                </motion.button>
+                </motion.button> */}
               </div>
             </motion.div>
           </AnimatePresence>
