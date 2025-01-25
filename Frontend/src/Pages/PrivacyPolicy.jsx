@@ -59,7 +59,7 @@ const PrivacyPolicy = () => {
             <p>If you have any questions about this Privacy Policy, please contact us:</p>
             <ul className="list-disc pl-5 mt-2">
               <li>By email: varahiorganics.foods@gmail.com</li>
-              <li>By visiting this page on our website: www.varahigrains.com/contact</li>
+              <li>By visiting this page on our website: <p>www.varahigrains.com/contact,</p> <p>www.varahigrains.in/contact,</p> www.varahigrains.store/contact </li>
             </ul>
           </section>
         </div>

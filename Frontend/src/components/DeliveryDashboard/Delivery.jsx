@@ -107,7 +107,7 @@ const EnhancedDeliveryDashboard = () => {
       <header className="dashboard-header">
         <div className="header-content">
           <h1>Order Details</h1>
-          <div className="order-id">Order ID: {order._id}</div>
+          <div className="order-id">Order ID: varahifoods-{order._id}</div>
         </div>
         <div className="header-actions">
           <button className="action-button edit-button" onClick={() => setEdit(!isEdit)}>
@@ -147,7 +147,7 @@ const EnhancedDeliveryDashboard = () => {
               <div className="info-item"><FaBox /> Order Date: {new Date(order?.orderDate).toLocaleString()}</div>
               <div className="info-item"><FaTruck /> Estimated Delivery: {new Date(order?.estimatedDelivery)?.toLocaleString()}</div>
               <div className="info-item"><FaCreditCard /> Payment Status: {order?.paymentStatus}</div>
-              <div className="info-item">OrderID: {order?._id}</div>
+              <div className="info-item">OrderID: varahi{order?._id}</div>
               <div className="order-status">
                 <label htmlFor="order-status">Order Status: </label>
                 <select disabled={!isEdit} id="order-status" value={status} onChange={handleStatusChange}>

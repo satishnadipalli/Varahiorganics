@@ -71,6 +71,8 @@ const OrderList = () => {
       return <Loading/>
     }
 
+    console.log(orderlist)
+
 
   return (
     <div className="order-list-container " >
@@ -99,7 +101,7 @@ const OrderList = () => {
                   <div className="product-image">
                       <img src={"https://via.placeholder.com/60"} alt="Product" />
                   </div>
-                  <div className="ordered-by">{order?.products.length >=2 ? "Multiple Products" : order?.products?.[0]?._id}</div>
+                  <div className="ordered-by">{order?.products.length >=2 ? "Multiple Products" : "varahi"+order?._id}</div>
                   
                   <div className="ordered-by">{order?.customer?.name}</div>
                   {windowWidth > 700 
