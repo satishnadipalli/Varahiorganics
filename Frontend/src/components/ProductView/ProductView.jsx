@@ -167,6 +167,25 @@ function handleAddToCart() {
     return <Loading/> 
   }
 
+
+  function formatWeight(weight) {
+    // Regex to separate the number and the unit
+    const match = weight.match(/^(\d+)([a-zA-Z]+)$/);
+    if (match) {
+      const number = parseInt(match[1]); // Extract the numeric part
+      const unit = match[2].toLowerCase(); // Extract the unit (case-insensitive)
+  
+      if (unit === "kg") {
+        return `${number.toFixed(1)}kg`; // Add `.0` for kilograms
+      } else {
+        return `${number}${unit}`; // Display grams or other units as-is
+      }
+    }
+    return weight; // Return the original string if it doesn't match
+  }
+  
+  
+
   function formatDescription(description) {
     // Split the description by periods and remove any extra empty strings
     const descriptionLines = description.split('.').filter(line => line.trim() !== '');
@@ -289,23 +308,40 @@ function handleAddToCart() {
           </div>
 
           <div className="quantity-section">
-          <div>
             <label className="quantity-label">QUANTITY</label>
             <div className="quantity-buttons">
               {selectedProduct?.weightPrices?.map((qty, index) => (
-                <button
+                <div
                   key={index}
-                  className={`quantity-button text-nowrap ${selectedQuantity?.weight === qty?.weight ? 'active' : ''} ${index > 2 ? 'disabled' : ''}`}
-                  onClick={() => setSelectedQuantity(qty)}
-                  disabled={index > 2}
+                  className="relative flex items-center justify-center"
                 >
-                  {qty?.weight}
-                </button>
+                  {/* Weight Chip */}
+                  <button
+                    className={`quantity-button text-nowrap min-w-20 ${
+                      selectedQuantity?.weight === qty?.weight ? 'active' : ''
+                    } ${index > 2 ? 'disabled' : ''}`}
+                    onClick={() => setSelectedQuantity(qty)}
+                    disabled={index > 2}
+                  >
+                    {formatWeight(qty?.weight)}
+                  </button>
+                  
+                  {/* Price Chip */}
+                  <span
+                    className={`absolute top-full -translate-y-1/2 px-2 py-1 text-sm font-medium text-red-900 bg-gray-100 border border-gray-300 rounded-full shadow
+                      ${
+                        selectedQuantity?.weight === qty?.weight ? 'bg-green-100 border-1 border-white text-white font-bold' : ''
+                      }`}
+                    style={{ fontSize: '0.6rem',fontWeight:'600' }}
+                  >
+                    ₹{qty?.price}
+                  </span>
+                </div>
               ))}
             </div>
           </div>
 
-        </div>
+
           <div className="action-buttons">
             <button className="action-button" onClick={()=>handleAddToCart()}>ADD TO CART</button>
             <button className="action-button" onClick={handleBuy}>BUY IT NOW</button>
