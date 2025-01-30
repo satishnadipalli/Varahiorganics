@@ -98,7 +98,9 @@ const Home = ({homeProducts,setOpenCart}) => {
                       <h3 className="product-title ooo">{ele.name}</h3>
                       <p className="product-price">Price: ₹{ele?.weightPrices?.[0]?.price} - ₹{ele?.weightPrices?.[ele?.weightPrices?.length -1]?.price} </p>
                       <div className="button-container">
-                        <button className="wishlist-btn">♡ View</button>
+                        <Link to={`/product/${ele._id}`} style={{textDecoration:"none"}}>
+                          <button className="wishlist-btn">♡ View</button>
+                        </Link>
                         <button className="add-to-cart-btn" onClick={() => handleAddToCart(ele) }>🛒 Add to Cart</button>
                       </div>
                     </div>

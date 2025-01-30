@@ -17,7 +17,7 @@ const OrderSuccessAnimation = ({ orderNumber, total, onAnimationComplete }) => {
       setShowAnimation(false);
       if (onAnimationComplete) {
         onAnimationComplete();
-        navigate("/")
+        // navigate("/")
       }
     }, 5000); // Animation lasts for 5 seconds
 
@@ -28,12 +28,13 @@ const OrderSuccessAnimation = ({ orderNumber, total, onAnimationComplete }) => {
 
   return (
     <div className="order-success-overlay">
-      <div className="order-success-container">
+      <div className="order-success-container p-3">
         <div className="success-icon" >
           <img src="./orderanimation.gif"  style={{height:"150px"}} alt="" />
         </div>
         <h2 className="success-title">Order Placed Successfully!</h2>
         <p className="success-message">Thank you for your purchase. Your order is being processed.</p>
+        <p className=' text-sm font-semibold'>Our Team will contact you soon</p>
         {/* <div className="order-details">
           <p>Order #: <span>{orderNumber}</span></p>
           <p>Total: <span>₹{total?.toFixed(2)}</span></p>

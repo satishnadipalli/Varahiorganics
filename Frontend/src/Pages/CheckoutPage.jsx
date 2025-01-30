@@ -5,6 +5,7 @@ import OrderSuccessAnimation from '../components/OrderSuccess/OrderSuccess';
 function CheckoutPage() {
   const [isOpen, setIsOpen] = useState(true);
   const [isSubmittingCompleted,setIsSubmittingCompleted] = useState(false);
+  const [errorRecorderd,setErrorRecorded] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -59,57 +60,72 @@ function CheckoutPage() {
     const newErrors = {};
 
     if (!formData.firstName.trim()) {
+      
       newErrors.firstName = 'First name is required.';
     }
 
     if (!formData.lastName.trim()) {
+      
       newErrors.lastName = 'Last name is required.';
     }
 
     if (!formData.streetAddress.trim()) {
+      
       newErrors.streetAddress = 'Street address is required.';
     }
 
     if (!formData.townCity.trim()) {
+      
       newErrors.townCity = 'Town/City is required.';
     }
 
     if (!formData.pinCode.trim()) {
+      
       newErrors.pinCode = 'PIN Code is required.';
     }
 
     if (!formData.phone.trim()) {
+      
       newErrors.phone = 'Phone number is required.';
     } else if (!/^\d{10}$/.test(formData.phone)) {
+      
       newErrors.phone = 'Phone number should be 10 digits.';
     }
 
     if (!formData.email.trim()) {
+      
       newErrors.email = 'Email address is required.';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      
       newErrors.email = 'Email address is invalid.';
     }
 
     if (!formData.termsAccepted) {
+      
       newErrors.termsAccepted = 'You must accept the terms and conditions.';
     }
 
     return newErrors;
   };
 
+  // setErrorRecorded(false);
+
   // Handle form submission
   const handleSubmit = async (e) => {
-    console.log("Hei iam get")
+    // console.log("Hei iam get")
     e.preventDefault();
     setIsSubmittingCompleted(true);
 
-    console.log(orderDetails,'hii')
+    // console.log(orderDetails,'hii')
     // Validate form data
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
+      setErrorRecorded(true)
       setErrors(validationErrors);
       return;
     }
+
+    setErrorRecorded(false)
 
     // Validate that there are products in the cart
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -151,7 +167,7 @@ function CheckoutPage() {
       termsAccepted: formData.termsAccepted,
     };
 
-    console.log(orderPayload)
+    // console.log(orderPayload)
 
     try {
       // Make API request to the backend
@@ -482,8 +498,8 @@ function CheckoutPage() {
                 I have read and agree to the website terms and conditions *
               </label>
             </div>
-            <button type='submit' disabled={!(formData?.termsAccepted) || (isSubmittingCompleted) } className={`place-order-btn ${formData?.termsAccepted ? "bg-red-700" : "bg-gray-500"}`} onClick={handleSubmit}>
-              { isSubmittingCompleted ? "Please wait" : "PLACE ORDER"}
+            <button type='submit' className={`place-order-btn ${formData?.termsAccepted ? "bg-red-700" : "bg-gray-500"}`} onClick={handleSubmit}>
+              { (isSubmittingCompleted && !errorRecorderd) ? "Please wait" : "PLACE ORDER"}
             </button>
           </div>
         </div>

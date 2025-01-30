@@ -43,24 +43,30 @@ const ShoppingCartPopup = ({ setIsCartOpen, setOpenCart, }) => {
     navigate("/basket");
   };
 
-  const handleQuantityChange = (id, type) => {
-    const updatedCart = cartItems.map((item) => {
-      if (item._id === id) {
+  const handleQuantityChange = (id, item, type) => {
+    const updatedCart = cartItems.map((cartItem) => {
+      if (cartItem._id === id && cartItem.weight === item.weight) {
         const updatedQuantity =
-          type === "increase" ? item.quantity + 1 : Math.max(item.quantity - 1, 1);
-        return { ...item, quantity: updatedQuantity };
+          type === "increase" ? cartItem.quantity + 1 : Math.max(cartItem.quantity - 1, 1);
+        return { ...cartItem, quantity: updatedQuantity };
       }
-      return item;
+      return cartItem;
     });
+  
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
+  
 
-  const handleRemoveItem = (id) => {
-    const updatedCart = cartItems.filter((item) => item._id !== id);
+  const handleRemoveItem = (id, item) => {
+    const updatedCart = cartItems.filter(
+      (cartItem) => !(cartItem._id === id && cartItem.weight === item.weight)
+    );
+  
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
+  
 
   const calculateSubtotal = () =>
     cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -142,17 +148,17 @@ const ShoppingCartPopup = ({ setIsCartOpen, setOpenCart, }) => {
                   </h3>
                   <div className="item-price">₹{item.price?.toFixed(2)}</div>
                   <div className="item-quantity">
-                    <button onClick={() => handleQuantityChange(item._id, "decrease")}>
+                    <button onClick={() => handleQuantityChange(item._id,item, "decrease")}>
                       <Minus size={16} />
                     </button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => handleQuantityChange(item._id, "increase")}>
+                    <button onClick={() => handleQuantityChange(item._id,item, "increase")}>
                       <Plus size={16} />
                     </button>
                   </div>
                 </div>
                 <div className="item-total">₹{(item.price * item.quantity)?.toFixed(2)}</div>
-                <button className="remove-btn" onClick={() => handleRemoveItem(item._id)}>
+                <button className="remove-btn" onClick={() => handleRemoveItem(item._id,item)}>
                   <Trash2 size={13} />
                 </button>
               </motion.div>

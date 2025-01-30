@@ -210,28 +210,33 @@ function handleAddToCart() {
   
 
 
-    const handleAddToCartBelow = (product) => {
-    // Retrieve current cart from local storage or initialize an empty array
+  const handleAddToCartBelow = (product) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-
-    // Check if the product already exists in the cart
-    const existingItemIndex = cart.findIndex((item) => item._id == product._id);
-
+    const selectedWeight = product?.weightPrices?.[0]?.weight;
+    const selectedPrice = product?.weightPrices?.[0]?.price;
+  
+    // Check if the same product with the same weight already exists
+    const existingItemIndex = cart.findIndex(
+      (item) => item._id === product._id && item.weight === selectedWeight
+    );
+  
     if (existingItemIndex >= 0) {
-      // If the product exists, update its quantity
+      // If the product with the same weight exists, update its quantity
       cart[existingItemIndex].quantity += 1;
-      setOpenCart(true)
     } else {
-      // If the product doesn't exist, add it with a quantity of 1
-      cart.push({ ...product,weight:product?.weightPrices?.[0]?.weight,price:product?.weightPrices?.[0]?.price, quantity: 1 });
-      setOpenCart(true)
-
+      // Otherwise, add it as a new item with the selected weight and price
+      cart.push({ 
+        ...product, 
+        weight: selectedWeight, 
+        price: selectedPrice, 
+        quantity: 1 
+      });
     }
-
+  
+    setOpenCart(true);
     localStorage.setItem("cart", JSON.stringify(cart));
-
   };
+  
 
 
   const handleOrderNowClick = () => {
@@ -362,10 +367,10 @@ function handleAddToCart() {
               {formatDescription(selectedProduct?.description)}
             </p>
           </div>
-          <details className="additional-details">
+          {/* <details className="additional-details">
             <summary>Additional Details</summary>
             <p>Additional product details and information can be added here.</p>
-          </details>
+          </details> */}
         </div>
       </div>
   </div>

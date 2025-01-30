@@ -33,27 +33,34 @@ const BasketList = () => {
 
 
   
-  const handleRemoveItem = (id) => {
-    const updatedCart = cartItems.filter((item) => item._id !== id);
+  const handleRemoveItem = (id, weight) => {
+    const updatedCart = cartItems.filter(
+      (item) => !(item._id === id && item.weight === weight)
+    );
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+  
+
+  const handleQuantityChange = (id, item, type) => {
+    const updatedCart = cartItems.map((cartItem) => {
+      if (cartItem._id === id && cartItem.weight === item.weight) {
+        const updatedQuantity =
+          type === "increase" ? cartItem.quantity + 1 : Math.max(cartItem.quantity - 1, 1);
+        return { ...cartItem, quantity: updatedQuantity };
+      }
+      return cartItem;
+    });
+  
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  const handleQuantityChange = (id, type) => {
-    console.log(id,type)
-    const updatedCart = cartItems.map((item) => {
-      if (item._id === id) {
-        const updatedQuantity =
-          type === "increase" ? item.quantity + 1 : Math.max(item.quantity - 1, 1);
-        return { ...item, quantity: updatedQuantity };
-      }
-      return item;
-    });
-    setCartItems(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-  };
+
   const calculateSubtotal = () =>
     cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
+  
 
   return (
     <div className="main-wrpaer overflow-x-clip">
@@ -94,23 +101,23 @@ const BasketList = () => {
                         <td className="price-cell">{item.price}</td>
                         <td className="quantity-cell">
                           <div className="item-quantity">
-                            <button onClick={() => handleQuantityChange(item._id, "decrease")}>
+                            <button onClick={() => handleQuantityChange(item._id,item, "decrease")}>
                               <Minus size={16} />
                             </button>
                             <span>{item.quantity}</span>
-                            <button onClick={() => handleQuantityChange(item._id, "increase")}>
+                            <button onClick={() => handleQuantityChange(item._id,item, "increase")}>
                               <Plus size={16} />
                             </button>
                           </div>
                         </td>
-                        <td>
+                        {/* <td>
                           {item.price}
-                        </td>
+                        </td> */}
                         <td className="subtotal-cell">
-                          {item.subtotal}
+                        ₹{(item.price * item.quantity)?.toFixed(2)}
                         </td>
                         <td>
-                          <button className="remove-btns " onClick={() => handleRemoveItem(item._id)}>
+                          <button className="remove-btns " onClick={() => handleRemoveItem(item._id, item.weight)}>
                             <Trash2 size={13} />
                           </button>
                         </td>
@@ -139,11 +146,11 @@ const BasketList = () => {
                         <div className="product-meta-row">
                           <p className="meta-label">Quantity</p>
                           <div className="item-quantity">
-                            <button onClick={() => handleQuantityChange(item._id, "decrease")}>
+                            <button onClick={() => handleQuantityChange(item._id,item, "decrease")}>
                               <Minus size={16} />
                             </button>
                             <span>{item.quantity}</span>
-                            <button onClick={() => handleQuantityChange(item._id, "increase")}>
+                            <button onClick={() => handleQuantityChange(item._id,item, "increase")}>
                               <Plus size={16} />
                             </button>
                           </div>

@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom'
 const products = [
   { name: 'Organic Rice', image: 'https://img.freepik.com/free-photo/overhead-view-bowls-with-red-brown-white-rice-bowls_23-2147883320.jpg?size=626&ext=jpg', description: 'Pure, aromatic grains', _id:"676bf718e56d837f6411dc68" },
   { name: 'Honey', image: 'https://masalamonk.com/wp-content/uploads/2024/05/Honey-1.jpg', description: 'Pattu Teaney',_id:"676bee288a637338c5920889" },
-  { name: 'Organic Jaggery ', image: 'https://www.wildturmeric.net/wp-content/uploads/2017/03/026-1024x1536.jpg', description: 'Thati Bellam/Palm Jaggery',_id:"676ba9033060423fc482f792" },
+  { name: 'Organic Jaggery ', image: './bellam.jpg', description: 'Thati Bellam/Palm Jaggery',_id:"676ba9033060423fc482f792" },
   { name: 'Cashew nuts', image: 'https://d3kgrlupo77sg7.cloudfront.net/media/chococoorgspice.com/images/products/organic-coorg-cashew-nuts-500-gm-coorg-dry-fruits-whole-big-size.20220919003557.webp', description: 'Organic & Pesticide-Free ' },
 ]
 
@@ -43,7 +43,7 @@ export default function PremiumResponsiveHero() {
               Nature's Finest,<br />Delivered Fresh
             </h1>
             <p className="hero-subtitle-hm">
-              Experience the purity of organic rice, dal, sweets, and farm-fresh produce at your doorstep.
+              Experience the purity of organic rice, honey and farm-fresh produce at your doorstep.
             </p>
             <div className="button-container-hm">
               <Link to={`/store`} style={{textDecoration:"none"}}>
