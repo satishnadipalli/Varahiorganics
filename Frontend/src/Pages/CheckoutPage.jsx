@@ -152,7 +152,8 @@ function CheckoutPage() {
           country: formData.country,
         },
       },
-      products: buyproduct? {productId: buyproduct?._id,
+      products: buyproduct? {
+        productId: buyproduct?._id,
         weight:buyproduct?.weight,
         quantity: buyproduct?.quantity,
         price: buyproduct?.price,}: cart.map((product) => ({
@@ -172,6 +173,7 @@ function CheckoutPage() {
     try {
       // Make API request to the backend
       const response = await fetch("https://varahiorganics.onrender.com/createOrder", {
+        //https://varahiorganics.onrender.com
         method: "POST",
         headers: {
           "Content-Type": "application/json",
