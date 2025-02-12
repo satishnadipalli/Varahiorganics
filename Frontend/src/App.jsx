@@ -115,3 +115,12 @@ const App = () => {
 };
 
 export default App;
+
+
+
+
+/*
+{
+    "rewrites" : [{"source": "/(.*)", "destination" : "/index.html"}]
+}
+*/
