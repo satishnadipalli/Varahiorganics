@@ -324,9 +324,9 @@ function handleAddToCart() {
                   <button
                     className={`quantity-button text-nowrap min-w-20 ${
                       selectedQuantity?.weight === qty?.weight ? 'active' : ''
-                    } ${index > 2 ? 'disabled' : ''}`}
+                    } ${index > 2 ? '' : ''}`}
                     onClick={() => setSelectedQuantity(qty)}
-                    disabled={index > 2}
+                    // disabled={index > 2}
                   >
                     {formatWeight(qty?.weight)}
                   </button>
@@ -335,7 +335,7 @@ function handleAddToCart() {
                   <span
                     className={`absolute top-full -translate-y-1/2 px-2 py-1 text-sm font-medium text-red-900 bg-gray-100 border border-gray-300 rounded-full shadow
                       ${
-                        selectedQuantity?.weight === qty?.weight ? 'bg-green-100 border-1 border-white text-white font-bold' : ''
+                        selectedQuantity?.weight === qty?.weight ? 'bg-green-100 border-1  border-white text-black font-bold' : ''
                       }`}
                     style={{ fontSize: '0.6rem',fontWeight:'600' }}
                   >
