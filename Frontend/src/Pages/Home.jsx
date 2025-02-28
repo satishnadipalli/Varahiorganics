@@ -86,7 +86,7 @@ const Home = ({homeProducts,setOpenCart}) => {
                         <img 
                           src={ ele?.image?.[0]} 
                           alt="Gorumitilu" 
-                          className="product-imagess" 
+                          className="product-imagess " 
                         />
                         <span className="sale-badge">{ele?.badge || "Limited"}</span>
                         <div className="gradient-overlay">

@@ -566,7 +566,8 @@ header {
 .product-imagess {
   width: auto;
   height: 100%;
-  object-fit: cover; /* Ensures image fills the container without stretching */
+  min-width: 300px;
+  object-fit: cover !important; /* Ensures image fills the container without stretching */
   transition: transform 0.5s ease, filter 0.3s ease;
 }
 
